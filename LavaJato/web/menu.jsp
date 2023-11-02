@@ -35,18 +35,15 @@
                     <a href="listar-usuario.jsp">Listar Usuario</a> |
                     <a href="form-cadastrar-funcionario.jsp">Cadastrar Funcionario</a> |
                     <a href="listar-funcionario.jsp">Listar Funcionario</a> |
-                    <a href="form-cadastrar-cliente.jsp">Cadastrar Cliente</a> |
-                    <a href="listar-cliente.jsp">Listar Cliente</a> |
-                    <a href="listar-veiculo.jsp">Listar Veiculo</a> |
-                    <a href="listar-cliente-veiculo.jsp">Listar Cliente e Veiculo</a> |
-                    <!--
-                    <a href="formulario-inserir-empresa.jsp">Inserir Empresa</a> |
+                    <a href="form-cadastrar-cliente.jsp">Cadastrar Cliente & Veiculo</a> |
+                    <a href="listar-cliente-veiculo.jsp">Listar Cliente & Veiculo</a> |
+                    <a href="form-cadastrar-empresa.jsp">Cadastrar Empresa</a> |
                     <a href="listar-empresa.jsp">Listar Empresa</a> |
-                    <a href="formulario-inserir-tabela-preco.jsp">Inserir Tabela Preço</a> |
-                    <a href="listar-tabela-preco.jsp">Listar Tabela Preço</a> |
-                    <a href="formulario-inserir-forma-pagamento.jsp">Inserir Forma de Pagamento</a> |
-                    <a href="listar-forma-pagamento.jsp">Listar Formas de Pagamento</a> |
-                    -->
+                    <a href="form-cadastrar-tabela-preco.jsp">Cadastrar Serviço/Preço</a> |
+                    <a href="listar-tabela-preco.jsp">Listar Tabela de Preços</a> |
+                    <a href="form-cadastrar-tipo-pagamento.jsp">Cadastrar Forma de Pagamento</a> |
+                    <a href="listar-tipo-pagamento.jsp">Listar Formas de Pagamento</a> |
+                    <a href="listar-cliente-veiculo1.jsp"> Teste Listar Cliente e Veiculo 1 </a> |
                 <td>
             </tr>
         </table>

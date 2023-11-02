@@ -5,6 +5,7 @@ import DataUtility.DataUtility;
 import entidade.Funcionario;
 import java.sql.*;
 import java.util.*;
+import static org.apache.taglibs.standard.functions.Functions.toUpperCase;
 
 
 public class FuncionarioDAO extends ConexaoComBancoDeDados {
@@ -14,15 +15,14 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
     
     // Método para inserir o funcionario no Banco de Dados
     public void cadastrar(Funcionario funcionario) throws Exception {
-        String sql = "INSERT INTO funcionario (nome, sobrenome, apelido, telefone, dataCadastro, id_perfil, status) VALUES(?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO funcionario (nomeCompleto, apelido, telefone, dataCadastro, id_perfil, status) VALUES(?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, funcionario.getPessoa().getNome());
-        pst.setString(2, funcionario.getPessoa().getSobrenome());
-        pst.setString(3, funcionario.getApelido());
-        pst.setString(4, funcionario.getTelefone());
-        pst.setDate(5, DataUtility.dateParaDateSql(funcionario.getPessoa().getDataCadastro()));
-        pst.setInt(6, funcionario.getPerfil().getId());
-        pst.setBoolean(7, true);
+        pst.setString(1, toUpperCase(funcionario.getPessoa().getNomeCompleto()));
+        pst.setString(2, toUpperCase(funcionario.getApelido()));
+        pst.setString(3, funcionario.getTelefone());
+        pst.setDate(4, DataUtility.dateParaDateSql(funcionario.getPessoa().getDataCadastro()));
+        pst.setInt(5, funcionario.getPerfil().getId());
+        pst.setBoolean(6, true);
         pst.execute();
     }
     
@@ -37,8 +37,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
         while (lista.next()) {
             Funcionario funcionario = new Funcionario();
             funcionario.getPessoa().setId(lista.getInt("id"));
-            funcionario.getPessoa().setNome(lista.getString("nome"));
-            funcionario.getPessoa().setSobrenome(lista.getString("sobrenome"));
+            funcionario.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             funcionario.setApelido(lista.getString("apelido"));
             funcionario.setTelefone(lista.getString("telefone"));
             funcionario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
@@ -51,14 +50,13 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
     
     // Método para alterar o funcionario no Banco de Dados
     public void alterar(Funcionario funcionario) throws Exception {
-        String sql = "UPDATE funcionario SET nome=?, sobrenome=?, apelido=?, telefone=?, id_perfil=? WHERE id = ?";
+        String sql = "UPDATE funcionario SET nomeCompleto=?, apelido=?, telefone=?, id_perfil=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, funcionario.getPessoa().getNome());
-        pst.setString(2, funcionario.getPessoa().getSobrenome());
-        pst.setString(3, funcionario.getApelido());
-        pst.setString(4, funcionario.getTelefone());
-        pst.setInt(5, funcionario.getPerfil().getId());
-        pst.setInt(6, funcionario.getPessoa().getId());
+        pst.setString(1, toUpperCase(funcionario.getPessoa().getNomeCompleto()));
+        pst.setString(2, toUpperCase(funcionario.getApelido()));
+        pst.setString(3, funcionario.getTelefone());
+        pst.setInt(4, funcionario.getPerfil().getId());
+        pst.setInt(5, funcionario.getPessoa().getId());
         pst.execute();
     }
     
@@ -90,8 +88,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
 
         if (lista.next()) {;
             funcionario.getPessoa().setId(lista.getInt("id"));
-            funcionario.getPessoa().setNome(lista.getString("nome"));
-            funcionario.getPessoa().setSobrenome(lista.getString("sobrenome"));
+            funcionario.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             funcionario.setApelido(lista.getString("apelido"));
             funcionario.setTelefone(lista.getString("telefone"));
             funcionario.getPerfil().setId(lista.getInt("id_perfil"));

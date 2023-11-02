@@ -77,12 +77,56 @@
         <servlet-class>controller.AlterarVeiculo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>Ativarveiculo</servlet-name>
-        <servlet-class>controller.AtivarVeiculo</servlet-class>
+        <servlet-name>CadastrarEmpresa</servlet-name>
+        <servlet-class>controller.CadastrarEmpresa</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DesativarVeiculo</servlet-name>
-        <servlet-class>controller.DesativarVeiculo</servlet-class>
+        <servlet-name>AtivarEmpresa</servlet-name>
+        <servlet-class>controller.AtivarEmpresa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DesativarEmpresa</servlet-name>
+        <servlet-class>controller.DesativarEmpresa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarEmpresa</servlet-name>
+        <servlet-class>controller.AlterarEmpresa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CadastrarTabelaPreco</servlet-name>
+        <servlet-class>controller.CadastrarTabelaPreco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtivarTabelaPreco</servlet-name>
+        <servlet-class>controller.AtivarTabelaPreco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DesativarTabelaPreco</servlet-name>
+        <servlet-class>controller.DesativarTabelaPreco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarTabelaPreco</servlet-name>
+        <servlet-class>controller.AlterarTabelaPreco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CadastrarFormaDePagamento</servlet-name>
+        <servlet-class>controller.CadastrarFormaDePagamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AtivarFormaDePagamento</servlet-name>
+        <servlet-class>controller.AtivarFormaDePagamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DesativarFormaDePagamento</servlet-name>
+        <servlet-class>controller.DesativarFormaDePagamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarFormaDePagamento</servlet-name>
+        <servlet-class>controller.AlterarFormaDePagamento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarPerfil</servlet-name>
+        <servlet-class>controller.AlterarPerfil</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
@@ -157,16 +201,60 @@
         <url-pattern>/alterar_veiculo.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>Ativarveiculo</servlet-name>
-        <url-pattern>/ativar_veiculo.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>DesativarVeiculo</servlet-name>
-        <url-pattern>/desativar_veiculo.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ValidarLogin</servlet-name>
         <url-pattern>/validar_login.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarEmpresa</servlet-name>
+        <url-pattern>/cadastrar_empresa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DesativarEmpresa</servlet-name>
+        <url-pattern>/desativar_empresa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtivarEmpresa</servlet-name>
+        <url-pattern>/ativar_empresa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarEmpresa</servlet-name>
+        <url-pattern>/alterar_empresa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarTabelaPreco</servlet-name>
+        <url-pattern>/cadastrar_tabela_preco.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtivarTabelaPreco</servlet-name>
+        <url-pattern>/ativar_tabela_preco.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DesativarTabelaPreco</servlet-name>
+        <url-pattern>/desativar_tabela_preco.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarTabelaPreco</servlet-name>
+        <url-pattern>/alterar_tabela_preco.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarFormaDePagamento</servlet-name>
+        <url-pattern>/cadastrar_forma_pagamento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AtivarFormaDePagamento</servlet-name>
+        <url-pattern>/ativar_pagamento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DesativarFormaDePagamento</servlet-name>
+        <url-pattern>/desativar_pagamento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarFormaDePagamento</servlet-name>
+        <url-pattern>/alterar_forma_pagamento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarPerfil</servlet-name>
+        <url-pattern>/alterar_perfil.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

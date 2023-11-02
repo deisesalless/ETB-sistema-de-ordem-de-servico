@@ -5,6 +5,7 @@ import DataUtility.DataUtility;
 import entidade.Cliente;
 import java.sql.*;
 import java.util.*;
+import static org.apache.taglibs.standard.functions.Functions.toUpperCase;
 
 
 public class ClienteDAO extends ConexaoComBancoDeDados {
@@ -14,14 +15,13 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
     
     // Método para inserir o cliente no Banco de Dados
     public void cadastrar(Cliente cliente) throws Exception {
-        String sql = "INSERT INTO cliente (nome, sobrenome, telefone, dataCadastro, status) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO cliente (nomeCompleto, telefone, dataCadastro, status) VALUES(?, ?, ?, ?)";
         // Além do comando SQL, ele irá retornar qual o n° do ID gerado
         PreparedStatement pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        pst.setString(1, cliente.getPessoa().getNome());
-        pst.setString(2, cliente.getPessoa().getSobrenome());
-        pst.setString(3, cliente.getTelefone());
-        pst.setDate(4, DataUtility.dateParaDateSql(cliente.getPessoa().getDataCadastro()));
-        pst.setBoolean(5, true);
+        pst.setString(1, toUpperCase(cliente.getPessoa().getNomeCompleto()));
+        pst.setString(2, cliente.getTelefone());
+        pst.setDate(3, DataUtility.dateParaDateSql(cliente.getPessoa().getDataCadastro()));
+        pst.setBoolean(4, true);
         pst.execute();
         
         // Após a execução do 'execute()'
@@ -43,8 +43,7 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
         while (lista.next()) {
             Cliente cliente = new Cliente();
             cliente.getPessoa().setId(lista.getInt("id"));
-            cliente.getPessoa().setNome(lista.getString("nome"));
-            cliente.getPessoa().setSobrenome(lista.getString("sobrenome"));
+            cliente.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             cliente.setTelefone(lista.getString("telefone"));
             cliente.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
             cliente.getPessoa().setStatus(lista.getBoolean("status"));
@@ -55,12 +54,11 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
     
     // Método para alterar o cliente no Banco de Dados
     public void alterar(Cliente cliente) throws Exception {
-        String sql = "UPDATE cliente SET nome=?, sobrenome=?, telefone=? WHERE id = ?";
+        String sql = "UPDATE cliente SET nomeCompleto=?, telefone=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, cliente.getPessoa().getNome());
-        pst.setString(2, cliente.getPessoa().getSobrenome());
-        pst.setString(3, cliente.getTelefone());
-        pst.setInt(4, cliente.getPessoa().getId());
+        pst.setString(1, toUpperCase(cliente.getPessoa().getNomeCompleto()));
+        pst.setString(2, cliente.getTelefone());
+        pst.setInt(3, cliente.getPessoa().getId());
         pst.execute();
     }
     
@@ -93,8 +91,7 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
         lista = stm.executeQuery(sql);
         if (lista.next()) {;
             cliente.getPessoa().setId(lista.getInt("id"));
-            cliente.getPessoa().setNome(lista.getString("nome"));
-            cliente.getPessoa().setSobrenome(lista.getString("sobrenome"));
+            cliente.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             cliente.setTelefone(lista.getString("telefone"));
             cliente.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
             cliente.getPessoa().setStatus(lista.getBoolean("status"));

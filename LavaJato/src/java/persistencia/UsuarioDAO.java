@@ -7,28 +7,31 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import static org.apache.taglibs.standard.functions.Functions.toLowerCase;
+import static org.apache.taglibs.standard.functions.Functions.toUpperCase;
 
 
 
-public class UsuarioDAO extends ConexaoComBancoDeDados {
+public class UsuarioDAO extends ConexaoComBancoDeDados{
         
     public UsuarioDAO() throws Exception {
     }
     
     // Método para inserir a usuario no Banco de Dados
     public void cadastrar(Usuario usuario) throws Exception {
-        String sql = "INSERT INTO usuario (nome, sobrenome, login, senha, dataCadastro, id_perfil, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO usuario (nomeCompleto, login, senha, dataCadastro, id_perfil, status) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, usuario.getPessoa().getNome());
-        pst.setString(2, usuario.getPessoa().getSobrenome());
-        pst.setString(3, usuario.getLogin());
-        pst.setString(4, usuario.getSenha());
+        pst.setString(1, toUpperCase(usuario.getPessoa().getNomeCompleto()));
+        pst.setString(2, toLowerCase(usuario.getLogin()));
+        pst.setString(3, usuario.getSenha());
         // Converte a data do tipo date para DateSql
-        pst.setDate(5, DataUtility.dateParaDateSql(usuario.getPessoa().getDataCadastro()));
-        pst.setInt(6, usuario.getPerfil().getId());
-        pst.setBoolean(7, true);
+        pst.setDate(4, DataUtility.dateParaDateSql(usuario.getPessoa().getDataCadastro()));
+        pst.setInt(5, usuario.getPerfil().getId());
+        pst.setBoolean(6, true);
         pst.execute();
     }
+
     
     // Método para listar usuarios que estão cadastradao no Banco de Dados
     public ArrayList<Usuario> listar() throws Exception {
@@ -42,8 +45,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados {
         while (lista.next()) {
             Usuario usuario = new Usuario();
             usuario.getPessoa().setId(lista.getInt("id"));
-            usuario.getPessoa().setNome(lista.getString("nome"));
-            usuario.getPessoa().setSobrenome(lista.getString("sobrenome"));
+            usuario.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             usuario.setLogin(lista.getString("login"));
             usuario.setSenha(lista.getString("senha"));
             usuario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
@@ -56,12 +58,11 @@ public class UsuarioDAO extends ConexaoComBancoDeDados {
     
     // Método para alterar o cadastrado do usuario no Banco de Dados
     public void alterarCadastro(Usuario usuario) throws Exception {
-        String sql = "UPDATE usuario SET nome=?, sobrenome=?, id_perfil=? WHERE id = ?";
+        String sql = "UPDATE usuario SET nomeCompleto=?, id_perfil=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, usuario.getPessoa().getNome());
-        pst.setString(2, usuario.getPessoa().getSobrenome());
-        pst.setInt(3, usuario.getPerfil().getId());
-        pst.setInt(4, usuario.getPessoa().getId());
+        pst.setString(1, toUpperCase(usuario.getPessoa().getNomeCompleto()));
+        pst.setInt(2, usuario.getPerfil().getId());
+        pst.setInt(3, usuario.getPessoa().getId());
         pst.execute();
     }
     
@@ -69,7 +70,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados {
     public void alterarLoginSenha(Usuario usuario) throws Exception {
         String sql = "UPDATE usuario SET login=?, senha=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, usuario.getLogin());
+        pst.setString(1, toLowerCase(usuario.getLogin()));
         pst.setString(2, usuario.getSenha());
         pst.setInt(3, usuario.getPessoa().getId());
         pst.execute();
@@ -94,25 +95,27 @@ public class UsuarioDAO extends ConexaoComBancoDeDados {
 
     }
     
-    // Pesquisar o usuario pelo id no banco de dados
-    public Usuario pesquisarPorId(int id) throws Exception {
-        String sql = "SELECT * FROM usuario WHERE id = " + id;
-        Statement stm = conexao.createStatement();
-        ResultSet lista = stm.executeQuery(sql);
-        Usuario usuario = new Usuario();
-
-        if (lista.next()) {
-            usuario.getPessoa().setId(lista.getInt("id"));
-            usuario.getPessoa().setNome(lista.getString("nome"));
-            usuario.getPessoa().setSobrenome(lista.getString("sobrenome"));
-            usuario.setLogin(lista.getString("login"));
-            usuario.setSenha(lista.getString("senha"));
-            usuario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
-            usuario.getPerfil().setId(lista.getInt("id_perfil"));
-            usuario.getPessoa().setStatus(lista.getBoolean("status"));
+    // Pesquisar o usuario pelo id no banco de dados  
+    public List pesquisarPorId(int id) throws Exception {
+        List<Usuario> usuario = new ArrayList<Usuario>();
+        String sql = "SELECT * FROM usuario WHERE id=?";
+        PreparedStatement pstm = getConexao().prepareStatement(sql);
+        pstm.setInt(1, id);
+        ResultSet lista = pstm.executeQuery();
+        
+        // Consulta o id no banco de dados e retorna a lista com todas as informações
+        while (lista.next()) {
+            Usuario dados = new Usuario();
+            dados.getPessoa().setId(lista.getInt("id"));
+            dados.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
+            dados.setLogin(lista.getString("login"));
+            dados.setSenha(lista.getString("senha"));
+            dados.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
+            dados.getPerfil().setId(lista.getInt("id_perfil"));
+            dados.getPessoa().setStatus(lista.getBoolean("status"));
+            usuario.add(dados);
         }
         return usuario;
-
     }
     
     // Método para receber uma lista do Banco de Dados e validar o login e a senha
@@ -133,5 +136,5 @@ public class UsuarioDAO extends ConexaoComBancoDeDados {
         }
         return usuario;
     }
-    
+  
 }

@@ -9,6 +9,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página de teste - listar usuario</title>
+        <script src="OnOff.js"></script>
     </head>
     <body>
         <div align="center">
@@ -30,15 +31,12 @@
                             <table width="860" border="1">
                                 <tr bgcolor="#d3d3d3">
                                     <td>ID</td>
-                                    <td>NOME</td>
-                                    <td>SOBRENOME</td>
+                                    <td>NOME COMPLETO</td>
                                     <td>LOGIN</td>
                                     <td>PERFIL</td>
-                                    <td>ALTERAR CADASTRO</td>
-                                    <td>RESERTAR SENHA</td>
+                                    <td>CADASTRO</td>
+                                    <td>SENHA</td>
                                     <td>STATUS</td>
-                                    <td>ATIVAR</td>
-                                    <td>DESATIVAR</td>
                                 </tr>
                                 <%                                            
                                     try {
@@ -50,18 +48,17 @@
                                 %>
                                     <tr>
                                         <td><%=usuar.getPessoa().getId()%></td>
-                                        <td><%=usuar.getPessoa().getNome()%></td>
-                                        <td><%=usuar.getPessoa().getSobrenome()%></td>
+                                        <td><%=usuar.getPessoa().getNomeCompleto()%></td>
                                         <td><%=usuar.getLogin() %></td>
                                         <td>
                                             <%
-                                                // Atributo local, pega o Cnpj que veio da página Listar Empresa
+                                                // Atributo local, pega o Id do perfil do usuario
                                                 int id = usuar.getPerfil().getId();
                                                 // Instancia um objeto e faz conectar ao banco de dados
                                                 try {
                                                     PerfilDAO perfilBD = new PerfilDAO();
                                                     perfilBD.conectar();
-                                                    Perfil perf = perfilBD.pesquisarPerfilPorId(id);
+                                                    Perfil perf = perfilBD.pesquisarPorId(id);
                                                     perfilBD.desconectar();
                                              %>        
                                                     <%=perf.getNome()%>
@@ -73,27 +70,30 @@
                                         </td>
                                         <td align="center"><a href="form-alterar-cadastro-usuario.jsp?id=<%=usuar.getPessoa().getId()%>"><img src="imagens/alterar.png" border="0"></a></td>
                                         <td align="center"><a href="form-alterar-usuario-senha.jsp?id=<%=usuar.getPessoa().getId()%>"><img src="imagens/alterar.png" border="0"></a></td>
-                                        <td>
+                                        <td align="center">
                                             <% if (usuar.getPerfil().isStatus()) { %>
-                                                ativado
+                                                <!-- Já que está ativado permite desativar o status -->
+                                                <form action="desativar_usuario.do" method="post">
+                                                    <input type="hidden" name="id" value="<%=usuar.getPessoa().getId()%>">
+                                                    <input type="hidden" name="status" value="true">
+
+                                                    <!-- Mostra a imagem de status ativo -->
+                                                    <button id="botao-alterar-tema" type="submit" value="Desativar">
+                                                        <img src="./imagens/on.png" alt="imagem-online">
+                                                    </button>
+                                                 </form>
                                             <% } else { %>
-                                                desativado
+                                                <!-- Já que está deativado permite ativar o status -->
+                                                <form action="ativar_usuario.do" method="post">
+                                                    <input type="hidden" name="id" value="<%=usuar.getPessoa().getId()%>">
+                                                    <input type="hidden" name="status" value="true">
+
+                                                    <!-- Mostra a imagem de status desativado -->
+                                                    <button id="botao-alterar-tema" type="submit" value="Ativar">
+                                                        <img src="./imagens/off.png" alt="imagem-offline">
+                                                    </button>
+                                                 </form>
                                             <% } %>
-                                        </td>
-                                        <td align="center">
-                                            <form action="ativar_usuario.do" method="post">
-                                              <input type="hidden" name="id" value="<%=usuar.getPessoa().getId()%>">
-                                              <input type="hidden" name="status" value="true">
-                                              <input type="submit" value="Ativar">
-                                            </form>
-                                        </td>
-                                            
-                                        <td align="center">
-                                            <form action="desativar_usuario.do" method="post">
-                                              <input type="hidden" name="id" value="<%=usuar.getPessoa().getId()%>">
-                                              <input type="hidden" name="status" value="false">
-                                              <input type="submit" value="Desativar">
-                                            </form>
                                         </td>
                                     </tr>	
                                 </tr>

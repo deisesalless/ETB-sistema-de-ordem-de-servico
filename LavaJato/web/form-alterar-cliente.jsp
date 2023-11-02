@@ -10,14 +10,9 @@
         <script language="javascript" >
             function validaForm(){
                 formulario = document.form_alterar_cliente;
-                if(formulario.nome.value==""){
-                    alert("O campo Nome deve ser preenchido!");
-                    formulario.nome.focus();
-                    return false;
-                }
-                if(formulario.sobrenome.value==""){
-                    alert("O campo Nome deve ser preenchido!");
-                    formulario.sobrenome.focus();
+                if(formulario.nomeCompleto.value==""){
+                    alert("O campo Nome Completo deve ser preenchido!");
+                    formulario.nomeCompleto.focus();
                     return false;
                 }
                 if(formulario.telefone.value==""){
@@ -69,13 +64,7 @@
                                 <tr>
                                     <td>Nome:</td>
                                     <td>
-                                        <input type="text" name="nome" value="<%=client.getPessoa().getNome()%>" size="40">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sobrenome:</td>
-                                    <td>
-                                        <input type="text" name="sobrenome" value="<%=client.getPessoa().getSobrenome()%>" size="40">
+                                        <input type="text" name="nomeCompleto" value="<%=client.getPessoa().getNomeCompleto()%>" size="40">
                                     </td>
                                 </tr>
                                 <tr>

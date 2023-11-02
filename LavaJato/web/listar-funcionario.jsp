@@ -9,6 +9,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página de teste - listar usuario</title>
+        <script src="OnOff.js"></script>
     </head>
     <body>
         <div align="center">
@@ -30,15 +31,12 @@
                             <table width="860" border="1">
                                 <tr bgcolor="#d3d3d3">
                                     <td>ID</td>
-                                    <td>NOME</td>
-                                    <td>SOBRENOME</td>
+                                    <td>NOME COMPLETO</td>
                                     <td>APELIDO</td>
                                     <td>TELEFONE</td>
                                     <td>DATA DO CADASTRO</td>
                                     <td>PERFIL</td>
                                     <td>STATUS</td>
-                                    <td>ATIVAR</td>
-                                    <td>DESATIVAR</td>
                                     <td>ALTERAR CADASTRO</td>
                                 </tr>
                                 <%                                            
@@ -51,20 +49,19 @@
                                 %>
                                     <tr>
                                         <td><%=func.getPessoa().getId()%></td>
-                                        <td><%=func.getPessoa().getNome()%></td>
-                                        <td><%=func.getPessoa().getSobrenome()%></td>
+                                        <td><%=func.getPessoa().getNomeCompleto()%></td>
                                         <td><%=func.getApelido()%></td>
                                         <td><%=func.getTelefone()%></td>
                                         <td><%=DataUtility.DataUtility.formatarDataComPadrao(func.getPessoa().getDataCadastro())%></td>
                                         <td>
                                             <%
-                                                // Atributo local, pega o Cnpj que veio da página Listar Empresa
+                                                // Atributo local, pega o Id que veio da página Listar Funcionario
                                                 int id = func.getPerfil().getId();
                                                 // Instancia um objeto e faz conectar ao banco de dados
                                                 try {
                                                     PerfilDAO perfilBD = new PerfilDAO();
                                                     perfilBD.conectar();
-                                                    Perfil perf = perfilBD.pesquisarPerfilPorId(id);
+                                                    Perfil perf = perfilBD.pesquisarPorId(id);
                                                     perfilBD.desconectar();
                                              %>        
                                                     <%=perf.getNome()%>
@@ -76,27 +73,30 @@
                                         </td>
                                         <td>
                                             <% if (func.getPerfil().isStatus()) { %>
-                                                ativado
+                                                <!-- Já que está ativado permite desativar o status -->
+                                                <form action="desativar_funcionario.do" method="post">
+                                                    <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
+                                                    <input type="hidden" name="status" value="true">
+
+                                                    <!-- Mostra a imagem de status ativo -->
+                                                    <button id="botao-alterar-tema" type="submit" value="Desativar">
+                                                        <img src="./imagens/on.png" alt="imagem-online">
+                                                    </button>
+                                                 </form>
                                             <% } else { %>
-                                                desativado
+                                                <!-- Já que está deativado permite ativar o status -->
+                                                <form action="ativar_funcionario.do" method="post">
+                                                    <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
+                                                    <input type="hidden" name="status" value="true">
+
+                                                    <!-- Mostra a imagem de status desativado -->
+                                                    <button id="botao-alterar-tema" type="submit" value="Ativar">
+                                                        <img src="./imagens/off.png" alt="imagem-offline">
+                                                    </button>
+                                                 </form>
                                             <% } %>
                                         </td>
-                                        <td align="center">
-                                            <form action="ativar_funcionario.do" method="post">
-                                              <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
-                                              <input type="hidden" name="status" value="true">
-                                              <input type="submit" value="Ativar">
-                                            </form>
-                                        </td>
-                                            
-                                        <td align="center">
-                                            <form action="desativar_funcionario.do" method="post">
-                                              <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
-                                              <input type="hidden" name="status" value="false">
-                                              <input type="submit" value="Desativar">
-                                            </form>
-                                        </td>
-                                        
+                                                                                                                           
                                         <td align="center">
                                             <a href="form-alterar-funcionario.jsp?id=<%=func.getPessoa().getId()%>"><img src="imagens/alterar.png" border="0"></a>
                                         </td>

@@ -7,6 +7,12 @@ import lombok.*;
 @Setter
 public class FormaDePagamento {
     
-    private ServicoPreco servicoPreco;
+    private TabelaPreco servicoPreco;
+
+    public FormaDePagamento() {
+        this.servicoPreco = new TabelaPreco();
+    }
+    
+    
     
 }

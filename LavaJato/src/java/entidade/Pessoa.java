@@ -9,15 +9,13 @@ import lombok.*;
 public class Pessoa {
     
     private int id;
-    private String nome;
-    private String sobrenome;
+    private String nomeCompleto;
     private Date dataCadastro;
     private boolean status;
     
     public Pessoa() {
         this.id = 0; 
-        this.nome = "";
-        this.sobrenome = "";
+        this.nomeCompleto = "";
         this.status = false; 
     }
   

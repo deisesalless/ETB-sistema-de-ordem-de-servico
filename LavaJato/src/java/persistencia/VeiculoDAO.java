@@ -14,13 +14,12 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
     
     // Método para inserir o veiculo no Banco de Dados
     public void cadastrar(Veiculo veiculo) throws Exception {
-        String sql = "INSERT INTO veiculo (placa, cor, marca, id_cliente, status) VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO veiculo (placa, cor, marca, id_cliente) VALUES(?, ?, ?, ?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setString(1, toUpperCase(veiculo.getPlaca()));
-        pst.setString(2, veiculo.getCor());
+        pst.setString(2, toUpperCase(veiculo.getCor()));
         pst.setString(3, toUpperCase(veiculo.getMarca()));
         pst.setInt(4, veiculo.getCliente().getPessoa().getId());
-        pst.setBoolean(5, true);
         pst.execute();
     }
     
@@ -38,7 +37,6 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
             veiculo.setCor(lista.getString("cor"));
             veiculo.setMarca(lista.getString("marca"));
             veiculo.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
-            veiculo.setStatus(lista.getBoolean("status"));
             listaDeVeiculo.add(veiculo);
         }
         return listaDeVeiculo;
@@ -48,29 +46,10 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
     public void alterar(Veiculo veiculo) throws Exception {
         String sql = "UPDATE veiculo SET cor=?, marca=? WHERE placa = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, veiculo.getCor());
+        pst.setString(1, toUpperCase(veiculo.getCor()));
         pst.setString(2, toUpperCase(veiculo.getMarca()));
         pst.setString(3, veiculo.getPlaca());
         pst.execute();
-    }
-    
-    // Método para ativar veiculo no Banco de Dados
-    public void ativar(Veiculo veiculo) throws Exception {
-        String sql = "UPDATE veiculo SET status=? WHERE placa=?;";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setBoolean(1, true);
-        pst.setString(2, veiculo.getPlaca());
-        pst.execute();
-    }
-    
-    // Método para desativar veiculo no Banco de Dados
-    public void desativar(Veiculo veiculo) throws Exception {
-        String sql = "UPDATE veiculo SET status=? WHERE placa=?;";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setBoolean(1, false);
-        pst.setString(2, veiculo.getPlaca());
-        pst.execute();
-
     }
     
     // Método para pesquisar o veiculo pela placa no Banco de Dados
@@ -88,7 +67,6 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
             veiculosDados.setCor(lista.getString("cor"));
             veiculosDados.setMarca(lista.getString("marca"));
             veiculosDados.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
-            veiculosDados.setStatus(lista.getBoolean("status"));
             veiculo.add(veiculosDados);
         }
         return veiculo;

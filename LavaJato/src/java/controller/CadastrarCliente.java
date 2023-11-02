@@ -27,16 +27,13 @@ public class CadastrarCliente extends HttpServlet {
             out.println("<body>");
             
             // Recebe as informações que foram preenchidas no formulario do funcionario
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String telefone = request.getParameter("telefone");
             String dataCadastro = request.getParameter("dataCadastro");
 
             // Verifica se os campos foram devidamente preenchidos
-            if (nome == null || nome.equalsIgnoreCase("")) {
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
                 out.print("O campo Nome Completo deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
             } else if (telefone == null || telefone.equalsIgnoreCase("")) {
                 out.print("O campo Telefone deve ser preenchido!");
             } else if (dataCadastro == null || dataCadastro.equalsIgnoreCase("")) {
@@ -47,8 +44,7 @@ public class CadastrarCliente extends HttpServlet {
                 try {
                     // Instancia um objeto do tipo Cliente e armazena as informações que foram digitadas
                     Cliente cliente = new Cliente();
-                    cliente.getPessoa().setNome(nome);
-                    cliente.getPessoa().setSobrenome(sobrenome);
+                    cliente.getPessoa().setNomeCompleto(nomeCompleto);
                     cliente.setTelefone(telefone);
                     // Muda o formado de String para data
                     cliente.getPessoa().setDataCadastro(DataUtility.stringToDate(dataCadastro));

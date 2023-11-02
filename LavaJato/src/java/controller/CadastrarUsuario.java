@@ -29,8 +29,7 @@ public class CadastrarUsuario extends HttpServlet {
             out.println("<body>");
             
             // Recebe as informações que foram preenchidas no formulario do usuario
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String login = request.getParameter("login");
             String senha = request.getParameter("senha");
             String dataCadastro = request.getParameter("dataCadastro");
@@ -38,10 +37,8 @@ public class CadastrarUsuario extends HttpServlet {
             int id_perfil = Integer.parseInt(request.getParameter("id_perfil"));
 
             // Verifica se os campos foram devidamente preenchidos pelo usuario
-            if (nome == null || nome.equalsIgnoreCase("")) {
-                out.print("O campo Nome deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
+                out.print("O campo Nome Completo deve ser preenchido!");
             } else if (login == null || login.equalsIgnoreCase("")) {
                 out.print("O campo Login deve ser preenchido!");
             } else if (senha == null || senha.equalsIgnoreCase("")) {
@@ -57,8 +54,7 @@ public class CadastrarUsuario extends HttpServlet {
                     usuarioo.setPessoa(new Pessoa());
                     usuarioo.setPerfil(new Perfil());
                     
-                    usuarioo.getPessoa().setNome(nome);
-                    usuarioo.getPessoa().setSobrenome(sobrenome);
+                    usuarioo.getPessoa().setNomeCompleto(nomeCompleto);
                     usuarioo.setLogin(login);
                     usuarioo.setSenha(senha);
                     // Muda o formado de String para data

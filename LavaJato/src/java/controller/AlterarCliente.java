@@ -28,19 +28,25 @@ public class AlterarCliente extends HttpServlet {
             
             // Recebe as informações que o usuario digitou no formulario
             int id = Integer.parseInt(request.getParameter("id"));
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String telefone = request.getParameter("telefone");
             
             // Verifica se o usuario realmente preencheu todos os campos
-            if (nome == null || nome.equalsIgnoreCase("")) {
-                out.print("O campo Nome Completo deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
+                out.print("<script language='javascript'>");
+                out.print("alert('O campo Nome Completo deve ser preenchido!');");
+                out.print("location.href='listar-cliente.jsp';");
+                out.print("</script>");
             } else if (telefone == null || telefone.equalsIgnoreCase("")) {
-                out.print("O campo Telefone deve ser preenchido!");
+                out.print("<script language='javascript'>");
+                out.print("alert('O campo Telefone deve ser preenchido!');");
+                out.print("location.href='listar-cliente.jsp';");
+                out.print("</script>");
             } else if (id<1) {
-                out.print("O ID do cliente não foi encontrado!");
+                out.print("<script language='javascript'>");
+                out.print("alert('O ID do cliente não foi encontrado!');");
+                out.print("location.href='listar-cliente.jsp';");
+                out.print("</script>");
             } else {
                 
                 try {
@@ -49,8 +55,7 @@ public class AlterarCliente extends HttpServlet {
                     Cliente cliente = new Cliente();
                     // Pega as informações do formulário e guarda nos atributos
                     cliente.getPessoa().setId(id);
-                    cliente.getPessoa().setNome(nome);
-                    cliente.getPessoa().setSobrenome(sobrenome);
+                    cliente.getPessoa().setNomeCompleto(nomeCompleto);
                     cliente.setTelefone(telefone);
                     
                     // Instancia um objeto do tipo ClienteDAO

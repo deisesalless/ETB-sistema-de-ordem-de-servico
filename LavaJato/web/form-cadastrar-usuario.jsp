@@ -12,14 +12,9 @@
         <script language="javascript" >
             function validaForm(){
                 formulario = document.form_cadastrar_usuario;
-                if(formulario.nome.value==""){
-                    alert("O campo Nome deve ser preenchido!!");
-                    formulario.nome.focus();
-                    return false;
-                }
-                if(formulario.sobrenome.value==""){
-                    alert("O campo Nome deve ser preenchido!!");
-                    formulario.sobrenome.focus();
+                if(formulario.nomeCompleto.value==""){
+                    alert("O campo Nome Completo deve ser preenchido!!");
+                    formulario.nomeCompleto.focus();
                     return false;
                 }
                 if(formulario.login.value==""){
@@ -61,16 +56,13 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="760" height="330">
+                    <td width="760" height="330" align="center">
+                        <h2>Cadastrar Usuario</h2>
                         <form name="form_cadastrar_usuario" action="cadastrar_usuario.do" method="post" onsubmit="return validaForm();">
                             <table width="500">
                                 <tr>
-                                    <td>Nome:</td>
-                                    <td><input type="text" name="nome" size="30" /> </td>
-                                </tr>
-                                <tr>
-                                    <td>Sobrenome:</td>
-                                    <td><input type="text" name="sobrenome" size="30" /> </td>
+                                    <td>Nome Completo:</td>
+                                    <td><input type="text" name="nomeCompleto" size="30" /> </td>
                                 </tr>
                                 <tr>
                                     <td>Login:</td>

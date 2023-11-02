@@ -76,8 +76,8 @@
                                                 if (veic.getCliente().getPessoa().getId() == client.getPessoa().getId()) {
                                     %>
                                     <td>
-                                        <%=client.getPessoa().getNome()%>
-                                        <input type="hidden" name="nome" value="<%=client.getPessoa().getNome()%>">
+                                        <%=client.getPessoa().getNomeCompleto()%>
+                                        <input type="hidden" name="nome" value="<%=client.getPessoa().getNomeCompleto()%>">
                                     </td>
                                     <%
                                                 }

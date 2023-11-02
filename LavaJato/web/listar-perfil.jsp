@@ -7,6 +7,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página de listar Perfil</title>
+        <script src="OnOff.js"></script>
     </head>
     <body>
         <div align="center">
@@ -29,9 +30,8 @@
                                 <tr bgcolor="#d3d3d3">
                                     <td>ID</td>
                                     <td>Perfil</td>
+                                    <td>Alterar</td>
                                     <td>Status</td>
-                                    <td>Ativar</td>
-                                    <td>Desativar</td>
                                 </tr>
                                 <%                                            
                                     try {
@@ -44,29 +44,37 @@
                                         <tr>
                                             <td><%=perfil.getId()%></td>
                                             <td><%=perfil.getNome()%></td>
-                                            <td>
+                                            <td align="center">
+                                                <a href="form-alterar-perfil.jsp?id=<%=perfil.getId()%>"><img src="imagens/alterar.png" border="0"></a>
+                                            </td>
+                                            <td align="center">
                                                 <% if (perfil.isStatus()) { %>
-                                                    ativado
+                                                    
+                                                    <!-- Já que está ativado permite desativar o status -->
+                                                    <form action="desativar_perfil.do" method="post">
+                                                        <input type="hidden" name="id" value="<%=perfil.getId()%>">
+                                                        <input type="hidden" name="status" value="true">
+                                                        
+                                                        <!-- Mostra a imagem de status ativo -->
+                                                        <button id="botao-alterar-tema" type="submit" value="Desativar">
+                                                            <img src="./imagens/on.png" alt="imagem-online">
+                                                        </button>
+                                                    </form>
+                                                        
                                                 <% } else { %>
-                                                    desativado
+                                                    
+                                                    <!-- Já que está desativado permite ativar o status -->
+                                                    <form action="ativar_perfil.do" method="post">
+                                                        <input type="hidden" name="id" value="<%=perfil.getId()%>">
+                                                        <input type="hidden" name="status" value="true">
+                                                        
+                                                        <!-- Mostra a imagem de status desativado -->
+                                                        <button id="botao-alterar-tema" type="submit" value="ativar">
+                                                            <img src="./imagens/off.png" alt="imagem-offline">
+                                                        </button>
+                                                    </form>
                                                 <% } %>
                                             </td>
-                                            <td align="center">
-                                                <form action="ativar_perfil.do" method="post">
-                                                  <input type="hidden" name="id" value="<%=perfil.getId()%>">
-                                                  <input type="hidden" name="status" value="true">
-                                                  <input type="submit" value="Ativar">
-                                                </form>
-                                            </td>
-                                            
-                                            <td align="center">
-                                                <form action="desativar_perfil.do" method="post">
-                                                  <input type="hidden" name="id" value="<%=perfil.getId()%>">
-                                                  <input type="hidden" name="status" value="false">
-                                                  <input type="submit" value="Desativar">
-                                                </form>
-                                            </td>
-                                        </tr>
                                 <%
                                     }
                                     perfilDB.desconectar();

@@ -30,7 +30,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td width="760" height="330">
+                    <td width="760" height="330" align="center">
+                        <h2>Cadastrar Perfil</h2>
                         <form name="form_cadastrar_perfil" action="cadastrar_perfil.do" method="post" onsubmit="return validaForm();">
                             <table width="500">
                                 <tr>

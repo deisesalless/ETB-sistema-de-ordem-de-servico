@@ -71,19 +71,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Nome do Cliente:</td>
+                                    <td>Nome Completo do Cliente:</td>
                                     <td>
-                                        <%=client.getPessoa().getNome()%>
+                                        <%=client.getPessoa().getNomeCompleto()%>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Sobrenome do Cliente:</td>
-                                    <td>
-                                        <%=client.getPessoa().getSobrenome()%>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Marca:</td>
+                                    <td>Marca do veículo:</td>
                                     <td><input type="text" name="marca" size="30" /> </td>
                                 </tr>
                                 <tr>

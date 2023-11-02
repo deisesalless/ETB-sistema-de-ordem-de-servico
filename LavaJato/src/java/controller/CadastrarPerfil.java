@@ -36,7 +36,7 @@ public class CadastrarPerfil extends HttpServlet {
                     Perfil perfils = new Perfil();
                     perfils.setNome(perfil);
                     
-                    // Instancia um objeto do tipo PerfilDAO, recebe as informações do objeto FPerfil e inclui no Banco de Dados
+                    // Instancia um objeto do tipo PerfilDAO, recebe as informações do objeto Perfil e inclui no Banco de Dados
                     PerfilDAO perfilDB = new PerfilDAO();
                     perfilDB.conectar();
                     perfilDB.cadastrar(perfils);

@@ -27,17 +27,14 @@ public class AlterarFuncionario extends HttpServlet {
             
             // Recebe as informações que o usuario digitou no formulario
             int id = Integer.parseInt(request.getParameter("id"));
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String apelido = request.getParameter("apelido");
             String telefone = request.getParameter("telefone");
             int id_perfil = Integer.parseInt(request.getParameter("id_perfil"));
             
             // Verifica se o usuario realmente preencheu todos os campos
-            if (nome == null || nome.equalsIgnoreCase("")) {
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
                 out.print("O campo Nome Completo deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
             } else if (apelido == null || apelido.equalsIgnoreCase("")) {
                 out.print("O campo Apelido deve ser preenchido!");
             } else if (telefone == null || telefone.equalsIgnoreCase("")) {
@@ -53,8 +50,7 @@ public class AlterarFuncionario extends HttpServlet {
                     Funcionario funcionario = new Funcionario();
                     // Pega as informações do formulário e guarda nos atributos
                     funcionario.getPessoa().setId(id);
-                    funcionario.getPessoa().setNome(nome);
-                    funcionario.getPessoa().setSobrenome(sobrenome);
+                    funcionario.getPessoa().setNomeCompleto(nomeCompleto);
                     funcionario.setApelido(apelido);
                     funcionario.setTelefone(telefone);
                     funcionario.getPerfil().setId(id_perfil);

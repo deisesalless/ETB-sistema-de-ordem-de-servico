@@ -14,9 +14,9 @@
         <script language="javascript" >
             function validaForm(){
                 formulario = document.form_alterar_usuario;
-                if(formulario.nome.value==""){
-                    alert("O campo Nome deve ser preenchido!");
-                    formulario.nome.focus();
+                if(formulario.nomeCompleto.value==""){
+                    alert("O campo Nome Completo deve ser preenchido!");
+                    formulario.nomeCompleto.focus();
                     return false;
                 }
                 if(formulario.sobrenome.value==""){
@@ -97,15 +97,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Nome:</td>
+                                    <td>Nome Completo:</td>
                                     <td>
-                                        <input type="text" name="nome" value="<%=usuario.getPessoa().getNome()%>" size="40">
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sobrenome:</td>
-                                    <td>
-                                        <input type="text" name="sobrenome" value="<%=usuario.getPessoa().getSobrenome()%>" size="40">
+                                        <input type="text" name="nomeCompleto" value="<%=usuario.getPessoa().getNomeCompleto()%>" size="40">
                                     </td>
                                 </tr>
                                         <%

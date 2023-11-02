@@ -1,9 +1,11 @@
 
 package persistencia;
 
+import entidade.FormaDePagamento;
 import entidade.Perfil;
 import java.sql.*;
 import java.util.*;
+import static org.apache.taglibs.standard.functions.Functions.toLowerCase;
 
 
 public class PerfilDAO extends ConexaoComBancoDeDados {
@@ -15,7 +17,7 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
     public void cadastrar(Perfil perfil) throws Exception {
         String sql = "INSERT INTO perfil (nome, status) VALUES(?,?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, perfil.getNome());
+        pst.setString(1, toLowerCase(perfil.getNome()));
         pst.setBoolean(2, true);
         pst.execute();
     }
@@ -39,6 +41,15 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
         return listaDePerfis;
     }
     
+    // Método para alterar forma de pagamento no Banco de Dados
+    public void alterar(Perfil perfil) throws Exception {
+        String sql = "UPDATE perfil SET nome=? WHERE id = ?";
+        PreparedStatement pst = conexao.prepareStatement(sql);
+        pst.setInt(1, perfil.getId());
+        pst.setString(2, toLowerCase(perfil.getNome()));
+        pst.execute();
+    }
+    
     // Método para ativar perfil no Banco de Dados
     public void ativar(Perfil perfil) throws Exception {
         String sql = "UPDATE perfil SET status=? WHERE id=?;";
@@ -57,8 +68,8 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
         pst.execute();
     }
     
-    // Pesquisar o perfil pelo identificador no banco de dados
-    public Perfil pesquisarPerfilPorId(int id) throws Exception {
+    // Método para pesquisar perfil por Id no Banco de Dados
+    public Perfil pesquisarPorId(int id) throws Exception {
         String sql = "SELECT * FROM perfil WHERE id = " + id;
         Statement stm = conexao.createStatement();
         ResultSet lista = stm.executeQuery(sql);

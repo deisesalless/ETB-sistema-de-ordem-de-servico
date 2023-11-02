@@ -27,8 +27,7 @@ public class CadastrarFuncionario extends HttpServlet {
             out.println("<body>");
             
             // Recebe as informações que foram preenchidas no formulario do funcionario
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             String apelido = request.getParameter("apelido");
             String telefone = request.getParameter("telefone");
             String dataCadastro = request.getParameter("dataCadastro");
@@ -36,10 +35,8 @@ public class CadastrarFuncionario extends HttpServlet {
             int id_perfil = Integer.parseInt(request.getParameter("id_perfil"));
 
             // Verifica se os campos foram devidamente preenchidos
-            if (nome == null || nome.equalsIgnoreCase("")) {
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
                 out.print("O campo Nome Completo deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
             } else if (apelido == null || apelido.equalsIgnoreCase("")) {
                 out.print("O campo Apelido deve ser preenchido!");
             } else if (telefone == null || telefone.equalsIgnoreCase("")) {
@@ -54,8 +51,7 @@ public class CadastrarFuncionario extends HttpServlet {
                 try {
                     // Instancia objeto do tipo Funcionario e armazena as informações que foram digitadas
                     Funcionario funcionarioo = new Funcionario();
-                    funcionarioo.getPessoa().setNome(nome);
-                    funcionarioo.getPessoa().setSobrenome(sobrenome);
+                    funcionarioo.getPessoa().setNomeCompleto(nomeCompleto);
                     funcionarioo.setApelido(apelido);
                     funcionarioo.setTelefone(telefone);
                     // Muda o formado de String para data

@@ -27,15 +27,12 @@ public class AlterarCadastroUsuario extends HttpServlet {
             
             // Recebe as informações que o usuario digitou no formulario
             int id = Integer.parseInt(request.getParameter("id"));
-            String nome = request.getParameter("nome");
-            String sobrenome = request.getParameter("sobrenome");
+            String nomeCompleto = request.getParameter("nomeCompleto");
             int id_perfil = Integer.parseInt(request.getParameter("id_perfil"));
             
             // Verifica se o usuario realmente preencheu todos os campos
-            if (nome == null || nome.equalsIgnoreCase("")) {
-                out.print("O campo Nome deve ser preenchido!");
-            } else if (sobrenome == null || sobrenome.equalsIgnoreCase("")) {
-                out.print("O campo Sobrenome deve ser preenchido!");
+            if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
+                out.print("O campo Nome Completo deve ser preenchido!");
             } else if (id_perfil<1) {
                 out.print("O campo Perfil deve ser preenchido!");
             } else if (id<1) {
@@ -46,8 +43,7 @@ public class AlterarCadastroUsuario extends HttpServlet {
                     // Pega as informações do formulário e guarda nos atributos do objeto
                     Usuario usuario = new Usuario();
                     usuario.getPessoa().setId(id);
-                    usuario.getPessoa().setNome(nome);
-                    usuario.getPessoa().setSobrenome(sobrenome);
+                    usuario.getPessoa().setNomeCompleto(nomeCompleto);
                     usuario.getPerfil().setId(id_perfil);
                     
                     // Instancia um objeto do tipo UsuarioDAO
