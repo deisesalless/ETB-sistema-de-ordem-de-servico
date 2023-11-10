@@ -62,25 +62,6 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
         pst.execute();
     }
     
-    // Método para ativar cliente no Banco de Dados
-    public void ativar(Cliente cliente) throws Exception {
-        String sql = "UPDATE cliente SET status=? WHERE id=?;";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setBoolean(1, true);
-        pst.setInt(2, cliente.getPessoa().getId());
-        pst.execute();
-    }
-    
-    // Método para desativar cliente no Banco de Dados
-    public void desativar(Cliente cliente) throws Exception {
-        String sql = "UPDATE cliente SET status=? WHERE id=?;";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setBoolean(1, false);
-        pst.setInt(2, cliente.getPessoa().getId());
-        pst.execute();
-
-    }
-    
     // Método para pesquisar o cliente pelo identificador no Banco de Dados
     public Cliente pesquisarPorId(int id) throws Exception {
         String sql = "SELECT * FROM cliente WHERE id = " + id;

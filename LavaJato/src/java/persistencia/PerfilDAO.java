@@ -45,8 +45,8 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
     public void alterar(Perfil perfil) throws Exception {
         String sql = "UPDATE perfil SET nome=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setInt(1, perfil.getId());
-        pst.setString(2, toLowerCase(perfil.getNome()));
+        pst.setString(1, toLowerCase(perfil.getNome()));
+        pst.setInt(2, perfil.getId());
         pst.execute();
     }
     
@@ -81,4 +81,5 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
         }
         return perfil;
     }
+    
 }

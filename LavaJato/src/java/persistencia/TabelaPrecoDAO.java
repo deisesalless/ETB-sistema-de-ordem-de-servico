@@ -49,11 +49,11 @@ public class TabelaPrecoDAO extends ConexaoComBancoDeDados {
     public void alterar(TabelaPreco tabelaPreco) throws Exception {
         String sql = "UPDATE tabela_preco SET nome=?, precoVeiculoPequeno=?, precoVeiculoMedio=?, precoVeiculoGrande=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setInt(1, tabelaPreco.getId());
-        pst.setString(2, toUpperCase(tabelaPreco.getNome()));
-        pst.setDouble(3, tabelaPreco.getPrecoVeiculoPequeno());
-        pst.setDouble(4, tabelaPreco.getPrecoVeiculoMedio());
-        pst.setDouble(5, tabelaPreco.getPrecoVeiculoGrande());
+        pst.setString(1, toUpperCase(tabelaPreco.getNome()));
+        pst.setDouble(2, tabelaPreco.getPrecoVeiculoPequeno());
+        pst.setDouble(3, tabelaPreco.getPrecoVeiculoMedio());
+        pst.setDouble(4, tabelaPreco.getPrecoVeiculoGrande());
+        pst.setInt(5, tabelaPreco.getId());
         pst.execute();
     }
     

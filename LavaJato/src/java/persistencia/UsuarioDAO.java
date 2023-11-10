@@ -5,7 +5,6 @@ import DataUtility.DataUtility;
 import entidade.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import static org.apache.taglibs.standard.functions.Functions.toLowerCase;
@@ -57,22 +56,14 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
     }
     
     // Método para alterar o cadastrado do usuario no Banco de Dados
-    public void alterarCadastro(Usuario usuario) throws Exception {
-        String sql = "UPDATE usuario SET nomeCompleto=?, id_perfil=? WHERE id = ?";
+    public void alterar(Usuario usuario) throws Exception {
+        String sql = "UPDATE usuario SET nomeCompleto=?, login=?, senha=?, id_perfil=? WHERE id=?";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setString(1, toUpperCase(usuario.getPessoa().getNomeCompleto()));
-        pst.setInt(2, usuario.getPerfil().getId());
-        pst.setInt(3, usuario.getPessoa().getId());
-        pst.execute();
-    }
-    
-    // Método para alterar o usuario e senha no Banco de Dados
-    public void alterarLoginSenha(Usuario usuario) throws Exception {
-        String sql = "UPDATE usuario SET login=?, senha=? WHERE id = ?";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, toLowerCase(usuario.getLogin()));
-        pst.setString(2, usuario.getSenha());
-        pst.setInt(3, usuario.getPessoa().getId());
+        pst.setString(2, toLowerCase(usuario.getLogin()));
+        pst.setString(3, usuario.getSenha());
+        pst.setInt(4, usuario.getPerfil().getId());
+        pst.setInt(5, usuario.getPessoa().getId());
         pst.execute();
     }
     

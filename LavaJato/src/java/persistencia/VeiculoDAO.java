@@ -14,12 +14,13 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
     
     // Método para inserir o veiculo no Banco de Dados
     public void cadastrar(Veiculo veiculo) throws Exception {
-        String sql = "INSERT INTO veiculo (placa, cor, marca, id_cliente) VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO veiculo (id_cliente, placa, cor, marca, modelo) VALUES(?, ?, ?, ?, ?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, toUpperCase(veiculo.getPlaca()));
-        pst.setString(2, toUpperCase(veiculo.getCor()));
-        pst.setString(3, toUpperCase(veiculo.getMarca()));
-        pst.setInt(4, veiculo.getCliente().getPessoa().getId());
+        pst.setInt(1, veiculo.getCliente().getPessoa().getId());
+        pst.setString(2, toUpperCase(veiculo.getPlaca()));
+        pst.setString(3, toUpperCase(veiculo.getCor()));
+        pst.setString(4, toUpperCase(veiculo.getMarca()));
+        pst.setString(5, toUpperCase(veiculo.getModelo()));
         pst.execute();
     }
     
@@ -33,10 +34,12 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
         // Looping para atribuir ao objeto lista, a lista dos veiculos
         while (lista.next()) {
             Veiculo veiculo = new Veiculo();
+            veiculo.setId(lista.getInt("id"));
+            veiculo.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
             veiculo.setPlaca(lista.getString("placa"));
             veiculo.setCor(lista.getString("cor"));
             veiculo.setMarca(lista.getString("marca"));
-            veiculo.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
+            veiculo.setModelo(lista.getString("modelo"));
             listaDeVeiculo.add(veiculo);
         }
         return listaDeVeiculo;

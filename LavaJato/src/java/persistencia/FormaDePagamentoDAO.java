@@ -47,8 +47,8 @@ public class FormaDePagamentoDAO extends ConexaoComBancoDeDados {
     public void alterar(FormaDePagamento formaDePagamento) throws Exception {
         String sql = "UPDATE tipo_pagamento SET nome=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setInt(1, formaDePagamento.getServicoPreco().getId());
-        pst.setString(2, toLowerCase(formaDePagamento.getServicoPreco().getNome()));
+        pst.setString(1, toLowerCase(formaDePagamento.getServicoPreco().getNome()));
+        pst.setInt(2, formaDePagamento.getServicoPreco().getId());
         pst.execute();
     }
     
