@@ -15,8 +15,9 @@ import static org.apache.taglibs.standard.functions.Functions.toUpperCase;
 import persistencia.ClienteDAO;
 import persistencia.VeiculoDAO;
 
-@WebServlet(name = "CadastrarClienteVeiculo", urlPatterns = {"/CadastrarClienteVeiculo"})
-public class CadastrarClienteVeiculo extends HttpServlet {
+
+@WebServlet(name = "AlterarClienteVeiculo", urlPatterns = {"/AlterarClienteVeiculo"})
+public class AlterarClienteVeiculo extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -25,17 +26,20 @@ public class CadastrarClienteVeiculo extends HttpServlet {
         try {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Cadastrar Cliente Veiculo</title>");
+            out.println("<title>Servlet Alterar Cliente Veiculo</title>");
             out.println("</head>");
             out.println("<body>");
             
             // Recebe as informações que foram preenchidas no formulario do funcionario
+            int id_cliente = Integer.parseInt(request.getParameter("id_cliente"));
             String nomeCompleto = request.getParameter("nomeCompleto");
             String telefone = request.getParameter("telefone");
+            
+            int id_veiculo = Integer.parseInt(request.getParameter("id_veiculo"));
+            String placa = toUpperCase(request.getParameter("placa"));
+            String cor = request.getParameter("cor");
             String marca = request.getParameter("marca");
             String modelo = request.getParameter("modelo");
-            String cor = request.getParameter("cor");
-            String placa = toUpperCase(request.getParameter("placa"));
 
             // Verifica se os campos foram devidamente preenchidos
             if (nomeCompleto == null || nomeCompleto.equalsIgnoreCase("")) {
@@ -50,6 +54,10 @@ public class CadastrarClienteVeiculo extends HttpServlet {
                 out.print("O campo Marca deve ser preenchido!");
             } else if (modelo == null || modelo.equalsIgnoreCase("")) {
                 out.print("O campo Modelo deve ser preenchido!");
+            } else if (id_veiculo < 1) {
+                out.print("O ID do veículo não foi encontrado!");
+            } else if (id_cliente < 1) {
+                out.print("O ID do cliente não foi encontrado!");
             } else {
                 
                 try {
@@ -57,55 +65,55 @@ public class CadastrarClienteVeiculo extends HttpServlet {
                     VeiculoDAO veiculoBD = new VeiculoDAO();
                     veiculoBD.conectar();
                     List<Veiculo> list = veiculoBD.listar();
-                    boolean placaEncontrada = false;
-
+                    
                     for (Veiculo veic : list) {
-                        if (veic.getPlaca().equalsIgnoreCase(placa)) {
-                            placaEncontrada = true;
-                            break;
+                    
+                        if (veic.getCliente().getPessoa().getId() != id_cliente) {
+                        
+                            if (veic.getPlaca().equalsIgnoreCase(placa)) {
+                                out.print("<script language='javascript'>");
+                                out.print("alert('A placa deste veículo já se encontra na base de dados do sistema!');");
+                                out.print("location.href='listar-cliente-veiculo.jsp';");
+                                out.print("</script>");
+                                break;
+                                
+                            } else {
+                                
+                                // Instancia um objeto do tipo Cliente e armazena as informações que foram digitadas
+                                Cliente cliente = new Cliente();
+                                cliente.getPessoa().setId(id_cliente);
+                                cliente.getPessoa().setNomeCompleto(nomeCompleto);
+                                cliente.setTelefone(telefone);                   
+
+                                // Instancia um objeto do tipo ClienteDAO, recebe as informações do objeto Cliente e 
+                                // inclui no Banco de Dados
+                                ClienteDAO clienteBD = new ClienteDAO();
+                                clienteBD.conectar();
+                                clienteBD.alterar(cliente);
+                                clienteBD.desconectar();
+
+                                Veiculo veiculo = new Veiculo();
+                                veiculo.setId(id_veiculo);
+                                veiculo.setPlaca(placa);
+                                veiculo.setCor(cor);
+                                veiculo.setMarca(marca);
+                                veiculo.setModelo(modelo);
+
+                                // Instancia um objeto do tipo VeiculoDAO, recebe as informações do objeto Veiculo e 
+                                // inclui no Banco de Dados
+                                veiculoBD.alterar(veiculo);
+                                veiculoBD.desconectar();
+
+
+                                out.print("<script language='javascript'>");
+                                out.print("alert('Cliente e Veiculo atualizados com sucesso!');");
+                                out.print("location.href='listar-cliente-veiculo.jsp';");
+                                out.print("</script>");
+
+                            }
+
                         }
                     }
-
-                    if (placaEncontrada) {
-                        
-                        out.print("<script language='javascript'>");
-                        out.print("alert('A placa deste veículo já se encontra na base de dados do sistema!');");
-                        out.print("location.href='listar-cliente-veiculo.jsp';");
-                        out.print("</script>");
-                        
-                    } else {
-                        
-                        // Instancia um objeto do tipo Cliente e armazena as informações que foram digitadas
-                        Cliente cliente = new Cliente();
-                        cliente.getPessoa().setNomeCompleto(nomeCompleto);
-                        cliente.setTelefone(telefone);                   
-
-                        // Instancia um objeto do tipo ClienteDAO, recebe as informações do objeto Cliente e 
-                        // inclui no Banco de Dados
-                        ClienteDAO clienteBD = new ClienteDAO();
-                        clienteBD.conectar();
-                        clienteBD.cadastrar(cliente);
-                        clienteBD.desconectar();
-
-                        Veiculo veiculo = new Veiculo();
-                        veiculo.getCliente().getPessoa().setId(cliente.getIdGerado());
-                        veiculo.setPlaca(placa);
-                        veiculo.setCor(cor);
-                        veiculo.setMarca(marca);
-                        veiculo.setModelo(modelo);
-
-                        // Instancia um objeto do tipo VeiculoDAO, recebe as informações do objeto Veiculo e 
-                        // inclui no Banco de Dados
-                        veiculoBD.cadastrar(veiculo);
-                        veiculoBD.desconectar();
-
-
-                        out.print("<script language='javascript'>");
-                        out.print("alert('Cliente e Veiculo cadastrados com sucesso!');");
-                        out.print("location.href='listar-cliente-veiculo.jsp';");
-                        out.print("</script>");
-                    }
-
                 } catch (Exception erro) {
                     // Se não conseguir incluir irá mostrar o erro
                     out.print(erro);

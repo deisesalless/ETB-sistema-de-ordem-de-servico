@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <title>Teste de listar cliente e veiculo</title>
         <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
         <link rel="stylesheet" type="text/css" href="estilo/banner.css">
         <link rel="stylesheet" type="text/css" href="estilo/menu.css">
@@ -52,7 +52,7 @@
                        %>
                         <div class="item">
                             <div class="nome-cliente">
-                                <%=cliente.getPessoa().getId()%> - <%=cliente.getPessoa().getNomeCompleto()%>
+                                Id: <%=cliente.getPessoa().getId()%> | Telefone: <%=cliente.getTelefone()%> | Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
                             </div>
                             <%
                                 try {
@@ -62,26 +62,10 @@
                                     list = veiculoDB.listar();
                                     veiculoDB.desconectar();
                                     for(Veiculo veic:list) {
-                                        if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()){
+                                        if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()) {
                             %>
                             <div class="veiculo-cliente">
                                 <table width="1200" border="1">
-                                    <tr bgcolor="#d3d3d3">
-                                        <td>ID cliente</td>
-                                        <td>Nome Completo</td>
-                                        <td>Telefone</td>
-                                        <td>Data Cadastro</td>
-                                        <td>Novo veiculo</td>
-                                        <td>Alterar</td>
-                                    </tr>
-                                    <tr>
-                                        <td><%=cliente.getPessoa().getId()%></td>
-                                        <td><%=cliente.getPessoa().getNomeCompleto()%></td>
-                                        <td><%=cliente.getTelefone()%></td>
-                                        <td><%=DataUtility.formatarDataComPadrao(cliente.getPessoa().getDataCadastro())%></td>
-                                        <td align="center"><button> adicionar </button></td>
-                                        <td align="center"><button> alterar </button></td>
-                                    </tr>
                                     <tr bgcolor="#d3d3d3">
                                         <td>ID cliente</td>
                                         <td>Placa</td>
@@ -89,6 +73,8 @@
                                         <td>Marca</td>
                                         <td>Modelo</td>
                                         <td>Alterar</td>
+                                        <td>Novo Veiculo</td>
+                                        <td>Atendimento</td>
                                     </tr>
                                     <tr>
                                         <td><%=veic.getCliente().getPessoa().getId()%></td>
@@ -96,7 +82,27 @@
                                         <td><%=veic.getCor()%></td>
                                         <td><%=veic.getMarca()%></td>
                                         <td><%=veic.getModelo()%></td>
-                                        <td align="center"><button> alterar </button></td>
+                                        <td align="center">
+                                            <button>
+                                                <a href="form-alterar-cliente-veiculo.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                    alterar
+                                                </a> 
+                                            </button>
+                                        </td>
+                                        <td align="center">
+                                            <button>
+                                                <a href="form-cadastrar-veiculo.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                    adicionar
+                                                </a> 
+                                            </button>
+                                        </td>
+                                        <td align="center">
+                                            <button>
+                                                <a href="teste.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                    adicionar
+                                                </a> 
+                                            </button>
+                                        </td>
                                     </tr>
                                 </table>
                                 <%
@@ -189,15 +195,7 @@
                                     return true;
                                 }
                             </script>
-                            <form name="form_cadastrar_cliente_veiculo" action="cadastrar_cliente_veiculo.do" method="post" onsubmit="return validaForm();">    
-                                <label>Data do cadastro:</label>
-                                <%
-                                    Date hoje = new Date();
-                                    DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                                    String dataCadastro = dataFormatada.format(hoje);
-                                %>
-                                <%=dataCadastro%>
-                                <input type="hidden" name="dataCadastro" value="<%=dataCadastro%>"><br>
+                            <form name="form_cadastrar_cliente_veiculo" action="cadastrar_cliente_veiculo.do" method="post" onsubmit="return validaForm();">
 
                                 <label>Nome Completo:</label>
                                 <input type="text" name="nomeCompleto" placeholder="Digite o nome completo" size="30">

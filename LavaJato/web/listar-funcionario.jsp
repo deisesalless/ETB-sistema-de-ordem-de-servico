@@ -118,7 +118,7 @@
                                         </a>
                                     </td>
                                     <td align="center">
-                                        <% if (func.getPerfil().isStatus()) { %>
+                                        <% if (func.getPessoa().isStatus()) { %>
                                             <!-- Já que está ativado permite desativar o status -->
                                             <form action="desativar_funcionario.do" method="post">
                                                 <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">

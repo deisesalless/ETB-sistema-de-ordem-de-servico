@@ -47,12 +47,35 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
     
     // Método para alterar o id_cliente do veiculo no Banco de Dados
     public void alterar(Veiculo veiculo) throws Exception {
-        String sql = "UPDATE veiculo SET cor=?, marca=? WHERE placa = ?";
+        String sql = "UPDATE veiculo SET placa=?, cor=?, marca=?, modelo=? WHERE id = ?";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, toUpperCase(veiculo.getCor()));
-        pst.setString(2, toUpperCase(veiculo.getMarca()));
-        pst.setString(3, veiculo.getPlaca());
+        pst.setString(1, toUpperCase(veiculo.getPlaca()));
+        pst.setString(2, toUpperCase(veiculo.getCor()));
+        pst.setString(3, toUpperCase(veiculo.getMarca()));
+        pst.setString(4, toUpperCase(veiculo.getModelo()));
+        pst.setInt(5, veiculo.getId());
         pst.execute();
+    }
+    
+    // Pesquisar o veiculo pelo id no banco de dados  
+    public List pesquisarPorId(int id) throws Exception {
+        List<Veiculo> usuario = new ArrayList<Veiculo>();
+        String sql = "SELECT * FROM veiculo WHERE id_cliente=?";
+        PreparedStatement pstm = getConexao().prepareStatement(sql);
+        pstm.setInt(1, id);
+        ResultSet lista = pstm.executeQuery();
+        
+        // Consulta o id no banco de dados e retorna a lista com todas as informações
+        while (lista.next()) {
+            Veiculo dados = new Veiculo();
+            dados.setId(lista.getInt("id"));
+            dados.setPlaca(lista.getString("placa"));
+            dados.setCor(lista.getString("cor"));
+            dados.setMarca(lista.getString("marca"));
+            dados.setModelo(lista.getString("modelo"));
+            usuario.add(dados);
+        }
+        return usuario;
     }
     
     // Método para pesquisar o veiculo pela placa no Banco de Dados

@@ -1,0 +1,13 @@
+#principal {
+    border: 1px solid black;
+}
+
+.conteudo h3 {
+    text-align: center;
+}
+
+/* Estilos para o formulário de cadastro de veículo */
+label {
+    display: block;
+    margin: 5px;
+}

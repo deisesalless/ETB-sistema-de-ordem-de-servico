@@ -42,7 +42,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
             funcionario.setTelefone(lista.getString("telefone"));
             funcionario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
             funcionario.getPerfil().setId(lista.getInt("id_perfil"));
-            funcionario.getPerfil().setStatus(lista.getBoolean("status"));
+            funcionario.getPessoa().setStatus(lista.getBoolean("status"));
             listaDeFuncionario.add(funcionario);
         }
         return listaDeFuncionario;

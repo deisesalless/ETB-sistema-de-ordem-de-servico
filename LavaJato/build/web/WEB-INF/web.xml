@@ -49,14 +49,6 @@
         <servlet-class>controller.AlterarFuncionario</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AlterarCliente</servlet-name>
-        <servlet-class>controller.AlterarCliente</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AlterarVeiculo</servlet-name>
-        <servlet-class>controller.AlterarVeiculo</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>CadastrarTabelaPreco</servlet-name>
         <servlet-class>controller.CadastrarTabelaPreco</servlet-class>
     </servlet>
@@ -96,6 +88,14 @@
         <servlet-name>CadastrarClienteVeiculo</servlet-name>
         <servlet-class>controller.CadastrarClienteVeiculo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlterarClienteVeiculo</servlet-name>
+        <servlet-class>controller.AlterarClienteVeiculo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CadastrarVeiculo</servlet-name>
+        <servlet-class>controller.CadastrarVeiculo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -133,16 +133,8 @@
         <url-pattern>/desativar_funcionario.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AlterarCliente</servlet-name>
-        <url-pattern>/alterar_cliente.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AlterarFuncionario</servlet-name>
         <url-pattern>/alterar_funcionario.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AlterarVeiculo</servlet-name>
-        <url-pattern>/alterar_veiculo.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ValidarLogin</servlet-name>
@@ -191,6 +183,14 @@
     <servlet-mapping>
         <servlet-name>CadastrarClienteVeiculo</servlet-name>
         <url-pattern>/cadastrar_cliente_veiculo.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarClienteVeiculo</servlet-name>
+        <url-pattern>/alterar_cliente_veiculo.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarVeiculo</servlet-name>
+        <url-pattern>/cadastrar_veiculo.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
