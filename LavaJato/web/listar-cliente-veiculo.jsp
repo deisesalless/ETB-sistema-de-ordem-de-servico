@@ -98,7 +98,7 @@
                                         </td>
                                         <td align="center">
                                             <button>
-                                                <a href="form-cadastrar-atendimento.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                <a href="form-cadastrar-atendimento.jsp?id_veiculo=<%=veic.getId()%>">
                                                     adicionar
                                                 </a> 
                                             </button>

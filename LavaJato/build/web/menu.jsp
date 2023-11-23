@@ -35,6 +35,7 @@
                     <a href="listar-tipo-pagamento.jsp"> Formas de Pagamento</a> |
                     <a href="listar-tabela-preco.jsp"> Tabela de Preços</a> |
                     <a href="listar-cliente-veiculo.jsp"> Cliente & Veiculo </a> |
+                    <a href="listar-cliente-veiculo.jsp"> Listar Atendimentos </a> |
                 <td>
             </tr>
         </table>

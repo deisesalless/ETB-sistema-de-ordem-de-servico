@@ -96,6 +96,10 @@
         <servlet-name>CadastrarVeiculo</servlet-name>
         <servlet-class>controller.CadastrarVeiculo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CadastrarAtendimento</servlet-name>
+        <servlet-class>controller.CadastarAtendimento</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -191,6 +195,10 @@
     <servlet-mapping>
         <servlet-name>CadastrarVeiculo</servlet-name>
         <url-pattern>/cadastrar_veiculo.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarAtendimento</servlet-name>
+        <url-pattern>/cadastrar_atendimento.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

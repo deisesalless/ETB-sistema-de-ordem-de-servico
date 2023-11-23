@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/src/java/persistencia/ClienteDAO.java</file>
-            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/form-alterar-cliente-veiculo.jsp</file>
-            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/form-alterar-funcionario.jsp</file>
-            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/src/java/persistencia/FuncionarioDAO.java</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/listar-cliente-veiculo.jsp</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/form-cadastrar-atendimento.jsp</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/src/java/controller/AlterarClienteVeiculo.java</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/estilo/cadastrar-atendimento.css</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/teste.jsp</file>
+            <file>file:/C:/Users/lucil/OneDrive/Documentos/NetBeansProjects/LavaJato/web/estilo/teste.css</file>
         </group>
     </open-files>
 </project-private>

@@ -5,16 +5,33 @@
     align-items: center;
 }
 
+.conteudo {
+    border: 1px solid black; 
+}
+
 .conteudo h3 {
     text-align: center;
 }
 
-.esquerda {
-    margin-bottom: 12px;
-    margin-right: 20px;
-    margin-left: 20px;
-    border-bottom: solid black;
-    text-align: left;
+.conteiner {
+    display: flex;
+}
+
+.lado1, .lado2 {
+    flex: 1;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.observacao {
+    row: 60;
+    width: 33em;
+    height: 7em;
+    padding: 4px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 8px;
 }
 
 .adicional {
@@ -25,17 +42,36 @@
     margin-bottom: 8px;
 }
 
-.observacao {
-    row: 10;
-    width: 30em; 
-    padding: 4px;
-    border-radius: 4px;
-    font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 8px;
+.tabela-precos {
+    height: 300px;
+    overflow-y: auto;
+    width: 35%;
+    padding: 10px;
 }
 
+.titulo-tabela1 {
+    width: 35%;
+    padding: 10px;
+    border: 1px solid black;
+}
 
+.botao-salvar {
+    display: flex;
+    padding: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.conteiner-box {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box {
+    border: 1px solid black;
+    padding: 10px;
+    width: 100%;
+}
 
 
 
