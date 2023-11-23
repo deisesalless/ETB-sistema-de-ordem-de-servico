@@ -1,4 +1,3 @@
-
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="entidade.TabelaPreco"%>
 <%@page import="persistencia.TabelaPrecoDAO"%>
@@ -32,7 +31,7 @@
                 <div class="conteudo" align="center">
                     <h3> Tabela de Preços </h3>
                     <!-- Tabela para listar os Perfis cadastrados no banco de dados -->
-                    <table width="600" border="1">
+                    <table width="700" border="1">
                         <tr bgcolor="#d3d3d3">
                             <td>ID</td>
                             <td>Descrição</td>
@@ -57,17 +56,17 @@
                                     Double precoVeiculoPequeno = tabelaPrecoo.getPrecoVeiculoPequeno();
                                     String precoPequenoVeiculo = formato.format(precoVeiculoPequeno);
                                 %>
-                            <td><%=precoPequenoVeiculo%></td>
+                            <td align="right"><%=precoPequenoVeiculo%></td>
                                 <%
                                     Double precoVeiculoMedio = tabelaPrecoo.getPrecoVeiculoMedio();
                                     String precoMedioVeiculo = formato.format(precoVeiculoMedio);
                                 %>
-                            <td><%=precoMedioVeiculo%></td>
+                            <td align="right"><%=precoMedioVeiculo%></td>
                                 <%
                                     Double precoVeiculoGrande = tabelaPrecoo.getPrecoVeiculoGrande();
                                     String precoMedioGrande = formato.format(precoVeiculoGrande);
                                 %>
-                            <td><%=precoMedioGrande%></td>
+                            <td align="right"><%=precoMedioGrande%></td>
                         </tr>
                         <%
                                     }

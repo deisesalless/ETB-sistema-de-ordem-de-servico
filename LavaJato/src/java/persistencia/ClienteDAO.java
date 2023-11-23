@@ -67,7 +67,7 @@ public class ClienteDAO extends ConexaoComBancoDeDados {
         ResultSet lista;
 
         lista = stm.executeQuery(sql);
-        if (lista.next()) {;
+        if (lista.next()) {
             cliente.getPessoa().setId(lista.getInt("id"));
             cliente.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             cliente.setTelefone(lista.getString("telefone"));

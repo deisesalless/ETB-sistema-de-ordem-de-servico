@@ -1,4 +1,3 @@
-
 package controller;
 
 import entidade.Cliente;
@@ -64,55 +63,49 @@ public class AlterarClienteVeiculo extends HttpServlet {
                     
                     VeiculoDAO veiculoBD = new VeiculoDAO();
                     veiculoBD.conectar();
-                    List<Veiculo> list = veiculoBD.listar();
                     
-                    for (Veiculo veic : list) {
+                    ClienteDAO clienteBD = new ClienteDAO();
+                    clienteBD.conectar();
                     
-                        if (veic.getCliente().getPessoa().getId() != id_cliente) {
-                        
-                            if (veic.getPlaca().equalsIgnoreCase(placa)) {
-                                out.print("<script language='javascript'>");
-                                out.print("alert('A placa deste veículo já se encontra na base de dados do sistema!');");
-                                out.print("location.href='listar-cliente-veiculo.jsp';");
-                                out.print("</script>");
-                                break;
-                                
-                            } else {
-                                
-                                // Instancia um objeto do tipo Cliente e armazena as informações que foram digitadas
-                                Cliente cliente = new Cliente();
-                                cliente.getPessoa().setId(id_cliente);
-                                cliente.getPessoa().setNomeCompleto(nomeCompleto);
-                                cliente.setTelefone(telefone);                   
+                    Veiculo veiculo = veiculoBD.pesquisarPorPlaca(placa);
+                    Cliente cliente = clienteBD.pesquisarPorId(veiculo.getCliente().getPessoa().getId());
 
-                                // Instancia um objeto do tipo ClienteDAO, recebe as informações do objeto Cliente e 
-                                // inclui no Banco de Dados
-                                ClienteDAO clienteBD = new ClienteDAO();
-                                clienteBD.conectar();
-                                clienteBD.alterar(cliente);
-                                clienteBD.desconectar();
+                    if (veiculo.getPlaca().equalsIgnoreCase(placa)) {
+                        out.print("<script language='javascript'>");
+                        cliente.getTelefone();
+                        out.print("alert('A placa " + veiculo.getPlaca() + 
+                                " já está vinculada ao cadastro do(a) cliente " + 
+                                cliente.getPessoa().getNomeCompleto() + " Telefone: "+ cliente.getTelefone() + "');");
+                        out.print("location.href='listar-cliente-veiculo.jsp';");
+                        out.print("</script>");
 
-                                Veiculo veiculo = new Veiculo();
-                                veiculo.setId(id_veiculo);
-                                veiculo.setPlaca(placa);
-                                veiculo.setCor(cor);
-                                veiculo.setMarca(marca);
-                                veiculo.setModelo(modelo);
+                    } else {
 
-                                // Instancia um objeto do tipo VeiculoDAO, recebe as informações do objeto Veiculo e 
-                                // inclui no Banco de Dados
-                                veiculoBD.alterar(veiculo);
-                                veiculoBD.desconectar();
+                        // Instancia um objeto do tipo Cliente e armazena as informações que foram digitadas
+                        cliente.getPessoa().setId(id_cliente);
+                        cliente.getPessoa().setNomeCompleto(nomeCompleto);
+                        cliente.setTelefone(telefone);                   
+
+                        clienteBD.alterar(cliente);
+                        clienteBD.desconectar();
+
+                        veiculo.setId(id_veiculo);
+                        veiculo.setPlaca(placa);
+                        veiculo.setCor(cor);
+                        veiculo.setMarca(marca);
+                        veiculo.setModelo(modelo);
+
+                        // Instancia um objeto do tipo VeiculoDAO, recebe as informações do objeto Veiculo e 
+                        // inclui no Banco de Dados
+                        veiculoBD.alterar(veiculo);
+                        veiculoBD.desconectar();
 
 
-                                out.print("<script language='javascript'>");
-                                out.print("alert('Cliente e Veiculo atualizados com sucesso!');");
-                                out.print("location.href='listar-cliente-veiculo.jsp';");
-                                out.print("</script>");
+                        out.print("<script language='javascript'>");
+                        out.print("alert('Cliente e Veiculo atualizados com sucesso!');");
+                        out.print("location.href='listar-cliente-veiculo.jsp';");
+                        out.print("</script>");
 
-                            }
-
-                        }
                     }
                 } catch (Exception erro) {
                     // Se não conseguir incluir irá mostrar o erro

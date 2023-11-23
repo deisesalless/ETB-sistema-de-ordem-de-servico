@@ -62,7 +62,7 @@
                         <button id="mostrar-pop-up">+ Novo</button>
                     </h3>
                     <!-- Tabela para listar os Perfis cadastrados no banco de dados -->
-                    <table width="800" border="1">
+                    <table width="900" border="1">
                         <tr bgcolor="#d3d3d3">
                             <td>ID</td>
                             <td>Descrição</td>
@@ -88,17 +88,17 @@
                                     Double precoVeiculoPequeno = tabelaPrecoo.getPrecoVeiculoPequeno();
                                     String precoPequenoVeiculo = formato.format(precoVeiculoPequeno);
                                 %>
-                            <td><%=precoPequenoVeiculo%></td>
+                            <td align="right"><%=precoPequenoVeiculo%></td>
                                 <%
                                     Double precoVeiculoMedio = tabelaPrecoo.getPrecoVeiculoMedio();
                                     String precoMedioVeiculo = formato.format(precoVeiculoMedio);
                                 %>
-                            <td><%=precoMedioVeiculo%></td>
+                            <td align="right"><%=precoMedioVeiculo%></td>
                                 <%
                                     Double precoVeiculoGrande = tabelaPrecoo.getPrecoVeiculoGrande();
                                     String precoMedioGrande = formato.format(precoVeiculoGrande);
                                 %>
-                            <td><%=precoMedioGrande%></td>
+                            <td align="right"><%=precoMedioGrande%></td>
                             <td align="center">
                                 <a href="form-alterar-tabela-preco.jsp?id=<%=tabelaPrecoo.getId()%>">
                                     <button> alterar </button>

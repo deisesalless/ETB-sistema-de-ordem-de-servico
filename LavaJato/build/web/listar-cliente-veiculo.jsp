@@ -42,6 +42,7 @@
                         <button id="mostrar-pop-up">+ Novo</button>
                     </h3>
                     <div class="sanfona">
+                        <div class="item">
                         <%
                             try {
                                 ClienteDAO clienteDB = new ClienteDAO();
@@ -50,10 +51,10 @@
                                 lista = clienteDB.listar();
                                 for(Cliente cliente:lista) {
                        %>
-                        <div class="item">
                             <div class="nome-cliente">
                                 Id: <%=cliente.getPessoa().getId()%> | Telefone: <%=cliente.getTelefone()%> | Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
                             </div>
+                            <div class="veiculo-cliente">
                             <%
                                 try {
                                     VeiculoDAO veiculoDB = new VeiculoDAO();
@@ -64,7 +65,6 @@
                                     for(Veiculo veic:list) {
                                         if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()) {
                             %>
-                            <div class="veiculo-cliente">
                                 <table width="1200" border="1">
                                     <tr bgcolor="#d3d3d3">
                                         <td>ID cliente</td>
@@ -84,7 +84,7 @@
                                         <td><%=veic.getModelo()%></td>
                                         <td align="center">
                                             <button>
-                                                <a href="form-alterar-cliente-veiculo.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                <a href="form-alterar-cliente-veiculo.jsp?id=<%=veic.getId()%>">
                                                     alterar
                                                 </a> 
                                             </button>
@@ -98,7 +98,7 @@
                                         </td>
                                         <td align="center">
                                             <button>
-                                                <a href="teste.jsp?id=<%=cliente.getPessoa().getId()%>">
+                                                <a href="form-cadastrar-atendimento.jsp?id=<%=cliente.getPessoa().getId()%>">
                                                     adicionar
                                                 </a> 
                                             </button>
@@ -120,34 +120,19 @@
                             } catch (Exception erro) {
                                 out.print(erro);
                             }
-                        %>
+                        %>   
                         </div>
+                        
                         <script>
-                            let accordion = document.querySelector(".sanfona");
-                            let accordionItems = accordion.querySelectorAll(".item");
+                            const accordion = document.getElementsByClassName('item');
 
-                            for(let i=0;i<accordionItems.length;i++){
-
-                              let questionItem = accordionItems[i].querySelector(".nome-cliente");
-
-                              questionItem.addEventListener("click",function(){
-
-                                if(accordionItems[i].classList.contains("ativo")){
-
-                                  accordionItems[i].classList.remove("ativo");
-
-                                } else {
-
-                                  try {
-                                    accordion.querySelector(".ativo").classList.remove("ativo");
-
-                                  } catch(msg){}
-
-                                  accordionItems[i].classList.add("ativo");
-                                }
-                              });
+                            for (i = 0; i < accordion.length; i++){
+                                accordion[i].addEventListener('click', function() {
+                                    this.classList.toggle('ativo')
+                                })
                             }
                         </script>
+                        
                     </div>
                 </div>
                 <div id="pop-up"> 

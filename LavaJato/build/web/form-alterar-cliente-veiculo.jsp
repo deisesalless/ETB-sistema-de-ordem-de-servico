@@ -80,25 +80,32 @@
                     <form name="form_alterar_cliente_veiculo" action="alterar_cliente_veiculo.do" method="post" onsubmit="return validaForm();">
                         <table width="800">
                         <%
-                            // Atributo local, pega o Identificador que veio da página Listar Usuario
                             int id = Integer.parseInt(request.getParameter("id"));
-                            // Instancia um objeto e conecta ao banco de dados
+
                             try {
-                                ClienteDAO clientDB = new ClienteDAO();
-                                clientDB.conectar();
-                                Cliente client = clientDB.pesquisarPorId(id);
-                                clientDB.desconectar();
-                                if (client.getPessoa().getId() > 0) {
+                                VeiculoDAO veicDB = new VeiculoDAO();
+                                veicDB.conectar();
+                                Veiculo veic = veicDB.pesquisarPorId(id);
+                                veicDB.desconectar();
+                                if(veic.getId() > 0) {    
                         %>
                             <tr>
                                 <td bgcolor="#d3d3d3">
                                     ID
                                 </td>
                                 <td>
-                                    <%=client.getPessoa().getId()%>
-                                    <input type="hidden" name="id_cliente" value="<%=client.getPessoa().getId()%>">
+                                    <%=veic.getCliente().getPessoa().getId()%>
+                                    <input type="hidden" name="id_cliente" value="<%=veic.getCliente().getPessoa().getId()%>">
                                 </td>
                             </tr>
+                            <%
+                                try {
+                                       ClienteDAO clientDB = new ClienteDAO();
+                                       clientDB.conectar();
+                                       Cliente client = clientDB.pesquisarPorId(veic.getCliente().getPessoa().getId());
+                                       if (client.getPessoa().getId() > 0) {
+                            %>
+                            
                             <tr>
                                 <td bgcolor="#d3d3d3">
                                     Nome Completo
@@ -115,16 +122,14 @@
                                     <input type="text" name="telefone" value="<%=client.getTelefone()%>" size="50%">
                                 </td>
                             </tr>
+                            
                             <%
-                                // Instancia um objeto e conecta ao banco de dados
-                                int id_cliente = client.getPessoa().getId();
-                                
-                                try {
-                                    VeiculoDAO veicDB = new VeiculoDAO();
-                                    List<Veiculo> lista;
-                                    veicDB.conectar();
-                                    lista = veicDB.pesquisarPorId(id_cliente);
-                                    for (Veiculo veic:lista){
+                                       }
+                                       
+                                       clientDB.desconectar();
+                                    } catch (Exception erro) {
+                                        out.print(erro);
+                                    }
                             %>
                             <tr>
                                 <td bgcolor="#d3d3d3">
@@ -167,15 +172,7 @@
                                     <input type="text" name="modelo" value="<%=veic.getModelo()%>" size="50%">
                                 </td>
                             </tr>
-                            
-                            <%
-                                    }
-                                    veicDB.desconectar();
-                                } catch (Exception erro) {
-                                    out.print(erro);
-                                }
-                            %>
-                            
+                                                       
                         <%
                                 }
                             } catch (Exception erro) {

@@ -8,11 +8,13 @@
 
 /* Estilo para a tabela dinamica, listar cliente e veiculo */
 .sanfona {
+    width: 98%;
     position: absolute;
+    border: solid black;
 }
 
 .sanfona .item {
-    margin: 8px 0px;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -41,7 +43,7 @@
 .sanfona .item .veiculo-cliente {
     max-height: 0px;
     overflow: hidden;
-    transition: max-height 300ms linear;
+    transition: 0.5s;
 }
 
 .sanfona .item.ativo .nome-cliente:before {

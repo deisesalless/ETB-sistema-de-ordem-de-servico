@@ -58,42 +58,40 @@ public class VeiculoDAO extends ConexaoComBancoDeDados {
     }
     
     // Pesquisar o veiculo pelo id no banco de dados  
-    public List pesquisarPorId(int id) throws Exception {
-        List<Veiculo> usuario = new ArrayList<Veiculo>();
-        String sql = "SELECT * FROM veiculo WHERE id_cliente=?";
-        PreparedStatement pstm = getConexao().prepareStatement(sql);
-        pstm.setInt(1, id);
-        ResultSet lista = pstm.executeQuery();
+    public Veiculo pesquisarPorId(int id) throws Exception {
+        String sql = "SELECT * FROM veiculo WHERE id = " + id;
+        Statement stm = conexao.createStatement();
+        ResultSet lista = stm.executeQuery(sql);
+        Veiculo veiculo = new Veiculo();
         
         // Consulta o id no banco de dados e retorna a lista com todas as informações
-        while (lista.next()) {
-            Veiculo dados = new Veiculo();
-            dados.setId(lista.getInt("id"));
-            dados.setPlaca(lista.getString("placa"));
-            dados.setCor(lista.getString("cor"));
-            dados.setMarca(lista.getString("marca"));
-            dados.setModelo(lista.getString("modelo"));
-            usuario.add(dados);
+        if (lista.next()) {
+            veiculo.setId(lista.getInt("id"));
+            veiculo.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
+            veiculo.setPlaca(lista.getString("placa"));
+            veiculo.setCor(lista.getString("cor"));
+            veiculo.setMarca(lista.getString("marca"));
+            veiculo.setModelo(lista.getString("modelo"));
         }
-        return usuario;
+        return veiculo;
+        
+        
     }
     
     // Método para pesquisar o veiculo pela placa no Banco de Dados
-    public List pesquisarPorPlaca(String placa) throws Exception {
-        List<Veiculo> veiculo = new ArrayList<Veiculo>();
-        String sql = "SELECT * FROM veiculo WHERE placa=?";
-        PreparedStatement pstm = getConexao().prepareStatement(sql);
+    public Veiculo pesquisarPorPlaca(String placa) throws Exception {
+        String sql = "SELECT * FROM veiculo WHERE placa = ?";
+        PreparedStatement pstm = conexao.prepareStatement(sql);
         pstm.setString(1, placa);
         ResultSet lista = pstm.executeQuery();
+        Veiculo veiculo = new Veiculo();
         
         // Consulta a placa no banco de dados e retorna a lista com todas as informações
-        while (lista.next()) {
-            Veiculo veiculosDados = new Veiculo();
-            veiculosDados.setPlaca(lista.getString("placa"));
-            veiculosDados.setCor(lista.getString("cor"));
-            veiculosDados.setMarca(lista.getString("marca"));
-            veiculosDados.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
-            veiculo.add(veiculosDados);
+        if (lista.next()) {
+            veiculo.setPlaca(lista.getString("placa"));
+            veiculo.setCor(lista.getString("cor"));
+            veiculo.setMarca(lista.getString("marca"));
+            veiculo.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
         }
         return veiculo;
     }
