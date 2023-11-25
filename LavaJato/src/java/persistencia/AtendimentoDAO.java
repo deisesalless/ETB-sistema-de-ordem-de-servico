@@ -112,9 +112,5 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         }
         return atendimento;
     }
-    
-    public String removerAcentos(String observacao) {
-        
-        return Normalizer.normalize(observacao, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
-    }
+
 }

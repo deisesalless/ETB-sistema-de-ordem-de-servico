@@ -32,7 +32,7 @@ public class AtivarPerfil extends HttpServlet {
                 try {
                     
                     Perfil perfis = new Perfil();
-                    perfis.setId(id);
+                    perfis.setId_perfil(id);
                     perfis.setStatus(status);
                     
                     PerfilDAO perfilBD = new PerfilDAO();

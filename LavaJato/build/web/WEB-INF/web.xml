@@ -100,6 +100,22 @@
         <servlet-name>CadastrarAtendimento</servlet-name>
         <servlet-class>controller.CadastarAtendimento</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GerenciarMenuPerfil</servlet-name>
+        <servlet-class>controller.GerenciarMenu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CadastrarMenu</servlet-name>
+        <servlet-class>controller.CadastrarMenu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AlterarMenu</servlet-name>
+        <servlet-class>controller.AlterarMenu</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirMenu</servlet-name>
+        <servlet-class>controller.ExcluirMenu</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -199,6 +215,22 @@
     <servlet-mapping>
         <servlet-name>CadastrarAtendimento</servlet-name>
         <url-pattern>/cadastrar_atendimento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GerenciarMenuPerfil</servlet-name>
+        <url-pattern>/gerenciar_menu_perfil.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarMenu</servlet-name>
+        <url-pattern>/cadastrar_menu.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlterarMenu</servlet-name>
+        <url-pattern>/alterar_menu.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirMenu</servlet-name>
+        <url-pattern>/excluir-menu.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -91,7 +91,7 @@
                                     <td>
                                         <%
                                             // Atributo local, pega o Id do perfil do usuario
-                                            int id = usuar.getPerfil().getId();
+                                            int id = usuar.getPerfil().getId_perfil();
                                             // Instancia um objeto e faz conectar ao banco de dados
                                             try {
                                                 PerfilDAO perfilBD = new PerfilDAO();
@@ -154,13 +154,11 @@
                             <h3>Cadastrar Usuario</h3>
                             <form name="form_cadastrar_usuario" action="cadastrar_usuario.do" method="post" onsubmit="return validaForm();">
                                 
-                                <label>Data do cadastro:</label>
                                 <%
                                     Date hoje = new Date();
                                     DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
                                     String dataCadastro = dataFormatada.format(hoje);
                                 %>
-                                <%=dataCadastro%>
                                 <input type="hidden" name="dataCadastro" value="<%=dataCadastro%>"><br>
                                 
                                 <label>Nome Completo:</label>
@@ -189,7 +187,7 @@
                                                 // Se o perfil tiver ativo pode ser utilizado
                                                 if (perfill.isStatus()) {
                                     %>
-                                    <option value="<%=perfill.getId()%>"><%=perfill.getNome()%></option>
+                                    <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
                                     <%          }
                                         } 
                                             pDB.desconectar();

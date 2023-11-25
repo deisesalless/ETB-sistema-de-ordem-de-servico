@@ -95,7 +95,7 @@
                                     <td>
                                         <%
                                             // Atributo local, pega o Id do perfil do usuario
-                                            int id = func.getPerfil().getId();
+                                            int id = func.getPerfil().getId_perfil();
                                             // Instancia um objeto e faz conectar ao banco de dados
                                             try {
                                                 PerfilDAO perfilBD = new PerfilDAO();
@@ -195,7 +195,7 @@
                                                 // Se o perfil tiver ativo pode ser utilizado
                                                 if (perfill.isStatus()) {
                                     %>
-                                    <option value="<%=perfill.getId()%>"><%=perfill.getNome()%></option>
+                                    <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
                                     <%          }
                                         } 
                                             pDB.desconectar();

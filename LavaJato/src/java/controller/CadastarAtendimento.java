@@ -3,7 +3,6 @@ package controller;
 
 import DataUtility.DataUtility;
 import entidade.Atendimento;
-import entidade.ControleAtendimento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import persistencia.AtendimentoDAO;
-import persistencia.ControleAtendimentoDAO;
 
 
 @WebServlet(name = "CadastrarAtendimento", urlPatterns = {"/CadastrarAtendimento"})
@@ -73,7 +71,6 @@ public class CadastarAtendimento extends HttpServlet {
                     atendimento.setData(DataUtility.stringToDate(data));
                     atendimento.setStatusPagamento(Boolean.parseBoolean(status_pagamento));
                     atendimento.setPrecoTotal(totalPreco);
-                    atendimento.setObservacao(atendimentoBD.removerAcentos(observacao));
                     atendimento.getUsuario().getPessoa().setId(id_usuario);
                     atendimento.getCliente().getPessoa().setId(id_cliente);
                     atendimento.getVeiculo().setId(id_veiculo);
@@ -82,16 +79,7 @@ public class CadastarAtendimento extends HttpServlet {
                     
                     atendimentoBD.cadastrar(atendimento);
                     atendimentoBD.desconectar();
-                    
-                    ControleAtendimento controle = new ControleAtendimento();
-                    controle.getAtendimento().setId(atendimento.getIdGerado());
-                    //controle.getServico().setId(id_veiculo);
-                    
-                    ControleAtendimentoDAO controleBD = new ControleAtendimentoDAO();
-                    controleBD.conectar();
-                    controleBD.cadastrar(controle);
-                    controleBD.desconectar();
-                    
+ 
                 } catch (Exception erro) {
                     out.print(erro);
                 }

@@ -52,7 +52,7 @@ public class AlterarUsuario extends HttpServlet {
                     usuario.getPessoa().setNomeCompleto(nomeCompleto);
                     usuario.setLogin(login);
                     usuario.setSenha(senha);
-                    usuario.getPerfil().setId(id_perfil);
+                    usuario.getPerfil().setId_perfil(id_perfil);
                     
                     // Instancia um objeto do tipo UsuarioDAO
                     UsuarioDAO uDB = new UsuarioDAO();

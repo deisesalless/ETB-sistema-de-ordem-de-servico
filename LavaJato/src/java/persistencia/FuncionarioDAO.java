@@ -21,7 +21,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
         pst.setString(2, toUpperCase(funcionario.getApelido()));
         pst.setString(3, funcionario.getTelefone());
         pst.setDate(4, DataUtility.dateParaDateSql(funcionario.getPessoa().getDataCadastro()));
-        pst.setInt(5, funcionario.getPerfil().getId());
+        pst.setInt(5, funcionario.getPerfil().getId_perfil());
         pst.setBoolean(6, true);
         pst.execute();
     }
@@ -41,7 +41,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
             funcionario.setApelido(lista.getString("apelido"));
             funcionario.setTelefone(lista.getString("telefone"));
             funcionario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
-            funcionario.getPerfil().setId(lista.getInt("id_perfil"));
+            funcionario.getPerfil().setId_perfil(lista.getInt("id_perfil"));
             funcionario.getPessoa().setStatus(lista.getBoolean("status"));
             listaDeFuncionario.add(funcionario);
         }
@@ -55,7 +55,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
         pst.setString(1, toUpperCase(funcionario.getPessoa().getNomeCompleto()));
         pst.setString(2, toUpperCase(funcionario.getApelido()));
         pst.setString(3, funcionario.getTelefone());
-        pst.setInt(4, funcionario.getPerfil().getId());
+        pst.setInt(4, funcionario.getPerfil().getId_perfil());
         pst.setInt(5, funcionario.getPessoa().getId());
         pst.execute();
     }
@@ -91,7 +91,7 @@ public class FuncionarioDAO extends ConexaoComBancoDeDados {
             funcionario.getPessoa().setNomeCompleto(lista.getString("nomeCompleto"));
             funcionario.setApelido(lista.getString("apelido"));
             funcionario.setTelefone(lista.getString("telefone"));
-            funcionario.getPerfil().setId(lista.getInt("id_perfil"));
+            funcionario.getPerfil().setId_perfil(lista.getInt("id_perfil"));
             funcionario.getPessoa().setStatus(lista.getBoolean("status"));
         }
         return funcionario;

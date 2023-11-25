@@ -60,7 +60,7 @@
 
                             <tr>
                                 <td>
-                                    <%=perfil.getId()%><input type="hidden" name="id" value="<%=perfil.getId()%>">
+                                    <%=perfil.getId_perfil()%><input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
                                 </td>
                                 <td>
                                     <input type="text" name="nome" value="<%=perfil.getNome()%>" size="100%">

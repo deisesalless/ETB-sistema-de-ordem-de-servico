@@ -53,6 +53,7 @@
                             <td>Perfil</td>
                             <td>Alterar</td>
                             <td>Status</td>
+                            <td>Gerenciar Acesso</td>
                         </tr>
                         <%                                            
                             try {
@@ -63,10 +64,10 @@
                                 for(Perfil perfil:lista) {
                         %>
                         <tr>
-                                    <td><%=perfil.getId()%></td>
+                                    <td><%=perfil.getId_perfil()%></td>
                                     <td><%=perfil.getNome()%></td>
                                     <td align="center">
-                                        <a href="form-alterar-perfil.jsp?id=<%=perfil.getId()%>">
+                                        <a href="form-alterar-perfil.jsp?id=<%=perfil.getId_perfil()%>">
                                             <button> alterar </button>
                                         </a>
                                     </td>
@@ -75,7 +76,7 @@
 
                                             <!-- Já que está ativado permite desativar o status -->
                                             <form action="desativar_perfil.do" method="post">
-                                                <input type="hidden" name="id" value="<%=perfil.getId()%>">
+                                                <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
                                                 <input type="hidden" name="status" value="true">
 
                                                 <!-- Mostra a imagem de status ativo -->
@@ -88,7 +89,7 @@
 
                                             <!-- Já que está desativado permite ativar o status -->
                                             <form action="ativar_perfil.do" method="post">
-                                                <input type="hidden" name="id" value="<%=perfil.getId()%>">
+                                                <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
                                                 <input type="hidden" name="status" value="true">
 
                                                 <!-- Mostra a imagem de status desativado -->
@@ -97,6 +98,12 @@
                                                 </button>
                                             </form>
                                         <% } %>
+                                    </td>
+                                    
+                                    <td align="center">
+                                        <a href="form-gerenciar-perfil-menu.jsp?id_perfil=<%=perfil.getId_perfil()%>">
+                                            <button> gerenciar </button>
+                                        </a>
                                     </td>
                                 </tr>
                         <%

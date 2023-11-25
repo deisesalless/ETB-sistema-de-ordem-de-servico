@@ -53,7 +53,7 @@ public class AlterarFuncionario extends HttpServlet {
                     funcionario.getPessoa().setNomeCompleto(nomeCompleto);
                     funcionario.setApelido(apelido);
                     funcionario.setTelefone(telefone);
-                    funcionario.getPerfil().setId(id_perfil);
+                    funcionario.getPerfil().setId_perfil(id_perfil);
                     
                     // Instancia um objeto do tipo FuncionarioDAO
                     FuncionarioDAO funcionarioBD = new FuncionarioDAO();

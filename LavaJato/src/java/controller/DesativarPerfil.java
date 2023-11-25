@@ -32,7 +32,7 @@ public class DesativarPerfil extends HttpServlet {
                 try {
                     
                     Perfil perfis = new Perfil();
-                    perfis.setId(id);
+                    perfis.setId_perfil(id);
                     perfis.setStatus(status);
                     
                     PerfilDAO perfilDAO = new PerfilDAO();

@@ -26,7 +26,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
         pst.setString(3, usuario.getSenha());
         // Converte a data do tipo date para DateSql
         pst.setDate(4, DataUtility.dateParaDateSql(usuario.getPessoa().getDataCadastro()));
-        pst.setInt(5, usuario.getPerfil().getId());
+        pst.setInt(5, usuario.getPerfil().getId_perfil());
         pst.setBoolean(6, true);
         pst.execute();
     }
@@ -48,7 +48,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
             usuario.setLogin(lista.getString("login"));
             usuario.setSenha(lista.getString("senha"));
             usuario.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
-            usuario.getPerfil().setId(lista.getInt("id_perfil"));
+            usuario.getPerfil().setId_perfil(lista.getInt("id_perfil"));
             usuario.getPerfil().setStatus(lista.getBoolean("status"));
             listaDeUsuarios.add(usuario);
         }
@@ -62,7 +62,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
         pst.setString(1, toUpperCase(usuario.getPessoa().getNomeCompleto()));
         pst.setString(2, toLowerCase(usuario.getLogin()));
         pst.setString(3, usuario.getSenha());
-        pst.setInt(4, usuario.getPerfil().getId());
+        pst.setInt(4, usuario.getPerfil().getId_perfil());
         pst.setInt(5, usuario.getPessoa().getId());
         pst.execute();
     }
@@ -102,7 +102,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
             dados.setLogin(lista.getString("login"));
             dados.setSenha(lista.getString("senha"));
             dados.getPessoa().setDataCadastro(lista.getDate("dataCadastro"));
-            dados.getPerfil().setId(lista.getInt("id_perfil"));
+            dados.getPerfil().setId_perfil(lista.getInt("id_perfil"));
             dados.getPessoa().setStatus(lista.getBoolean("status"));
             usuario.add(dados);
         }

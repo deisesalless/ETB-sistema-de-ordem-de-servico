@@ -56,7 +56,7 @@ public class CadastrarFuncionario extends HttpServlet {
                     funcionarioo.setTelefone(telefone);
                     // Muda o formado de String para data
                     funcionarioo.getPessoa().setDataCadastro(DataUtility.stringToDate(dataCadastro));
-                    funcionarioo.getPerfil().setId(id_perfil);
+                    funcionarioo.getPerfil().setId_perfil(id_perfil);
                     
                     // Instancia um objeto do tipo FuncionarioDAO, recebe as informações do objeto Funcionario e inclui no Banco de Dados
                     FuncionarioDAO funcionarioDB = new FuncionarioDAO();

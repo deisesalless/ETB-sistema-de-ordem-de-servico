@@ -59,7 +59,7 @@ public class CadastrarUsuario extends HttpServlet {
                     usuarioo.setSenha(senha);
                     // Muda o formado de String para data
                     usuarioo.getPessoa().setDataCadastro(DataUtility.stringToDate(dataCadastro));
-                    usuarioo.getPerfil().setId(id_perfil);
+                    usuarioo.getPerfil().setId_perfil(id_perfil);
                     
                     UsuarioDAO usuarioDB = new UsuarioDAO();
                     usuarioDB.conectar();

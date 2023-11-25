@@ -28,12 +28,13 @@
             </tr>
             <tr>
                 <td>
-                    <a href="pagina-inicial.jsp"> Inicio</a> |
-                    <a href="listar-perfil.jsp"> Perfil</a> |
-                    <a href="listar-usuario.jsp"> Usuario</a> |
-                    <a href="listar-funcionario.jsp"> Funcionario</a> |
-                    <a href="listar-tipo-pagamento.jsp"> Formas de Pagamento</a> |
-                    <a href="listar-tabela-preco.jsp"> Tabela de Preços</a> |
+                    <a href="pagina-inicial.jsp"> Inicio </a> |
+                    <a href="listar-perfil.jsp"> Perfil </a> |
+                    <a href="listar-usuario.jsp"> Usuario </a> |
+                    <a href="listar-menu.jsp"> Menu </a> |
+                    <a href="listar-funcionario.jsp"> Funcionario </a> |
+                    <a href="listar-tipo-pagamento.jsp"> Formas de Pagamento </a> |
+                    <a href="listar-tabela-preco.jsp"> Tabela de Preços </a> |
                     <a href="listar-cliente-veiculo.jsp"> Cliente & Veiculo </a> |
                     <a href="listar-cliente-veiculo.jsp"> Listar Atendimentos </a> |
                 <td>

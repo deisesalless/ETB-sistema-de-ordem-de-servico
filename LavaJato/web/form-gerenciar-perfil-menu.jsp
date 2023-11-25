@@ -15,6 +15,17 @@
         <link rel="stylesheet" type="text/css" href="estilo/banner.css">
         <link rel="stylesheet" type="text/css" href="estilo/gerenciar-perfil.css">
         <script src="javascript/On&Off.js"></script>
+        <script language="javascript" >
+            function validaForm(){
+                formulario = document.form_cadastrar_perfil;
+                if(formulario.nome.value===""){
+                    alert("O campo PERFIL deve ser preenchido!");
+                    formulario.nome.focus();
+                    return false;
+                }
+                return true;
+            }
+        </script>
     </head>
     <body>
         <div id="overlay"></div>
@@ -51,9 +62,10 @@
                     }
                 %>
                     <h3>
-                        Gerenciar Acessos do Perfil:
-                        <br> <br>
-                        <%=perfil.getNome()%>
+                        Gerenciar Acessos do Perfil: <%=perfil.getNome()%> <br>
+                        <button id="pop-up-cadastrar">
+                            cadastrar novo perfil
+                        </button>
                     </h3>
                     
                     <div class="conteiner">

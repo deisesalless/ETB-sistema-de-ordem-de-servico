@@ -38,7 +38,7 @@ public class AlterarPerfil extends HttpServlet {
                 try {
                     // Instancia um objeto do tipo Perfil e armazena as informações que foram digitadas
                     Perfil perfil = new Perfil();
-                    perfil.setId(id);
+                    perfil.setId_perfil(id);
                     perfil.setNome(nome);
                     
                     // Instancia um objeto do tipo PerfilDAO, recebe as informações

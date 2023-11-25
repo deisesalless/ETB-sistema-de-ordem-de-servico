@@ -108,7 +108,7 @@
                                                     // Se o perfil tiver ativo pode ser utilizado
                                                     if (perfill.isStatus()) {
                                         %>
-                                        <option value="<%=perfill.getId()%>"><%=perfill.getNome()%></option>
+                                        <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
                                         <% 
                                                     }
                                                 } 
