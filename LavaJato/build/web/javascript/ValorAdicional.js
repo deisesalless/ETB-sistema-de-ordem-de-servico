@@ -14,6 +14,7 @@
             var celulaId = novaLinha.insertCell(1);
             var celulaNome = novaLinha.insertCell(2);
             var celulaPreco = novaLinha.insertCell(3);
+            celulaPreco.classList.add("valor");
 
             // Botão para desvincular o valor adicional (remover a linha quando o botão for clicado)
             var botaoRemover = document.createElement("button");
@@ -40,20 +41,4 @@
 
         // Limpa o campo de entrada após adicionar o valor ao carrinho
         valorAdicionalInput.value = "";
-    }
-
-    // Função para calcular o valor total
-    function calcularValorTotal() {
-        var tabelaCarrinho = document.getElementById("tabelaCarrinho");
-        var linhas = tabelaCarrinho.getElementsByTagName("tr");
-        var total = 0;
-
-        for (var i = 1; i < linhas.length; i++) {
-            var preco = parseFloat(linhas[i].cells[3].innerText.replace("R$ ", "").replace(",", "."));
-            total += preco;
-        }
-
-        // Exibe o valor total calculado na tabela
-        var valorTotal = document.getElementById("valorTotal");
-        valorTotal.innerHTML = total.toFixed(2).replace(".", ",");
     }

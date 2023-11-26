@@ -1,3 +1,4 @@
+<%@page import="entidade.Atendimento"%>
 <%@page import="persistencia.UsuarioDAO"%>
 <%@page import="entidade.Funcionario"%>
 <%@page import="persistencia.FuncionarioDAO"%>
@@ -22,13 +23,14 @@
 <html xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:f="http://xmlns.jcp.org/jsf/core">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <title>Cadastrar Atendimento</title>
         <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
         <link rel="stylesheet" type="text/css" href="estilo/banner.css">
         <link rel="stylesheet" type="text/css" href="estilo/cadastrar-atendimento.css">
         <script src="javascript/On&Off.js"></script>
         <script src="javascript/CarrinhoDeServicos.js"></script>
         <script src="javascript/ValorAdicional.js"></script>
+        <script src="javascript/ValorDesconto.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
@@ -45,51 +47,7 @@
             <div id="principal">
                 
                 <div class="conteudo">
-                    <h3> Cadastrar Atendimento </h3>
-                    <script language="javascript" >
-                        function validaForm(){
-                            formulario = document.form_cadastrar_atendimento;
-                            if(formulario.id_funcionario.value===""){
-                                alert("O campo RESPONSÁVEL PELO ATENDIMENTO precisa estar preenchido!");
-                                formulario.id_funcionario.focus();
-                                return false;
-                            }
-                            return true;
-                        }
-                    </script>
-                        
-                    <div class="conteiner-box">
-
-                        <div class="box">
-                            <label> Situação do Atendimento: </label>
-                            <label>
-                                EM ANDAMENTO
-                            </label>
-                        </div>
-
-                        <div class="box">
-                            <label> Usuário: </label>
-                            <% // Mostra o usuario que está logado
-                                try{
-                                    usuario = (Usuario) session.getAttribute("usuario");
-                                    usuario.getPessoa().getId();
-                                }catch(Exception erro){
-                                    response.sendRedirect("index.jsp");
-                                }
-                            %>
-                            <%=usuario.getLogin()%>
-                        </div>
-
-                        <div class="box">
-                            <label> Data: </label>
-                            <%
-                                Date hoje = new Date();
-                                DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                                String dataCadastro = dataFormatada.format(hoje);
-                            %>
-                            <%=dataCadastro%>
-                        </div>
-                    </div>
+                    <h3> Cadastrar Atendimento </h3>                                        
                         
                     <div class="conteiner">
                         <div class="lado1">
@@ -139,6 +97,7 @@
 
                             <label> Informações do Veiculo: </label> <br>
                             <label> ID Veiculo: </label> <%=veiculo.getId()%> |
+                            
                             <label> ID Cliente: </label> <%=veiculo.getCliente().getPessoa().getId()%> |
                             <label> Placa: </label> <%=veiculo.getPlaca()%> |
                             <label> Cor: </label> <%=veiculo.getCor()%> |
@@ -151,105 +110,25 @@
                             %>
                         <div class="lado2">
                             <label> Observação: </label> <br>
-                            <textarea class="observacao" name="observacao" placeholder="Digite aqui as observações do veículo/cliente"></textarea>
+                            <textarea class="observacao" id="observacaoInput" placeholder="Digite aqui as observações do veículo/cliente"></textarea>
                         </div>
                     </div>
                         
                     <div class="conteiner-box">
 
                         <!-- Valor Adicional -->
-                        <div class="box"> 
+                        <div class="lado1"> 
                             <label> Valor Adicional: </label>
                             <button onclick="adicionarValorAdicional()"> adicionar </button> <br>
                             <input class="adicional" type="text" id="valorAdicionalInput" placeholder="Digite somente o valor, exemplo: 15,00" size="35">
-                            <script>
-                                    function adicionarValorDesconto() {
-                                        // Obtém o valor digitado no campo de texto
-                                        var valorDescontoInput = document.getElementById("valorDescontoInput");
-                                        var valorDesconto = parseFloat(valorDescontoInput.value.replace(",", ".")); // Converte para float
 
-                                        // Verifica se o valor digitado é válido
-                                        if (!isNaN(valorDesconto) && valorDesconto < 0) {
-                                            // Cria uma nova linha na tabela de carrinho para exibir o valor de desconto
-                                            var tabelaCarrinho = document.getElementById("tabelaCarrinho");
-                                            var novaLinha = tabelaCarrinho.insertRow();
-
-                                            // Insere as células na nova linha
-                                            var celulaDesvincular = novaLinha.insertCell(0);
-                                            var celulaId = novaLinha.insertCell(1);
-                                            var celulaNome = novaLinha.insertCell(2);
-                                            var celulaPreco = novaLinha.insertCell(3);
-
-                                            // Botão para desvincular o valor adicional (remover a linha quando o botão for clicado)
-                                            var botaoRemover = document.createElement("button");
-                                            botaoRemover.textContent = "remover";
-                                            botaoRemover.onclick = function() {
-                                                var row = this.parentNode.parentNode;
-                                                row.parentNode.removeChild(row);
-                                                // Chame a função para atualizar o valor total aqui, se necessário
-                                                calcularValorTotal();
-                                            };
-
-                                            celulaDesvincular.appendChild(botaoRemover);
-
-                                            // Insere os dados do valor de desconto nas células
-                                            celulaId.innerHTML = "DESCONTO";
-                                            celulaNome.innerHTML = "VALOR DE DESCONTO";
-                                            celulaPreco.innerHTML = valorDesconto.toFixed(2).replace(".", ",");
-
-                                            // Calcula e atualiza o valor total
-                                            calcularValorTotal();
-                                        } else {
-                                            alert("Por favor, insira um valor válido o campo VALOR DE DESCONTO.");
-                                        }
-
-                                        // Limpa o campo de entrada após adicionar o valor ao carrinho
-                                        valorDescontoInput.value = "";
-                                    }
-
-                                    // Função para calcular o valor total
-                                    function calcularValorTotal() {
-                                        var tabelaCarrinho = document.getElementById("tabelaCarrinho");
-                                        var linhas = tabelaCarrinho.getElementsByTagName("tr");
-                                        var total = 0;
-
-                                        for (var i = 1; i < linhas.length; i++) {
-                                            var preco = parseFloat(linhas[i].cells[3].innerText.replace("R$ ", "").replace(",", "."));
-                                            total += preco;
-                                        }
-
-                                        // Exibe o valor total calculado na tabela
-                                        var valorTotal = document.getElementById("valorTotal");
-                                        valorTotal.innerHTML = total.toFixed(2).replace(".", ",");
-                                    }
-                            </script>
                         </div>
 
                         <!-- Valor Desconto -->
-                        <div class="box">
+                        <div class="lado2">
                             <label> Valor de Desconto: </label>
                             <button onclick="adicionarValorDesconto()"> adicionar </button> <br>
                             <input class="adicional" type="text" id="valorDescontoInput" placeholder="Digite somente o valor, exemplo: -15,00" size="35">
-                        </div>
-
-                        <div class="box">
-                            <label> Responsável pelo Atendimento </label> <br>
-                            <label> Colaborador(a): </label>
-                            <select name="id_funcionario" class="adicional">
-                                <option value="" selected>Escolha um nome</option>
-                            <%
-                                for(Funcionario funcionario : lista) {
-                                    if (funcionario.getPessoa().isStatus() && (funcionario.getPerfil().getId_perfil()== 22)) {
-                            %>
-
-                                    <option value="<%=funcionario.getPessoa().getId()%>"><%=funcionario.getApelido()%></option>    
-
-                            <%
-                                    }
-                                }
-                            %>
-
-                            </select>
                         </div>
                     </div>
                         
@@ -296,63 +175,147 @@
                             <br>
 
                             <table id="tabelaCarrinho" width="700px" border="1">
-                                <tr align="center">
+                                
+                                <tr id="valorTotalCarrinho">
+                                    <td></td><td></td>
+                                    <td align="right"> Valor total: R$ </td>
+                                    
+                                    <!-- Aqui mostra o valor total atualizado e repassa para o input -->
+                                    <td align="right" id="valorTotal"> 0,00 </td>
+                                </tr>  
+                                
+                                <tr bgcolor="#d3d3d3" align="center">
                                     <td width="150px"> Desvincular Serviço </td>
                                     <td> ID </td>
                                     <td> SERVIÇO </td>
-                                    <td> VALOR </td>
+                                    <td align="right" class="valorUnitario"> VALOR UND </td>
                                 </tr>
-                            </table>
-
-                            <br>
-
-                            <!-- Mostrar a soma do valor total do carrinho -->
-                            <table id="tabelaTotal" width="700px" border="1">
-                                <tr>
-                                    <td align="right"> Valor total: R$ </td>
-                                    <td align="right" id="valorTotal"> 0,00 </td>
-                                </tr>
+                                
                             </table>
                         </div>
                     </div>
+                            
+                    <div class="botao-finalizar-cadastro">
+                        <button id="mostrar-pop-up"> Salvar </button>
+                    </div>
+                </div>
+                        
+                <div id="pop-up"> 
+                    <div class="botao-fechar">&times;</div>
+                        <div class="formulario">
+                            <h3>Confirmação do Pedido de Atendimento</h3>
+                        <script language="javascript" >
+                            function validaForm(){
+                                formulario = document.form_cadastrar_atendimento;
+                                if(formulario.id_funcionario.value===""){
+                                    alert("O campo RESPONSÁVEL PELO ATENDIMENTO deve ser preenchido!");
+                                    formulario.id_funcionario.focus();
+                                    return false;
+                                }
+                                return true;
+                            }
+                        </script>
+                            <form name="form_cadastrar_atendimento" action="cadastrar_atendimento.do" method="post" onsubmit="return validaForm();">
                                 
-                    <div class="conteiner">
-                        <div class="lado1">
-                            <label> Forma de Pagamento: </label> <br>
                             <%
-                                for(FormaDePagamento pagamento : list) {
-                                    if (pagamento.getServicoPreco().isStatus()) {
+                                Date hoje = new Date();
+                                DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+                                String dataCadastro = dataFormatada.format(hoje);
+                            %>                                
+                                <label>Data:</label>
+                                <%=dataCadastro%>
+                                <input type="hidden" name="data" value="<%=dataCadastro%>">
+                                <br>
+                                
+                                <% // Mostra o usuario que está logado
+                                    try{
+                                        usuario = (Usuario) session.getAttribute("usuario");
+                                        usuario.getPessoa().getId();
+                                    }catch(Exception erro){
+                                        out.print(erro);
+                                    }
+                                %>                                
+                                <label>Usuario:</label>
+                                <%=usuario.getLogin()%>
+                                <input type="hidden" name="id_usuario" value="<%=usuario.getPessoa().getId()%>">
+                                <br>
+                                
+                                <label>Cliente:</label>
+                                <%=cliente.getPessoa().getNomeCompleto()%>
+                                <input type="hidden" name="id_cliente" value="<%=cliente.getPessoa().getId()%>">
+                                <br>
+                                
+                                <label>Telefone:</label>
+                                <%=cliente.getTelefone()%>
+                                <br>
 
-                            %>
+                                <label>Informações do Veículo:</label> <br>
+                                <%=veiculo.getId()%> | <%=veiculo.getPlaca()%> | <%=veiculo.getModelo()%> | <%=veiculo.getMarca()%> | <%=veiculo.getCor()%>
+                                <input type="hidden" name="id_veiculo" value="<%=veiculo.getId()%>">
+                                <br>
+                                
+                                <!-- Mostrar as observações digitadas -->
+                                <label>Observações:</label> <br>
+                                <span id="observacoesPopUp"></span>
+                                
+                                <br>
+                                <!-- Mostrar o valor total -->
+                                <label>Valor Total:</label> <br>
+                                R$ 
+                                <span id="valorTotalPopUp"></span>
+
+                                <br>
+                                <label> Forma de Pagamento: </label> <br>
+                                <%
+                                    for(FormaDePagamento pagamento : list) {
+                                        if (pagamento.getServicoPreco().isStatus()) {
+
+                                %>
+
+                                <label>
+                                    <input type="radio" name="id_forma_pagamento" value="<%=pagamento.getServicoPreco().getId()%>" checked>
+                                    <%=pagamento.getServicoPreco().getNome()%>
+                                </label>
+
+                                <%
+                                        }
+                                    }
+                                %>                                
+                            
+                            <br>
+                            
+                            <label> Situação do Pagamento: </label> <br>
+                            <label>
+                                <input type="radio" name="statusPagamento" value="true" checked> Em aberto
+                            </label>
 
                             <label>
-                                <input type="radio" name="id_tipo_pagamento" value="<%=pagamento.getServicoPreco().getId()%>" checked>
-                                <%=pagamento.getServicoPreco().getNome()%>
+                                <input type="radio" name="statusPagamento" value="false"> Pago 
                             </label>
+                            
+                            <br>
+                            
+                            <label> Responsável pelo Atendimento </label> <br>
+                            <label> Colaborador(a): </label>
+                            <select name="id_funcionario" class="adicional">
+                                <option value="" selected>Escolha um nome</option>
+                            <%
+                                for(Funcionario funcionario : lista) {
+                                    if (funcionario.getPessoa().isStatus() && (funcionario.getPerfil().getId_perfil()== 22)) {
+                            %>
+
+                                    <option value="<%=funcionario.getPessoa().getId()%>"><%=funcionario.getApelido()%></option>    
 
                             <%
                                     }
                                 }
                             %>
-                        </div>
-                        <div class="lado2">
-                            <label> Situação do Pagamento: </label> <br>
+                            </select>
 
-                            <label>
-                                <input type="radio" name="status_pagamento" value="true" checked>
-                                Em aberto
-                            </label>
-                            <label>
-                                <input type="radio" name="status_pagamento" value="false">
-                                Pago
-                            </label>
-                        </div>
-                    </div>
-                            
-                    <div class="botao-salvar">
-                        <button id="mostrar-pop-up"> Finalizar Cadastro </button>
-                        
-                    </div>                       
+                            <div class="botao-salvar-formulario">
+                                <button type="submit" value="Salvar" class="botao-salvar" onclick="EnviarServlet()"> Confirmar </button>
+                            </div>
+                            </form>
                                 <%
                                             funcionarioDB.desconectar();
                                             veiculoDB.desconectar();
@@ -364,69 +327,8 @@
                                             out.print(erro);
                                         }
                                 %>
-                </div>
-                <div id="pop-up"> 
-                    <div class="botao-fechar">&times;</div>
-                        <div class="formulario">
-                            <h3>Confirmação do Pedido de Atendimento</h3>
-                            <form name="form_cadastrar_atendimento" action="cadastrar_atendimento.do" method="post" onsubmit="return validaForm();">
-
-                                <input type="hidden" name="dataCadastro" value=""><br>
-
-                                <label>Nome Completo:</label>
-                                <input type="text" name="nomeCompleto" placeholder="Digite o nome completo" size="30">
-
-                                <label>Login:</label>
-                                <input type="text" name="login" placeholder="Digite o usuário" size="30">
-
-                                <label>Senha:</label>
-                                <input type="password" name="senha" placeholder="Digite a senha" size="30">
-
-                                <label>Perfil:</label>
-                                <select name="id_perfil">
-                                    <option value="" selected>Escolha um Perfil</option>
-                                    <!-- Cria um objeto, e um atributo lista para conectar com o 
-                                    // banco de dados e trazer a lista de nomes do perfil -->
-                                    <%
-                                        try {
-                                            PerfilDAO pDB = new PerfilDAO();
-                                            ArrayList<Perfil> lista;
-                                            pDB.conectar();
-                                            lista = pDB.listar();
-
-                                            // Lista os perfis
-                                            for(Perfil perfill:lista){
-                                                // Se o perfil tiver ativo pode ser utilizado
-                                                if (perfill.isStatus()) {
-                                    %>
-                                    <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
-                                    <%          }
-                                        } 
-                                            pDB.desconectar();
-                                        } catch (Exception erro) {
-                                            out.print(erro);
-                                        }
-                                    %>
-                                </select>
-
-                                <div class="botao-salvar-formulario">
-                                    <button type="submit" value="Salvar" class="botao-salvar">Salvar</button>
-                                </div>
-                            </form> 
                         </div>
-                    <script>
-                        // Comando para mostrar o Pop-up utilizando JavaScript
-                        document.querySelector("#mostrar-pop-up").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.add("ativo");
-                            document.querySelector("#overlay").style.display = "block";
-                        });
-
-                        // Comando para fechar o Pop-up utilizando JavaScript
-                        document.querySelector("#pop-up .botao-fechar").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.remove("ativo");
-                             document.querySelector("#overlay").style.display = "none";
-                        });
-                    </script>
+                    <script src="javascript/MostrarPopUpAtendimento.js"></script>
                 </div>
 
             </div>       

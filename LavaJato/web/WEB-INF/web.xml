@@ -98,7 +98,7 @@
     </servlet>
     <servlet>
         <servlet-name>CadastrarAtendimento</servlet-name>
-        <servlet-class>controller.CadastarAtendimento</servlet-class>
+        <servlet-class>controller.CadastrarAtendimento</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>GerenciarMenuPerfil</servlet-name>

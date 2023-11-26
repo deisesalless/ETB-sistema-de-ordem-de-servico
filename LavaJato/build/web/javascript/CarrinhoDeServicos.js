@@ -1,4 +1,3 @@
-
     function adicionarServico(id, nome, preco) {
         // Cria uma nova linha na tabela de carrinho com as informações do serviço selecionado
         var tabelaCarrinho = document.getElementById("tabelaCarrinho");
@@ -9,10 +8,13 @@
         var celulaId = novaLinha.insertCell(1);
         var celulaNome = novaLinha.insertCell(2);
         var celulaPreco = novaLinha.insertCell(3);
+        celulaPreco.classList.add("valor");
+
 
         // Botão para desvincular o serviço (remover a linha quando o botão for clicado)
         var botaoRemover = document.createElement("button");
         botaoRemover.textContent = "remover";
+        
         botaoRemover.onclick = function() {
             var row = this.parentNode.parentNode;
             row.parentNode.removeChild(row);
@@ -31,19 +33,23 @@
 
         // Calcula e atualiza o valor total
         calcularValorTotal();
-
-        function calcularValorTotal() {
-            var tabelaCarrinho = document.getElementById("tabelaCarrinho");
-            var linhas = tabelaCarrinho.getElementsByTagName("tr");
-            var total = 0;
-
-            for (var i = 1; i < linhas.length; i++) {
-                var preco = parseFloat(linhas[i].cells[3].innerText.replace("R$ ", "").replace(",", "."));
-                total += preco;
-            }
-
-            // Exibe o valor total calculado na tabela
-            var valorTotal = document.getElementById("valorTotal");
-            valorTotal.innerHTML = total.toFixed(2).replace(".", ",");
-        }
     }
+    
+    function calcularValorTotal() {
+
+        var tabelaCarrinho = document.getElementById("tabelaCarrinho");
+        var linhas = document.getElementsByClassName("valor");
+        var total = 0;
+           
+        for (var i = 0; i < (linhas.length); i++) {           
+            var preco = parseFloat(linhas[i].innerText.replace("R$ ", "").replace(",", "."));
+            total += preco;   
+        }
+
+        
+        // Exibe o valor total calculado na tabela
+        var valorTotal = document.getElementById("valorTotal");
+        valorTotal.innerHTML = total.toFixed(2).replace(".", ",");
+        
+    }
+    
