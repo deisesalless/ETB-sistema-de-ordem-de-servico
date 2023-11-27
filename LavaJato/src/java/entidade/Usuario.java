@@ -13,10 +13,17 @@ public class Usuario {
     private Perfil perfil;
     
     public Usuario() {
-        this.login = "";
-        this.senha = "";
-        this.pessoa = new Pessoa(); 
+        this.pessoa = new Pessoa();
         this.perfil = new Perfil();
     }
- 
+
+    public Usuario(String login, String senha, Pessoa pessoa, Perfil perfil) {
+        this.login = login;
+        this.senha = senha;
+        this.pessoa = pessoa;
+        this.perfil = perfil;
+    }
+
+    
+
 }

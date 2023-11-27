@@ -14,9 +14,15 @@ public class Pessoa {
     private boolean status;
     
     public Pessoa() {
-        this.id = 0; 
-        this.nomeCompleto = "";
-        this.status = false; 
+    
     }
+
+    public Pessoa(int id, String nomeCompleto, Date dataCadastro, boolean status) {
+        this.id = id;
+        this.nomeCompleto = "";
+        this.dataCadastro = dataCadastro;
+        this.status = false;
+    }
+
   
 }

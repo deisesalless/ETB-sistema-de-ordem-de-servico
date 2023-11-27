@@ -11,9 +11,12 @@
         // Define o valor no elemento do pop-up
         document.getElementById('observacoesPopUp').innerText = observacao;
         
+        document.getElementById('observacao').value = observacao;
+        
         // Captura o valor do campo de valorTotal
         var valorTotal = document.getElementById('valorTotal');
         
+        document.getElementById('dinheiro').value = valorTotal.innerHTML;;
         
         if (valorTotal) {
             // Define o valor no elemento do pop-up - valorTotal

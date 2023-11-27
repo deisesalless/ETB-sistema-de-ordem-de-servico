@@ -6,7 +6,6 @@ import entidade.Atendimento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,29 +16,23 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
     }
     
     public void cadastrar(Atendimento atendimento) throws Exception{
-        String sql = "INSERT INTO atendimento (data, statusAtendimento, statusPagamento, precoTotal, observacao, id_usuario, "
+        String sql = "INSERT INTO atendimento (data, statusAtendimento, statusPagamento, valorTotal, observacao, id_usuario, "
                 + "id_cliente, id_veiculo, id_funcionario, id_forma_pagamento) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         // Além do comando SQL, ele irá retornar qual o n° do ID gerado
-        PreparedStatement pst = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setDate(1, DataUtility.dateParaDateSql(atendimento.getData()));
         pst.setBoolean(2, true);
         pst.setBoolean(3, atendimento.isStatusPagamento());
-        pst.setDouble(4, atendimento.getPrecoTotal());
-        pst.setString(5, atendimento.getObservacao());
-        pst.setInt(6, atendimento.getUsuario().getPessoa().getId());
+        pst.setDouble(4, atendimento.getValorTotal());
+        pst.setString(5, atendimento.getObservacao());        
+        pst.setInt(6, atendimento.getUsuario().getPessoa().getId());        
         pst.setInt(7, atendimento.getCliente().getPessoa().getId());
         pst.setInt(8, atendimento.getVeiculo().getId());
         pst.setInt(9, atendimento.getFuncionario().getPessoa().getId());
         pst.setInt(10, atendimento.getFormaDePagamento().getServicoPreco().getId());
         pst.execute();
-        
-        // Após a execução do 'execute()'
-        ResultSet generatedKeys = pst.getGeneratedKeys();
-        if (generatedKeys.next()) {
-            atendimento.setIdGerado(generatedKeys.getInt(1)); // Retorna o valor da 1° coluna
-        }
-    
+ 
     }
     
     public List<Atendimento> listar() throws Exception {
@@ -54,7 +47,7 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
             atendimento.setData(lista.getDate("data"));
             atendimento.setStatusAtendimento(lista.getBoolean("statusAtendimento"));
             atendimento.setStatusPagamento(lista.getBoolean("statusPagamento"));
-            atendimento.setPrecoTotal(lista.getDouble("precoTotal"));
+            atendimento.setValorTotal(lista.getDouble("valorTotal"));
             atendimento.setObservacao(lista.getString("observacao"));
             atendimento.getUsuario().getPessoa().setId(lista.getInt("id_usuario"));
             atendimento.getCliente().getPessoa().setId(lista.getInt("id_cliente"));
@@ -102,7 +95,7 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
             atendimento.setData(lista.getDate("data"));
             atendimento.setStatusAtendimento(lista.getBoolean("statusAtendimento"));
             atendimento.setStatusPagamento(lista.getBoolean("statusPagamento"));
-            atendimento.setPrecoTotal(lista.getDouble("precoTotal"));
+            atendimento.setValorTotal(lista.getDouble("valorTotal"));
             atendimento.setObservacao(lista.getString("observacao"));
             atendimento.getUsuario().getPessoa().setId(lista.getInt("id_usuario"));
             atendimento.getCliente().getPessoa().setId(lista.getInt("id_cliente"));

@@ -111,21 +111,23 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
     
     // Método para receber uma lista do Banco de Dados e validar o login e a senha
     public Usuario validarLogin(String login, String senha) throws Exception {
-        String sql = "SELECT * FROM usuario WHERE login=? AND status = true";
-        PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setString(1, login);
-        ResultSet lista = pst.executeQuery();
-        Usuario usuario = new Usuario();
-        
+    String sql = "SELECT * FROM usuario WHERE login=?";
+    PreparedStatement pst = conexao.prepareStatement(sql);
+    pst.setString(1, login);
+    ResultSet lista = pst.executeQuery();
+    Usuario usuario = new Usuario();    
+        // Recebe a lista do BD
         if (lista.next()) {
+            // Senha a senha for igual a senha que está no BD retorna o login, senha e status
             if (senha.equals(lista.getString("senha"))) {
-                usuario.getPessoa().setId(lista.getInt("id"));
                 usuario.setLogin(lista.getString("login"));
                 usuario.setSenha(lista.getString("senha"));
-                usuario.getPessoa().setStatus(lista.getBoolean("status"));
+                usuario.getPessoa().setId(lista.getInt("id"));
             }
         }
         return usuario;
+        
+        
     }
   
 }

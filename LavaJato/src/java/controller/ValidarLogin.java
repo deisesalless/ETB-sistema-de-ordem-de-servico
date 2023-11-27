@@ -36,8 +36,10 @@ public class ValidarLogin extends HttpServlet {
                     // Utiliza o método validarLogin do UsuarioDAO
                     UsuarioDAO uDB = new UsuarioDAO();
                     uDB.conectar();
+                    
+                    // Faz o validar login e retorna com resultado nulo e exite no try catch
                     Usuario usuario = uDB.validarLogin(login, senha);
-                    uDB.desconectar();
+                    
                                         
                     // Verifica se o identificador do login é maior que 0
                     if (usuario.getPessoa().getId() > 0) {
@@ -50,6 +52,8 @@ public class ValidarLogin extends HttpServlet {
                         out.print("location.href='index.jsp';");
                         out.print("</script>");
                     }
+                    
+                    uDB.desconectar();
                 
                 } catch (Exception e) {
                     out.print(e);

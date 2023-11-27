@@ -31,6 +31,7 @@
         <script src="javascript/CarrinhoDeServicos.js"></script>
         <script src="javascript/ValorAdicional.js"></script>
         <script src="javascript/ValorDesconto.js"></script>
+        <script src="javascript/EnviarServlet.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
@@ -257,12 +258,14 @@
                                 <!-- Mostrar as observações digitadas -->
                                 <label>Observações:</label> <br>
                                 <span id="observacoesPopUp"></span>
+                                <input type="hidden" name="observacao" id="observacao"> </input>
                                 
                                 <br>
                                 <!-- Mostrar o valor total -->
                                 <label>Valor Total:</label> <br>
                                 R$ 
                                 <span id="valorTotalPopUp"></span>
+                                <input type="hidden" name="valorTotal" id="dinheiro"> </input>
 
                                 <br>
                                 <label> Forma de Pagamento: </label> <br>
