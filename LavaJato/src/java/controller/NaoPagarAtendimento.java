@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import persistencia.AtendimentoDAO;
 
-@WebServlet(name = "DesativarAtendimento", urlPatterns = {"/DesativarAtendimento"})
-public class DesativarAtendimento extends HttpServlet {
+@WebServlet(name = "NaoPagarAtendimento", urlPatterns = {"/NaoPagarAtendimento"})
+public class NaoPagarAtendimento extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -21,47 +21,31 @@ public class DesativarAtendimento extends HttpServlet {
         try {
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Desativar Atendimento</title>");
+            out.println("<title>Servlet NaoPagarAtendimento</title>");
             out.println("</head>");
             out.println("<body>");
             
             // Recebe as informações
             int id = Integer.parseInt(request.getParameter("id"));
-            boolean statusAtendimento = Boolean.parseBoolean(request.getParameter("statusAtendimento"));
             boolean statusPagamento = Boolean.parseBoolean(request.getParameter("statusPagamento"));
-            
-            if (statusPagamento == true){
-                    out.print("<script language='javascript'>");
-                    out.print("alert('Atendimento não pode ser finalizado enquanto o pagamento estiver em aberto!');");
-                    out.print("location.href='listar-atendimento.jsp';");
-                    out.print("</script>");
-            } else {
             
                 try {
                     
                     Atendimento atendimento = new Atendimento();
                     atendimento.setId(id);
-                    atendimento.setStatusAtendimento(statusAtendimento);
+                    atendimento.setStatusPagamento(statusPagamento);
                     
+                    AtendimentoDAO atendimentoBD = new AtendimentoDAO();
+                    atendimentoBD.conectar();
+                    atendimentoBD.naoPagarAtendimento(atendimento);
+                    atendimentoBD.desconectar();
                     
-                    AtendimentoDAO atendimentoDAO = new AtendimentoDAO();
-                    atendimentoDAO.conectar();
-                    atendimentoDAO.desativar(atendimento);
-                    atendimentoDAO.desconectar();
-                    
-                    out.print("<script language='javascript'>");
-                    out.print("alert('Atendimento finalizado com sucesso!');");
-                    out.print("location.href='listar-atendimento.jsp';");
-                    out.print("</script>");
+                    response.sendRedirect("listar-atendimento.jsp");
                     
                 } catch (Exception erro) {
                     
                     out.print(erro);
                 }
-            
-            }
-            
-            
             
         } finally {
             out.close();

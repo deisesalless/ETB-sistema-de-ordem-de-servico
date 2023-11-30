@@ -59,25 +59,25 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         return listaDeAtendimentos;
     }
     
-    public void alterar(Atendimento atendimento) throws Exception {
-        String sql = "UPDATE atendimento SET statusPagamento=?, observacao=?, id_forma_pagamento=? WHERE id = ?";
+    
+    public void desativar(Atendimento atendimento) throws Exception {
+        String sql = "UPDATE atendimento SET statusAtendimento=? WHERE id=?;";
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setBoolean(1, atendimento.isStatusPagamento());
-        pst.setString(2, atendimento.getObservacao());
-        pst.setInt(3, atendimento.getFormaDePagamento().getServicoPreco().getId());
-        pst.setInt(4, atendimento.getId());  
+        pst.setBoolean(1, false);
+        pst.setInt(2, atendimento.getId());
+        pst.execute();
     }
     
-    public void ativar(Atendimento atendimento) throws Exception {
-        String sql = "UPDATE atendimento SET statusAtendimento=? WHERE id=?;";
+    public void naoPagarAtendimento(Atendimento atendimento) throws Exception {
+        String sql = "UPDATE atendimento SET statusPagamento=? WHERE id=?;";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setBoolean(1, true);
         pst.setInt(2, atendimento.getId());
         pst.execute();
     }
     
-    public void desativar(Atendimento atendimento) throws Exception {
-        String sql = "UPDATE atendimento SET statusAtendimento=? WHERE id=?;";
+    public void pagarAtendimento(Atendimento atendimento) throws Exception {
+        String sql = "UPDATE atendimento SET statusPagamento=? WHERE id=?;";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setBoolean(1, false);
         pst.setInt(2, atendimento.getId());

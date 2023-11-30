@@ -1,3 +1,12 @@
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="entidade.TabelaPreco"%>
+<%@page import="entidade.FormaDePagamento"%>
+<%@page import="entidade.Funcionario"%>
+<%@page import="persistencia.FuncionarioDAO"%>
+<%@page import="persistencia.FormaDePagamentoDAO"%>
+<%@page import="persistencia.TabelaPrecoDAO"%>
+<%@page import="entidade.Atendimento"%>
+<%@page import="persistencia.AtendimentoDAO"%>
 <%@page import="DataUtility.DataUtility"%>
 <%@page import="entidade.Veiculo"%>
 <%@page import="java.util.List"%>
@@ -38,89 +47,224 @@
             <div id="principal">
                 <div class="conteudo">
                     <h3>
-                        Lista de Clientes e Veiculos
-                        <button id="mostrar-pop-up">+ Novo</button>
+                        Lista de Atendimentos Em Andamento
+
                     </h3>
                     <div class="sanfona">
                         <div class="item">
-                        <%
-                            try {
-                                ClienteDAO clienteDB = new ClienteDAO();
-                                ArrayList<Cliente> lista;
-                                clienteDB.conectar();
-                                lista = clienteDB.listar();
-                                for(Cliente cliente:lista) {
-                       %>
+                            <%
+
+                                try {
+
+                                        AtendimentoDAO atendimentoDB = new AtendimentoDAO();
+                                        VeiculoDAO veiculoDB = new VeiculoDAO();
+                                        ClienteDAO  clienteDB = new ClienteDAO();
+                                        UsuarioDAO  usuarioDB = new UsuarioDAO();
+                                        TabelaPrecoDAO precoDB = new TabelaPrecoDAO();
+                                        FormaDePagamentoDAO formaDePagamentoBD = new FormaDePagamentoDAO();
+                                        FuncionarioDAO funcionarioDB = new FuncionarioDAO();
+                                        
+                                        usuarioDB.conectar();
+                                        atendimentoDB.conectar();
+                                        funcionarioDB.conectar();
+                                        veiculoDB.conectar();
+                                        clienteDB.conectar();
+                                        precoDB.conectar();
+                                        formaDePagamentoBD.conectar();
+                            %>
+                            
+                            
+                            
+                            <%
+                                        List<Atendimento> lista = atendimentoDB.listar();
+                                        for(Atendimento atendimento : lista) {
+                                            if (atendimento.isStatusAtendimento() == true){
+                                                
+                            %>
+                            
+                            <%
+                                        ArrayList<Cliente> list = clienteDB.listar();
+                                        for(Cliente cliente : list) {
+                                            if (atendimento.getCliente().getPessoa().getId() == cliente.getPessoa().getId()){                                                
+                            %>
                             <div class="nome-cliente">
-                                Id: <%=cliente.getPessoa().getId()%> | Telefone: <%=cliente.getTelefone()%> | Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
+                                Data: <%=DataUtility.formatarDataComPadrao(atendimento.getData())%> | Id: <%=atendimento.getId()%> | Nome do Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
                             </div>
                             <div class="veiculo-cliente">
-                            <%
-                                try {
-                                    VeiculoDAO veiculoDB = new VeiculoDAO();
-                                    List<Veiculo> list;
-                                    veiculoDB.conectar();
-                                    list = veiculoDB.listar();
-                                    veiculoDB.desconectar();
-                                    for(Veiculo veic:list) {
-                                        if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()) {
-                            %>
+
                                 <table width="1200" border="1">
+                            <%
+                                        ArrayList<Usuario> lis = usuarioDB.listar();
+                                        for(Usuario usuari : lis) {
+                                            if (atendimento.getUsuario().getPessoa().getId() == usuari.getPessoa().getId()){                                                
+                            %>
+                                    
                                     <tr bgcolor="#d3d3d3">
-                                        <td>ID cliente</td>
-                                        <td>Placa</td>
-                                        <td>Cor</td>
-                                        <td>Marca</td>
-                                        <td>Modelo</td>
-                                        <td>Alterar</td>
-                                        <td>Novo Veiculo</td>
-                                        <td>Atendimento</td>
+                                        <td>Usuario</td>
+                                        <td>Responsável pelo Serviço</td> 
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><%=usuari.getLogin()%></td>
+                                        
+                            <%
+                                            }
+                                        }
+                            %>
+                                        
+                            <%
+                                        ArrayList<Funcionario> li = funcionarioDB.listar();
+                                        for(Funcionario funcionario : li) {
+                                            if (atendimento.getFuncionario().getPessoa().getId() == funcionario.getPessoa().getId()){                                                
+                            %>
+                                        
+                                        <td><%=funcionario.getApelido()%></td>
+                            
+                            <%
+                                            }
+                                        }
+                            %>
+                                    </tr>
+                                    <tr bgcolor="#d3d3d3">
+                                        <td>Cliente</td>
+                                        <td>Telefone</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td> <%=cliente.getPessoa().getId()%> | <%=cliente.getPessoa().getNomeCompleto()%></td>
+                                        <td> <%=cliente.getTelefone()%> </td>
+                                    </tr>
+                                    
+                                    <tr bgcolor="#d3d3d3">
+                                        <td>Informações do Veiculo</td>
+                                        <td>Observações</td>
+                                    </tr>
+
+                            <%
+                                        ArrayList<Veiculo> l = veiculoDB.listar();
+                                        for(Veiculo veiculo : l) {
+                                            if (atendimento.getVeiculo().getId() == veiculo.getId()){                                                
+                            %>
+                            
+                                    <tr>
+                                        <td> 
+                                            ID: <%=veiculo.getId()%> | Placa: <%=veiculo.getPlaca()%> | Modelo: <%=veiculo.getModelo()%> |
+                                            Marca: <%=veiculo.getMarca()%> | Cor: <%=veiculo.getCor()%>
+                                        </td>
+                                        
+                            <%
+                                            }
+                                        }
+                            %>
+                                        
+                                        <td> <%=atendimento.getObservacao()%> </td>
+                                    </tr>
+                                    
+                                    <tr bgcolor="#d3d3d3">
+                                        <td>Forma de Pagamento</td>
+                                        <td>Valor Total do Serviço</td>                                       
                                     </tr>
                                     <tr>
-                                        <td><%=veic.getCliente().getPessoa().getId()%></td>
-                                        <td><%=veic.getPlaca()%></td>
-                                        <td><%=veic.getCor()%></td>
-                                        <td><%=veic.getMarca()%></td>
-                                        <td><%=veic.getModelo()%></td>
-                                        <td align="center">
-                                            <button>
-                                                <a href="form-alterar-cliente-veiculo.jsp?id=<%=veic.getId()%>">
-                                                    alterar
-                                                </a> 
-                                            </button>
+                                        
+                            <%
+                                        DecimalFormat formato = new DecimalFormat("0.00");
+                                        ArrayList<FormaDePagamento> descricao = formaDePagamentoBD.listar();
+                                        for(FormaDePagamento formaDePagamento : descricao) {
+                                            if (atendimento.getFormaDePagamento().getServicoPreco().getId() == formaDePagamento.getServicoPreco().getId()) {                                                
+                            %>
+ 
+                                            <td> <%=formaDePagamento.getServicoPreco().getNome()%> </td>
+                                            
+                            <%
+                                            }
+                                        }
+                            %>
+
+                            
+                                <%
+                                    Double valorTotal = atendimento.getValorTotal();
+                                    String valorTotalFormatado = formato.format(valorTotal);
+                                %>
+                                        
+                                            <td> <%=valorTotalFormatado%> </td>
+                                    </tr>
+                                    <tr bgcolor="#d3d3d3">
+                                        <td>Situação do Pagamento</td>
+                                        <td>Desativar Atendimento</td>                                       
+                                    </tr>
+                                    
+                                    <tr>        
+                                        <td>
+                                            
+                                        <% if (atendimento.isStatusPagamento()) { %>
+
+                                            <!-- Já que está ativado permite desativar o status -->
+                                            <form action="nao_pagar_atendimento.do" method="post">
+                                                <input type="hidden" name="id" value="<%=atendimento.getId()%>">
+                                                <input type="hidden" name="statusPagamento" value="true">
+
+                                                <!-- Mostra a imagem de status ativo -->
+                                                <button id="botao-alterar-tema" type="submit" value="Desativar">
+                                                    Em Aberto
+                                                </button>
+                                            </form>
+
+                                        <% } else { %>
+
+                                            <!-- Já que está desativado permite ativar o status -->
+                                            <form action="pagar_atendimento.do" method="post">
+                                                <input type="hidden" name="id" value="<%=atendimento.getId()%>">
+                                                <input type="hidden" name="statusPagamento" value="true">
+
+                                                <!-- Mostra a imagem de status desativado -->
+                                                <button id="botao-alterar-tema" type="submit" value="ativar">
+                                                    PAGO
+                                                </button>
+                                            </form>
+                                        <% } %>
                                         </td>
-                                        <td align="center">
-                                            <button>
-                                                <a href="form-cadastrar-veiculo.jsp?id=<%=cliente.getPessoa().getId()%>">
-                                                    adicionar
-                                                </a> 
-                                            </button>
-                                        </td>
-                                        <td align="center">
-                                            <button>
-                                                <a href="form-cadastrar-atendimento.jsp?id_veiculo=<%=veic.getId()%>">
-                                                    adicionar
-                                                </a> 
-                                            </button>
+                                        
+                                        <td>
+                                            <% if (atendimento.isStatusAtendimento()) { %>
+
+                                                <!-- Já que está ativado permite desativar o atendimento -->
+                                                <form action="DesativarAtendimento" method="post">
+                                                    <input type="hidden" name="id" value="<%=atendimento.getId()%>">
+                                                    <input type="hidden" name="statusAtendimento" value="false">
+                                                    <input type="hidden" name="statusPagamento" value="<%=atendimento.isStatusPagamento()%>">
+
+                                                    <button type="submit">
+                                                        Concluir Atendimento 
+                                                    </button>
+                                                </form>
+                                            <% } %>    
                                         </td>
                                     </tr>
                                 </table>
-                                <%
+
+                            <%
                                             }
                                         }
-                                        veiculoDB.desconectar();
-                                    } catch (Exception erro) {
-                                        out.print(erro);
-                                    }
-                                %>
+                            %>
                             </div>
-                        <%
-                                }
-                                clienteDB.desconectar();
-                            } catch (Exception erro) {
-                                out.print(erro);
-                            }
-                        %>   
+                            <%
+                                            }
+                                        }
+                            %>
+                            
+                                <%          
+                                            usuarioDB.desconectar();
+                                            atendimentoDB.desconectar();
+                                            funcionarioDB.desconectar();
+                                            veiculoDB.desconectar();
+                                            clienteDB.desconectar();
+                                            precoDB.desconectar();
+                                            formaDePagamentoBD.desconectar();
+                                            
+                                        } catch (Exception erro) {
+                                            out.print(erro);
+                                        }
+                                %> 
                         </div>
                         
                         <script>
@@ -134,90 +278,6 @@
                         </script>
                         
                     </div>
-                </div>
-                <div id="pop-up"> 
-                    <div class="botao-fechar">&times;</div>
-                        <div class="formulario">
-                            <h3>Cadastrar Cliente & Veiculo</h3>
-                            <script>
-                                function validaForm(){
-                                    formulario = document.form_cadastrar_cliente_veiculo;
-                                    if(formulario.nomeCompleto.value===""){
-                                        alert("O campo Nome deve ser preenchido!");
-                                        formulario.nomeCompleto.focus();
-                                        return false;
-                                    }
-                                    if(formulario.telefone.value===""){
-                                        alert("O campo Telefone deve ser preenchido!");
-                                        formulario.telefone.focus();
-                                        return false;
-                                    }
-                                    if(formulario.dataCadastro.value===""){
-                                        alert("O campo Data deve ser preenchido!");
-                                        formulario.dataCadastro.focus();
-                                        return false;
-                                    }
-                                    if(formulario.placa.value===""){
-                                        alert("O campo Placa deve ser preenchido!");
-                                        formulario.placa.focus();
-                                        return false;
-                                    }
-                                    if(formulario.cor.value===""){
-                                        alert("O campo Cor deve ser preenchido!");
-                                        formulario.cor.focus();
-                                        return false;
-                                    }
-                                    if(formulario.marca.value===""){
-                                        alert("O campo Marca deve ser preenchido!");
-                                        formulario.marca.focus();
-                                        return false;
-                                    }
-                                    if(formulario.id_cliente.value===""){
-                                        alert("O ID do cliente deve ser preenchido!");
-                                        formulario.id_cliente.focus();
-                                        return false;
-                                    }
-                                    return true;
-                                }
-                            </script>
-                            <form name="form_cadastrar_cliente_veiculo" action="cadastrar_cliente_veiculo.do" method="post" onsubmit="return validaForm();">
-
-                                <label>Nome Completo:</label>
-                                <input type="text" name="nomeCompleto" placeholder="Digite o nome completo" size="30">
-
-                                <label>Telefone:</label>
-                                <input type="text" name="telefone" placeholder="Digite o telefone" size="30">
-                                
-                                <label>Marca do veículo:</label>
-                                <input type="text" name="marca" placeholder="Digite a marca do veículo" size="30">
-                                
-                                <label>Modelo do veículo:</label>
-                                <input type="text" name="modelo" placeholder="Digite o modelo do veículo" size="30">
-
-                                <label>Cor do veículo:</label>
-                                <input type="text" name="cor" placeholder="Digite a cor do veículo" size="30">
-
-                                <label>Placa do veículo:</label>
-                                <input type="text" name="placa" placeholder="Digite a placa do veículo" size="30">
-                                
-                                <div class="botao-salvar-formulario">
-                                    <button type="submit" value="Salvar" class="botao-salvar">Salvar</button>
-                                </div>
-                            </form> 
-                        </div>
-                    <script>
-                        // Comando para mostrar o Pop-up utilizando JavaScript
-                        document.querySelector("#mostrar-pop-up").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.add("ativo");
-                            document.querySelector("#overlay").style.display = "block";
-                        });
-
-                        // Comando para fechar o Pop-up utilizando JavaScript
-                        document.querySelector("#pop-up .botao-fechar").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.remove("ativo");
-                             document.querySelector("#overlay").style.display = "none";
-                        });
-                    </script>
                 </div>
             </div>
         </div>

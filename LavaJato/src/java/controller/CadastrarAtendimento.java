@@ -64,7 +64,7 @@ public class CadastrarAtendimento extends HttpServlet {
                 out.print("ID do Veiculo não encontrado!");
             
             } else if (observacao == null || observacao.equalsIgnoreCase("")) {
-                out.print("Não foi incluido observacoes para este atendimento");
+                observacao = "Nao ha observacoes para este atendimento";
                 
             } else if (valorTotal == null || valorTotal.equalsIgnoreCase("")) {
                 out.print("O valor total do serviço está em branco.");
@@ -123,11 +123,12 @@ public class CadastrarAtendimento extends HttpServlet {
                     
                     out.print("<script language='javascript'>");
                     out.print("alert('Atendimento cadastrado com sucesso!');");
-                    out.print("location.href='listar-cliente-veiculo.jsp';");
+                    out.print("location.href='listar-atendimento.jsp';");
                     out.print("</script>");
  
                 } catch (Exception erro) {
                     out.print(erro);
+                    
                 }
                 
             }
@@ -136,6 +137,11 @@ public class CadastrarAtendimento extends HttpServlet {
             out.println("</html>");
             
         } finally {
+            
+            out.print("<script language='javascript'>");
+            out.print("alert('Atendimento não pode ser cadastrado com valor zerado!');");
+            out.print("location.href='listar-atendimento.jsp';");
+            out.print("</script>");
             out.close();
         }
     }
