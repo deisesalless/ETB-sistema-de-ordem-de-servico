@@ -1,11 +1,11 @@
 
 package persistencia;
 
-import DataUtility.DataUtility;
 import entidade.Atendimento;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +19,11 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         String sql = "INSERT INTO atendimento (data, statusAtendimento, statusPagamento, valorTotal, observacao, id_usuario, "
                 + "id_cliente, id_veiculo, id_funcionario, id_forma_pagamento) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
-        // Além do comando SQL, ele irá retornar qual o n° do ID gerado
         PreparedStatement pst = conexao.prepareStatement(sql);
-        pst.setDate(1, DataUtility.dateParaDateSql(atendimento.getData()));
+        
+        // Cria um objeto Timestamp utilizando o método getTime() do objeto Date
+        Timestamp timestamp = new Timestamp(atendimento.getData().getTime());
+        pst.setTimestamp(1, timestamp);
         pst.setBoolean(2, true);
         pst.setBoolean(3, atendimento.isStatusPagamento());
         pst.setDouble(4, atendimento.getValorTotal());
@@ -44,7 +46,7 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         while (lista.next()) {
             Atendimento atendimento = new Atendimento();
             atendimento.setId(lista.getInt("id"));
-            atendimento.setData(lista.getDate("data"));
+            atendimento.setData(lista.getTimestamp("data"));
             atendimento.setStatusAtendimento(lista.getBoolean("statusAtendimento"));
             atendimento.setStatusPagamento(lista.getBoolean("statusPagamento"));
             atendimento.setValorTotal(lista.getDouble("valorTotal"));
@@ -92,7 +94,7 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         
         if (lista.next()) {
             atendimento.setId(lista.getInt("id"));
-            atendimento.setData(lista.getDate("data"));
+            atendimento.setData(lista.getTimestamp("data"));
             atendimento.setStatusAtendimento(lista.getBoolean("statusAtendimento"));
             atendimento.setStatusPagamento(lista.getBoolean("statusPagamento"));
             atendimento.setValorTotal(lista.getDouble("valorTotal"));

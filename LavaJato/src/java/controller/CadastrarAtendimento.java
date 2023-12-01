@@ -1,15 +1,11 @@
 
 package controller;
 
-import DataUtility.DataUtility;
 import entidade.Atendimento;
-import entidade.Cliente;
-import entidade.FormaDePagamento;
-import entidade.Funcionario;
-import entidade.Usuario;
-import entidade.Veiculo;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -64,14 +60,13 @@ public class CadastrarAtendimento extends HttpServlet {
                 out.print("ID do Veiculo não encontrado!");
             
             } else if (observacao == null || observacao.equalsIgnoreCase("")) {
-                observacao = "Nao ha observacoes para este atendimento";
+                out.print("O campo Observação deve ser preenchido.");
                 
-            } else if (valorTotal == null || valorTotal.equalsIgnoreCase("")) {
-                out.print("O valor total do serviço está em branco.");
+            } else if (valorTotal == null || valorTotal.equalsIgnoreCase("") || valorTotal.equalsIgnoreCase("0,00")) {
+                out.print("O Valor Total do serviço não pode estar zerado.");
                 
             } else if (id_forma_pagamento < 0) {
                 out.print("ID da Forma de Pagamento não encontrado!");   
-
                 
             } else if (status_pagamento == null || status_pagamento.equalsIgnoreCase("")) {
                 out.print("O campo Status do Pagamento deve ser preenchido!");
@@ -100,7 +95,12 @@ public class CadastrarAtendimento extends HttpServlet {
                     formaDePagamentoBD.conectar();
                     
                     Atendimento atendimento = new Atendimento();
-                    atendimento.setData(DataUtility.stringToDate(data));
+                    
+                    // Define o formato esperado da String
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                    Date dataFormatada = formato.parse(data);
+                    atendimento.setData(dataFormatada);
+                    
                     atendimento.setStatusPagamento(Boolean.parseBoolean(status_pagamento));
                     atendimento.setValorTotal(Double.parseDouble(valorTotal));
                     atendimento.setObservacao(observacao);
@@ -137,11 +137,6 @@ public class CadastrarAtendimento extends HttpServlet {
             out.println("</html>");
             
         } finally {
-            
-            out.print("<script language='javascript'>");
-            out.print("alert('Atendimento não pode ser cadastrado com valor zerado!');");
-            out.print("location.href='listar-atendimento.jsp';");
-            out.print("</script>");
             out.close();
         }
     }

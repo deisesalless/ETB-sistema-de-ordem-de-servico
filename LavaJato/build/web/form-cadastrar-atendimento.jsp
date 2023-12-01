@@ -208,6 +208,16 @@
                         <script language="javascript" >
                             function validaForm(){
                                 formulario = document.form_cadastrar_atendimento;
+                                if(formulario.observacao.value===""){
+                                    alert("O campo OBSERVAÇÃO deve ser preenchido!");
+                                    formulario.observacao.focus();
+                                    return false;
+                                }
+                                if(formulario.valorTotal.value==="" || formulario.valorTotal.value==="0,00"){
+                                    alert("O campo VALOR TOTAL não pode estar zerado!");
+                                    formulario.valorTotal.focus();
+                                    return false;
+                                }
                                 if(formulario.id_funcionario.value===""){
                                     alert("O campo RESPONSÁVEL PELO ATENDIMENTO deve ser preenchido!");
                                     formulario.id_funcionario.focus();
@@ -220,12 +230,12 @@
                                 
                             <%
                                 Date hoje = new Date();
-                                DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+                                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                                 String dataCadastro = dataFormatada.format(hoje);
                             %>                                
                                 <label>Data:</label>
                                 <%=dataCadastro%>
-                                <input type="hidden" name="data" value="<%=dataCadastro%>">
+                                <input type="hidden" name="data" value="<%=dataCadastro%>"> <!-- repassa a data e hora para o java -->
                                 <br>
                                 
                                 <% // Mostra o usuario que está logado

@@ -85,10 +85,12 @@
                             <%
                                         ArrayList<Cliente> list = clienteDB.listar();
                                         for(Cliente cliente : list) {
-                                            if (atendimento.getCliente().getPessoa().getId() == cliente.getPessoa().getId()){                                                
+                                            if (atendimento.getCliente().getPessoa().getId() == cliente.getPessoa().getId()){
+                                                SimpleDateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                                                String dataCadastro = dataFormatada.format(atendimento.getData());
                             %>
                             <div class="nome-cliente">
-                                Data: <%=DataUtility.formatarDataComPadrao(atendimento.getData())%> | Id: <%=atendimento.getId()%> | Nome do Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
+                                Data da Abertura: <%=dataCadastro%> | Id: <%=atendimento.getId()%> | Nome do Cliente: <%=cliente.getPessoa().getNomeCompleto()%>
                             </div>
                             <div class="veiculo-cliente">
 

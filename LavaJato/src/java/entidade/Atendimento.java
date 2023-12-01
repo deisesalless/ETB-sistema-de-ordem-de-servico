@@ -1,6 +1,7 @@
 
 package entidade;
 
+import java.sql.Timestamp;
 import java.util.Date;
 import lombok.*;
 
