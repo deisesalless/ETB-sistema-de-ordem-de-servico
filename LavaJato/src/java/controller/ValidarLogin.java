@@ -37,15 +37,25 @@ public class ValidarLogin extends HttpServlet {
                     UsuarioDAO uDB = new UsuarioDAO();
                     uDB.conectar();
                     
-                    // Faz o validar login e retorna com resultado nulo e exite no try catch
                     Usuario usuario = uDB.validarLogin(login, senha);
                     
-                                        
-                    // Verifica se o identificador do login é maior que 0
-                    if (usuario.getPessoa().getId() > 0) {
+                    // Validar login retorna nulo caso o usuario esteja desativado
+                    if (usuario.getLogin() == null && usuario.getSenha() == null){
+                        out.print("<script language='javascript'>");
+                        out.print("alert('Usuario ou Senha inválidos!');");
+                        out.print("location.href='index.jsp';");
+                        out.print("</script>");
+                        
+                    } else if (usuario.getLogin().equals(login) && usuario.getSenha().equals(senha)) {
                         session.setAttribute("usuario", usuario);
                         response.sendRedirect("pagina-inicial.jsp");
-
+                        
+                    } else if (usuario.getPessoa().getId() <= 0) {
+                        out.print("<script language='javascript'>");
+                        out.print("alert('Usuario sem permissão de acesso!');");
+                        out.print("location.href='index.jsp';");
+                        out.print("</script>");
+                     
                     } else {
                         out.print("<script language='javascript'>");
                         out.print("alert('Usuario ou Senha inválidos!');");

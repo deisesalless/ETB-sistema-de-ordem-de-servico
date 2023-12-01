@@ -26,6 +26,9 @@
                     %>
                 </td>
             </tr>
+        </table>
+                
+        <table width="100%">
             <tr>
                 <td>
                     <a href="pagina-inicial.jsp"> Inicio </a> |

@@ -38,11 +38,11 @@
                             <table width="500">
                                 <tr>
                                     <td>Login:</td>
-                                    <td><input type="text" name="login" value="deise.araujo" size="30"> </td>
+                                    <td><input type="text" name="login" size="30"> </td>
                                 </tr>
                                 <tr>
                                     <td>Senha:</td>
-                                    <td><input type="password" name="senha" value="10" size="30"> </td>
+                                    <td><input type="password" name="senha" size="30"> </td>
                                 </tr>
                                 <tr>
                                     <td></td>

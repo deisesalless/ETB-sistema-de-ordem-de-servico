@@ -1,3 +1,7 @@
+<%@page import="java.util.List"%>
+<%@page import="entidade.Menu"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="persistencia.PerfilDAO"%>
 <%@page import="entidade.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,10 +22,6 @@
                             if (usuario == null){
                                 response.sendRedirect("index.jsp");
                             }
-                        }catch(Exception e){
-                            //out.print(e);
-                            response.sendRedirect("index.jsp");
-                        }
 
                     %>
                 </td>
@@ -30,17 +30,31 @@
                 
         <table width="100%">
             <tr>
+                <%
+                
+                            PerfilDAO perfilDB = new PerfilDAO();
+                            perfilDB.conectar();
+                            ArrayList<Menu> listaMenu = perfilDB.menusVinculados(usuario.getPerfil().getId_perfil());
+                            for(Menu menu: listaMenu) {
+                            
+                %>
+
                 <td>
-                    <a href="pagina-inicial.jsp"> Inicio </a> |
-                    <a href="listar-perfil.jsp"> Perfil </a> |
-                    <a href="listar-usuario.jsp"> Usuario </a> |
-                    <a href="listar-menu.jsp"> Menu </a> |
-                    <a href="listar-funcionario.jsp"> Funcionario </a> |
-                    <a href="listar-tipo-pagamento.jsp"> Formas de Pagamento </a> |
-                    <a href="listar-tabela-preco.jsp"> Tabela de Preços </a> |
-                    <a href="listar-cliente-veiculo.jsp"> Cliente & Veiculo </a> |
-                    <a href="listar-atendimento.jsp"> Listar Atendimentos </a> |
-                <td>
+                    <a href="<%=menu.getLink()%>"> <%=menu.getMenu()%> </a> |
+                </td>
+
+                <%
+                    
+                            }
+
+                            perfilDB.desconectar();
+                
+                        }catch(Exception e){
+                            //out.print(e);
+                            response.sendRedirect("index.jsp");
+                        }
+                
+                %>
             </tr>
         </table>
     </body>

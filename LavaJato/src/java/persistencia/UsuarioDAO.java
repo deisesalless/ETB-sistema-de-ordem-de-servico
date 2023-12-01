@@ -2,6 +2,7 @@
 package persistencia;
 
 import DataUtility.DataUtility;
+import entidade.Perfil;
 import entidade.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -111,7 +112,7 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
     
     // Método para receber uma lista do Banco de Dados e validar o login e a senha
     public Usuario validarLogin(String login, String senha) throws Exception {
-    String sql = "SELECT * FROM usuario WHERE login=?";
+    String sql = "SELECT * FROM usuario WHERE login=? AND status=true"; 
     PreparedStatement pst = conexao.prepareStatement(sql);
     pst.setString(1, login);
     ResultSet lista = pst.executeQuery();
@@ -123,11 +124,18 @@ public class UsuarioDAO extends ConexaoComBancoDeDados{
                 usuario.setLogin(lista.getString("login"));
                 usuario.setSenha(lista.getString("senha"));
                 usuario.getPessoa().setId(lista.getInt("id"));
+                usuario.getPessoa().setStatus(lista.getBoolean("status"));
+                
+                PerfilDAO perfilDB = new PerfilDAO();
+                perfilDB.conectar();
+                Perfil perfil = perfilDB.pesquisarPorId(usuario.getPerfil().getId_perfil());
+                perfilDB.desconectar();
+                
+                usuario.setPerfil(perfil);
+                
             }
         }
-        return usuario;
-        
-        
+        return usuario;   
     }
   
 }

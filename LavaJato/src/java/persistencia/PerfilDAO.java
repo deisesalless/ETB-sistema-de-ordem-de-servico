@@ -82,8 +82,8 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
         return perfil;
     }
     
-        public List<Menu> menusVinculados(int id) throws Exception {
-        List<Menu> lista = new ArrayList<Menu>();
+        public ArrayList<Menu> menusVinculados(int id) throws Exception {
+        ArrayList<Menu> lista = new ArrayList<Menu>();
         String sql = "SELECT * FROM menu WHERE id_menu IN(SELECT id_menu FROM menu_perfil WHERE id_perfil=?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setInt(1, id);
@@ -100,8 +100,8 @@ public class PerfilDAO extends ConexaoComBancoDeDados {
         return lista;
     }
 
-    public List<Menu> menusDesvinculados(int id) throws Exception {
-        List<Menu> lista = new ArrayList<Menu>();
+    public ArrayList<Menu> menusDesvinculados(int id) throws Exception {
+        ArrayList<Menu> lista = new ArrayList<Menu>();
         String sql = "SELECT * FROM menu WHERE id_menu NOT IN(SELECT id_menu FROM menu_perfil WHERE id_perfil=?)";
         PreparedStatement pst = conexao.prepareStatement(sql);
         pst.setInt(1, id);
