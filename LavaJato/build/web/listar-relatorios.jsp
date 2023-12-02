@@ -48,7 +48,7 @@
                 
                 <div class="conteudo" align="center">
                     <h3>
-                        Lista de Perfil
+                        Lista de Relatórios
                         <button id="pop-up-cadastrar">
                             cadastrar
                         </button>

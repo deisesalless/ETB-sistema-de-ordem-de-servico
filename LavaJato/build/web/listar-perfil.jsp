@@ -10,6 +10,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teste de listar Perfil</title>
         <script language="javascript" >
+            function removerAcentos(texto) {
+                return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+            
+            // Remover acentuações do campo observacao
+             formulario.nome.value = removerAcentos(formulario.nome.value);
+
             function validaForm(){
                 formulario = document.form_cadastrar_perfil;
                 if(formulario.nome.value===""){

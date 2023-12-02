@@ -13,16 +13,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teste de listar Perfil</title>
         <script language="javascript" >
+            function removerAcentos(texto) {
+                return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+    
             function validaForm(){
-                formulario = document.form_alterar_tabela_preco;
-                if(formulario.identificador.value===""){
-                    alert("O campo Identificador deve ser preenchido!");
-                    formulario.identificador.focus();
-                    return false;
-                }
-                if(formulario.descricao.value===""){
+                formulario = document.form_cadastrar_tabela_preco;
+                
+                formulario.nome.value = removerAcentos(formulario.nome.value);
+                
+                
+                if(formulario.nome.value===""){
                     alert("O campo Nome do Serviço deve ser preenchido!");
-                    formulario.descricao.focus();
+                    formulario.nome.focus();
                     return false;
                 }
                 if(formulario.precoVeiculoPequeno.value===""){

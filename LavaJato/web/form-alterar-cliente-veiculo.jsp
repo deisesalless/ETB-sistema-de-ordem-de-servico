@@ -31,50 +31,55 @@
                     <h3> Alterar Cliente & Veiculo </h3>
                     
                     <script language="javascript" >
-                        function validaForm(){
-                            formulario = document.form_alterar_cliente_veiculo;
-                            if(formulario.id_cliente.value===""){
-                                alert("O campo ID do cliente não foi encontrado!");
-                                formulario.id_cliente.focus();
-                                return false;
-                            }
-                            if(formulario.nomeCompleto.value===""){
-                                alert("O campo Nome Completo deve ser preenchido!");
-                                formulario.nomeCompleto.focus();
-                                return false;
-                            }
-                            if(formulario.telefone.value===""){
-                                alert("O campo Telefone deve ser preenchido!");
-                                formulario.telefone.focus();
-                                return false;
-                            }
-                            if(formulario.id_veiculo.value===""){
-                                alert("O campo ID do veículo não foi encontrado!");
-                                formulario.id_veiculo.focus();
-                                return false;
-                            }
-                            if(formulario.placa.value===""){
-                                alert("O campo Placa deve ser preenchido!");
-                                formulario.placa.focus();
-                                return false;
-                            }
-                            if(formulario.cor.value===""){
-                                alert("O campo Cor deve ser preenchido!");
-                                formulario.cor.focus();
-                                return false;
-                            }
-                            if(formulario.marca.value===""){
-                                alert("O campo Marca deve ser preenchido!");
-                                formulario.marca.focus();
-                                return false;
-                            }
-                            if(formulario.modelo.value===""){
-                                alert("O campo Modelo deve ser preenchido!");
-                                formulario.modelo.focus();
-                                return false;
-                            }
-                            return true;
-                        }
+                                function removerAcentos(texto) {
+                                    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                }                                
+
+                                function validaForm(){
+                                    formulario = document.form_cadastrar_cliente_veiculo;
+                                    
+                                    formulario.nomeCompleto.value = removerAcentos(formulario.nomeCompleto.value);
+                                    formulario.placa.value = removerAcentos(formulario.placa.value);
+                                    formulario.cor.value = removerAcentos(formulario.cor.value);
+                                    formulario.marca.value = removerAcentos(formulario.marca.value);
+                                    
+                                    if(formulario.nomeCompleto.value===""){
+                                        alert("O campo Nome deve ser preenchido!");
+                                        formulario.nomeCompleto.focus();
+                                        return false;
+                                    }
+                                    if(formulario.telefone.value===""){
+                                        alert("O campo Telefone deve ser preenchido!");
+                                        formulario.telefone.focus();
+                                        return false;
+                                    }
+                                    if(formulario.dataCadastro.value===""){
+                                        alert("O campo Data deve ser preenchido!");
+                                        formulario.dataCadastro.focus();
+                                        return false;
+                                    }
+                                    if(formulario.placa.value===""){
+                                        alert("O campo Placa deve ser preenchido!");
+                                        formulario.placa.focus();
+                                        return false;
+                                    }
+                                    if(formulario.cor.value===""){
+                                        alert("O campo Cor deve ser preenchido!");
+                                        formulario.cor.focus();
+                                        return false;
+                                    }
+                                    if(formulario.marca.value===""){
+                                        alert("O campo Marca deve ser preenchido!");
+                                        formulario.marca.focus();
+                                        return false;
+                                    }
+                                    if(formulario.id_cliente.value===""){
+                                        alert("O ID do cliente deve ser preenchido!");
+                                        formulario.id_cliente.focus();
+                                        return false;
+                                    }
+                                    return true;
+                                }
                     </script>
                     
                     <form name="form_alterar_cliente_veiculo" action="alterar_cliente_veiculo.do" method="post" onsubmit="return validaForm();">

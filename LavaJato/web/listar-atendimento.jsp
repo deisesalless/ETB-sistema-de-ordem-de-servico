@@ -1,3 +1,5 @@
+<%@page import="java.util.Comparator"%>
+<%@page import="java.util.Collections"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="entidade.TabelaPreco"%>
 <%@page import="entidade.FormaDePagamento"%>
@@ -72,12 +74,18 @@
                                         formaDePagamentoBD.conectar();
                             %>
                             
-                            
-                            
+                                                       
                             <%
                                         List<Atendimento> lista = atendimentoDB.listar();
+                                        // Ordenar a lista de atendimentos por data
+                                        Collections.sort(lista, new Comparator<Atendimento>() {
+                                            @Override
+                                            public int compare(Atendimento a1, Atendimento a2) {
+                                                return a1.getData().compareTo(a2.getData());
+                                            }
+                                        });
                                         for(Atendimento atendimento : lista) {
-                                            if (atendimento.isStatusAtendimento() == true){
+                                            if (atendimento.isStatusAtendimento() == true) {
                                                 
                             %>
                             

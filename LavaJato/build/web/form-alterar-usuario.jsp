@@ -10,8 +10,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teste de listar Perfil</title>
         <script language="javascript" >
+            function removerAcentos(texto) {
+                return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+    
             function validaForm(){
                 formulario = document.form_alterar_usuario;
+                
+                formulario.nomeCompleto.value = removerAcentos(formulario.nomeCompleto.value);
+                formulario.login.value = removerAcentos(formulario.login.value);
+                formulario.senha.value = removerAcentos(formulario.senha.value);
+                
                 if(formulario.nomeCompleto.value===""){
                     alert("O campo NOME COMPLETO deve ser preenchido!");
                     formulario.nomeCompleto.focus();

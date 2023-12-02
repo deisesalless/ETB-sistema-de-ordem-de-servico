@@ -107,5 +107,37 @@ public class AtendimentoDAO extends ConexaoComBancoDeDados {
         }
         return atendimento;
     }
+    
+    
+    public String removerAcentos(String palavra) throws Exception {
+        
+        palavra = palavra.replace("á", "a");
+        palavra = palavra.replace("ã", "a");
+        palavra = palavra.replace("â", "a");
+        palavra = palavra.replace("é", "e");
+        palavra = palavra.replace("ê", "e");
+        palavra = palavra.replace("í", "i");
+        palavra = palavra.replace("ó", "o");
+        palavra = palavra.replace("õ", "o");
+        palavra = palavra.replace("ô", "o");
+        palavra = palavra.replace("ú", "u");
+        palavra = palavra.replace("ç", "c");
+        palavra = palavra.replace("ý", "y");
+        
+        palavra = palavra.replace("Á", "A");
+        palavra = palavra.replace("Ã", "A");
+        palavra = palavra.replace("Â", "A");
+        palavra = palavra.replace("É", "E");
+        palavra = palavra.replace("Ê", "E");
+        palavra = palavra.replace("Í", "I");
+        palavra = palavra.replace("Ó", "O");
+        palavra = palavra.replace("Õ", "O");
+        palavra = palavra.replace("Ô", "O");
+        palavra = palavra.replace("Ú", "U");
+        palavra = palavra.replace("Ç", "C");
+        palavra = palavra.replace("Ý", "Y");
+    
+        return palavra;
+    }
 
 }

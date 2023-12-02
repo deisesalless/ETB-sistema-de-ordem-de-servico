@@ -206,8 +206,16 @@
                         <div class="formulario">
                             <h3>Confirmação do Pedido de Atendimento</h3>
                         <script language="javascript" >
-                            function validaForm(){
+                                function removerAcentos(texto) {
+                                    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                }
+                                
+                                function validaForm(){
                                 formulario = document.form_cadastrar_atendimento;
+                                
+                                // Remover acentuações do campo observacao
+                                 formulario.observacao.value = removerAcentos(formulario.observacao.value);
+                                
                                 if(formulario.observacao.value===""){
                                     alert("O campo OBSERVAÇÃO deve ser preenchido!");
                                     formulario.observacao.focus();

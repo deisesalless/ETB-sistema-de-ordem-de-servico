@@ -13,8 +13,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teste de listar Perfil</title>
         <script language="javascript" >
+            function removerAcentos(texto) {
+                return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+    
             function validaForm(){
-                formulario = document.form_alterar_funcionario;
+                formulario = document.form_cadastrar_funcionario;
+                
+                formulario.nomeCompleto.value = removerAcentos(formulario.nomeCompleto.value);
+                formulario.apelido.value = removerAcentos(formulario.apelido.value);
+                
                 if(formulario.nomeCompleto.value===""){
                     alert("O campo NOME COMPLETO deve ser preenchido!!");
                     formulario.nomeCompleto.focus();
@@ -28,6 +36,11 @@
                 if(formulario.telefone.value===""){
                     alert("O campo TELEFONE deve ser preenchido!!");
                     formulario.telefone.focus();
+                    return false;
+                }
+                if(formulario.dataCadastro.value===""){
+                    alert("O campo DATA deve ser preenchido!!");
+                    formulario.dataCadastro.focus();
                     return false;
                 }
                 if(formulario.id_perfil.value===""){

@@ -12,29 +12,39 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Teste de listar Perfil</title>
         <script language="javascript" >
+            function removerAcentos(texto) {
+                return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            }
+    
             function validaForm(){
                 formulario = document.form_cadastrar_usuario;
-                if(formulario.nomeCompleto.value==""){
+                
+                formulario.nomeCompleto.value = removerAcentos(formulario.nomeCompleto.value);
+                formulario.login.value = removerAcentos(formulario.login.value);
+                formulario.senha.value = removerAcentos(formulario.senha.value);
+                
+                
+                if(formulario.nomeCompleto.value===""){
                     alert("O campo Nome Completo deve ser preenchido!!");
                     formulario.nomeCompleto.focus();
                     return false;
                 }
-                if(formulario.login.value==""){
+                if(formulario.login.value===""){
                     alert("O campo Login deve ser preenchido!!");
                     formulario.login.focus();
                     return false;
                 }
-                if(formulario.senha.value==""){
+                if(formulario.senha.value===""){
                     alert("O campo Senha deve ser preenchido!!");
                     formulario.senha.focus();
                     return false;
                 }
-                if(formulario.dataCadastro.value==""){
+                if(formulario.dataCadastro.value===""){
                     alert("O campo Data deve ser preenchido!!");
                     formulario.dataCadastro.focus();
                     return false;
                 }
-                if(formulario.id_perfil.value==""){
+                if(formulario.id_perfil.value===""){
                     alert("O campo Perfil deve ser preenchido!!");
                     formulario.id_perfil.focus();
                     return false;

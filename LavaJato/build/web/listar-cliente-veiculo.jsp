@@ -140,8 +140,18 @@
                         <div class="formulario">
                             <h3>Cadastrar Cliente & Veiculo</h3>
                             <script>
+                                function removerAcentos(texto) {
+                                    return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                                }                                
+
                                 function validaForm(){
                                     formulario = document.form_cadastrar_cliente_veiculo;
+                                    
+                                    formulario.nomeCompleto.value = removerAcentos(formulario.nomeCompleto.value);
+                                    formulario.placa.value = removerAcentos(formulario.placa.value);
+                                    formulario.cor.value = removerAcentos(formulario.cor.value);
+                                    formulario.marca.value = removerAcentos(formulario.marca.value);
+                                    
                                     if(formulario.nomeCompleto.value===""){
                                         alert("O campo Nome deve ser preenchido!");
                                         formulario.nomeCompleto.focus();
