@@ -1,20 +1,23 @@
-<%@page import="entidade.FormaDePagamento"%>
-<%@page import="persistencia.FormaDePagamentoDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Perfil"%>
 <%@page import="persistencia.PerfilDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.TabelaPreco"%>
+<%@page import="persistencia.TabelaPrecoDAO"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <meta charset="UTF-8">
+        <title>Página Listar Perfil</title>
+        <link rel="stylesheet" href="estilo_layout/perfil.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {
                 return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             }
             
-            // Remover acentuaÃ§Ãµes do campo observacao
+            // Remover acentuações do campo observacao
              formulario.nome.value = removerAcentos(formulario.nome.value);
 
             function validaForm(){
@@ -27,102 +30,96 @@
                 return true;
             }
         </script>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/perfil.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="pagina">
-            
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
-            </div>
-            
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
-            </div>
-            
-            <div id="principal">
-                
-                <div class="conteudo" align="center">
-                    <h3>
-                        Lista de Perfil
-                        <button id="pop-up-cadastrar">
-                            cadastrar
-                        </button>
-                    </h3>
-                    <!-- Tabela para listar os Perfis cadastrados no banco de dados -->
-                    <table width="600" border="1">
-                        <tr bgcolor="#d3d3d3">
-                            <td>ID</td>
-                            <td>Perfil</td>
-                            <td>Alterar</td>
-                            <td>Status</td>
-                            <td>Gerenciar Acesso</td>
-                        </tr>
-                        <%                                            
-                            try {
-                                PerfilDAO perfilDB = new PerfilDAO();
-                                ArrayList<Perfil> lista;
-                                perfilDB.conectar();
-                                lista = perfilDB.listar();
-                                for(Perfil perfil:lista) {
-                        %>
-                        <tr>
-                                    <td><%=perfil.getId_perfil()%></td>
-                                    <td><%=perfil.getNome()%></td>
-                                    <td align="center">
-                                        <a href="form-alterar-perfil.jsp?id=<%=perfil.getId_perfil()%>">
-                                            <button> alterar </button>
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <% if (perfil.isStatus()) { %>
-
-                                            <!-- JÃ¡ que estÃ¡ ativado permite desativar o status -->
-                                            <form action="desativar_perfil.do" method="post">
-                                                <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
-                                                <input type="hidden" name="status" value="true">
-
-                                                <!-- Mostra a imagem de status ativo -->
-                                                <button id="botao-alterar-tema" type="submit" value="Desativar">
-                                                    <img src="./imagens/on.png" alt="imagem-online">
-                                                </button>
-                                            </form>
-
-                                        <% } else { %>
-
-                                            <!-- JÃ¡ que estÃ¡ desativado permite ativar o status -->
-                                            <form action="ativar_perfil.do" method="post">
-                                                <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
-                                                <input type="hidden" name="status" value="true">
-
-                                                <!-- Mostra a imagem de status desativado -->
-                                                <button id="botao-alterar-tema" type="submit" value="ativar">
-                                                    <img src="./imagens/off.png" alt="imagem-offline">
-                                                </button>
-                                            </form>
-                                        <% } %>
-                                    </td>
-                                    
-                                    <td align="center">
-                                        <a href="form-gerenciar-perfil-menu.jsp?id_perfil=<%=perfil.getId_perfil()%>">
-                                            <button> gerenciar </button>
-                                        </a>
-                                    </td>
-                                </tr>
-                        <%
-                                }
-                            perfilDB.desconectar();
-                            } catch (Exception erro) {
-                                out.print(erro);
-                            }
-                        %>
-                    </table>
+        <div class="container">
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
                 </div>
-                
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <!-- Menu da página -->
+                <%@include file="menu.jsp"%>
+            </div>
+            
+            <!-- Seção da tabela -->
+            <div class="table-section">
+                <h1 class="page-title">
+                    Perfil
+                    <button id="pop-up-cadastrar" class="botao-padrao"> cadastrar </button>
+                </h1>
+                <table>
+                    <tr>
+                        <td style="text-align: center; font-weight: bold;">Perfil</td>
+                        <td style="text-align: center; font-weight: bold;">Alterar</td>
+                        <td style="text-align: center; font-weight: bold;">Status</td>
+                        <td style="text-align: center; font-weight: bold;">Gerenciar Acesso</td>
+                    </tr>
+                    
+                    <!-- Dados da tabela -->
+                <%                                            
+                    try {
+                        PerfilDAO perfilDB = new PerfilDAO();
+                        ArrayList<Perfil> lista;
+                        perfilDB.conectar();
+                        lista = perfilDB.listar();
+                        for(Perfil perfil:lista) {
+                %>
+                    <tr>
+                        <!-- Colunas da tabela -->
+                        <td style="text-align: left;"><%=perfil.getNome()%></td>
+
+                        <td style="text-align: center;">
+                            <a href="form-alterar-perfil.jsp?id=<%=perfil.getId_perfil()%>"> <button class="botao-padrao"> alterar </button> </a>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <% if (perfil.isStatus()) { %>
+                                <!-- Já que o status está ativado permite desativar -->
+                                <form action="desativar_perfil.do" method="post">
+                                    <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
+                                    <!-- Mostra a imagem de status ativo -->
+                                    <button id="botao-alterar-tema" type="submit" class="botao-padrao">
+                                        ativado
+                                    </button>
+                                </form>
+
+                            <% } else { %>
+
+                                <!-- Já que o status está desativado permite ativar -->
+                                <form action="ativar_perfil.do" method="post">
+                                    <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
+                                    <!-- Mostra a imagem de status desativado -->
+                                    <button id="botao-alterar-tema" type="submit" class="botao-padrao">
+                                        desativado
+                                    </button>
+                                </form>
+                            <% } %>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <a href="form-gerenciar-perfil-menu.jsp?id_perfil=<%=perfil.getId_perfil()%>"> <button class="botao-padrao"> gerenciar </button> </a>
+                        </td>
+                    </tr>
+                <%
+                        }
+                    perfilDB.desconectar();
+                    } catch (Exception erro) {
+                        out.print(erro);
+                    }
+                %>
+                </table>
                 <div id="pop-up"> 
                     <div class="botao-fechar">&times;</div>
                         <div class="formulario">
@@ -149,7 +146,25 @@
                         });
                     </script>
                 </div>
-            </div>       
+            </div>
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
+                </div>
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>
