@@ -1,3 +1,4 @@
+<%@page import="entidade.Usuario"%>
 <%@page import="entidade.Atendimento"%>
 <%@page import="persistencia.UsuarioDAO"%>
 <%@page import="entidade.Funcionario"%>
@@ -248,11 +249,8 @@
                                 
                                 <% // Mostra o usuario que está logado
                                     try{
-                                        usuario = (Usuario) session.getAttribute("usuario");
-                                        usuario.getPessoa().getId();
-                                    }catch(Exception erro){
-                                        out.print(erro);
-                                    }
+                                        Usuario usuario = (Usuario) session.getAttribute("usuario");
+
                                 %>                                
                                 <label>Usuario:</label>
                                 <%=usuario.getLogin()%>
@@ -288,6 +286,10 @@
                                 <br>
                                 <label> Forma de Pagamento: </label> <br>
                                 <%
+                                    }catch(Exception erro){
+                                        out.print(erro);
+                                    }
+
                                     for(FormaDePagamento pagamento : list) {
                                         if (pagamento.getServicoPreco().isStatus()) {
 

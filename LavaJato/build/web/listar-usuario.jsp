@@ -1,3 +1,4 @@
+<%@page import="entidade.Usuario"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>

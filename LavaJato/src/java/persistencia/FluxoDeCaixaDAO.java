@@ -2,7 +2,6 @@
 package persistencia;
 
 import entidade.FluxoDeCaixa;
-import entidade.Menu;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;

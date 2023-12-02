@@ -1,3 +1,4 @@
+<%@page import="entidade.Usuario"%>
 <%@page import="java.util.Comparator"%>
 <%@page import="java.util.Collections"%>
 <%@page import="java.text.DecimalFormat"%>

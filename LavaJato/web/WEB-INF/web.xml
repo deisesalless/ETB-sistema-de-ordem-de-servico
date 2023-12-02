@@ -132,6 +132,10 @@
         <servlet-name>ExcluirSaidaCaixa</servlet-name>
         <servlet-class>controller.ExcluirSaidaCaixa</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GerarRelatorioEntradaDeValores</servlet-name>
+        <servlet-class>controller.GerarRelatorioEntradaDeValores</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -263,6 +267,10 @@
     <servlet-mapping>
         <servlet-name>ExcluirSaidaCaixa</servlet-name>
         <url-pattern>/excluir-saida-caixa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GerarRelatorioEntradaDeValores</servlet-name>
+        <url-pattern>/gerar-relatorio-entrada-valores.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

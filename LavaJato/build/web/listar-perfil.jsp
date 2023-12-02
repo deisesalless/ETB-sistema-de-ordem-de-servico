@@ -57,7 +57,7 @@
             <div class="table-section">
                 <h1 class="page-title">
                     Perfil
-                    <button id="pop-up-cadastrar" class="botao-padrao"> cadastrar </button>
+                    <button id="pop-up-cadastrar" class="botao-padrao"> + Novo </button>
                 </h1>
                 <table>
                     <tr>

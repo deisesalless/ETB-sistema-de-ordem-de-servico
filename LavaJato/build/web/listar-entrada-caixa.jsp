@@ -64,13 +64,10 @@
             atendimentoDB.conectar();
             formaPagamentoDB.conectar();
             tabelaPrecoDB.conectar();
-            
-            
-            
-            
+
             List<Atendimento> lista = atendimentoDB.listar();
             for(Atendimento atendimento : lista) {
-                if (atendimento.isStatusAtendimento() == false){
+                if (atendimento.isStatusAtendimento() == false) {
 %>
                         <tr>
                             <td align="center">
