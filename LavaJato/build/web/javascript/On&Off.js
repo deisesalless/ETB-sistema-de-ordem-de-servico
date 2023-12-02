@@ -5,7 +5,7 @@ const body = document.querySelector("body");
 const imagem_tema = document.querySelector(".imagem-botao");
 
 
-botao_tema.addEventListener("click",() => {
+botao_tema.addEventListener("click", () => {
 
     const modo_ativado = body.classList.contains("modo-online");
 

@@ -40,6 +40,7 @@
                     <a href="listar-tabela-preco.jsp"> Tabela de Preços </a> |
                     <a href="listar-cliente-veiculo.jsp"> Cliente & Veiculo </a> |
                     <a href="listar-atendimento.jsp"> Listar Atendimentos </a> |
+                    <a href="listar-fluxo-caixa.jsp"> Fluxo de Caixa </a> |
                 <td>
             </tr>
         </table>

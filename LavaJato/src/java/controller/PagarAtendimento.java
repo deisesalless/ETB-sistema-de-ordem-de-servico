@@ -28,13 +28,11 @@ public class PagarAtendimento extends HttpServlet {
             
             // Recebe as informações
             int id = Integer.parseInt(request.getParameter("id"));
-            boolean statusPagamento = Boolean.parseBoolean(request.getParameter("statusPagamento"));
             
                 try {
                     
                     Atendimento atendimento = new Atendimento();
                     atendimento.setId(id);
-                    atendimento.setStatusPagamento(statusPagamento);
                     
                     AtendimentoDAO atendimentoBD = new AtendimentoDAO();
                     atendimentoBD.conectar();

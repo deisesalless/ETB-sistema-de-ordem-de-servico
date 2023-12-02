@@ -116,6 +116,22 @@
         <servlet-name>ExcluirMenu</servlet-name>
         <servlet-class>controller.ExcluirMenu</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NaoPagarAtendimento</servlet-name>
+        <servlet-class>controller.NaoPagarAtendimento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PagarAtendimento</servlet-name>
+        <servlet-class>controller.PagarAtendimento</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CadastrarSaidaFluxoDeCaixa</servlet-name>
+        <servlet-class>controller.CadastrarSaidaFluxoDeCaixa</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExcluirSaidaCaixa</servlet-name>
+        <servlet-class>controller.ExcluirSaidaCaixa</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -231,6 +247,22 @@
     <servlet-mapping>
         <servlet-name>ExcluirMenu</servlet-name>
         <url-pattern>/excluir-menu.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NaoPagarAtendimento</servlet-name>
+        <url-pattern>/nao_pagar_atendimento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PagarAtendimento</servlet-name>
+        <url-pattern>/pagar_atendimento.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CadastrarSaidaFluxoDeCaixa</servlet-name>
+        <url-pattern>/cadastrar_valor_saida.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirSaidaCaixa</servlet-name>
+        <url-pattern>/excluir-saida-caixa.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

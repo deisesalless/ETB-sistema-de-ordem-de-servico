@@ -30,7 +30,6 @@
         <link rel="stylesheet" type="text/css" href="estilo/banner.css">
         <link rel="stylesheet" type="text/css" href="estilo/menu.css">
         <link rel="stylesheet" type="text/css" href="estilo/cliente-veiculo.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
@@ -197,30 +196,29 @@
                                     
                                     <tr>        
                                         <td>
-                                            
+                                            <script src="javascript/PagoEmAberto.js"></script>
+                                        
                                         <% if (atendimento.isStatusPagamento()) { %>
 
-                                            <!-- Já que está ativado permite desativar o status -->
-                                            <form action="nao_pagar_atendimento.do" method="post">
+                                            <!-- Se o cliente estiver em aberto, status true, deverá pagar e ficar false -->
+                                            <form action="pagar_atendimento.do" method="post">
                                                 <input type="hidden" name="id" value="<%=atendimento.getId()%>">
-                                                <input type="hidden" name="statusPagamento" value="true">
 
                                                 <!-- Mostra a imagem de status ativo -->
-                                                <button id="botao-alterar-tema" type="submit" value="Desativar">
+                                                <button id="botao-alterar-tema" type="submit" value="desativar">
                                                     Em Aberto
                                                 </button>
                                             </form>
 
                                         <% } else { %>
 
-                                            <!-- Já que está desativado permite ativar o status -->
-                                            <form action="pagar_atendimento.do" method="post">
+                                            <!-- Se o cliente estiver pago, status false, deverá ficar em aberto e ficar true -->
+                                            <form action="nao_pagar_atendimento.do" method="post">
                                                 <input type="hidden" name="id" value="<%=atendimento.getId()%>">
-                                                <input type="hidden" name="statusPagamento" value="true">
 
                                                 <!-- Mostra a imagem de status desativado -->
                                                 <button id="botao-alterar-tema" type="submit" value="ativar">
-                                                    PAGO
+                                                    Pago
                                                 </button>
                                             </form>
                                         <% } %>
