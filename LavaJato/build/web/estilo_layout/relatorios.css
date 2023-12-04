@@ -1,0 +1,41 @@
+.page-title {
+    text-align: center;
+    font-size: 25px;
+    font-family: Exo;
+}
+
+.table-section {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-top: 0px;
+    font-family: Exo;
+}
+
+table {
+    width: 100%;
+    font-family: Exo;
+}
+
+tr {
+    text-align: center; /* Centraliza o conteúdo da linha */
+    font-family: Exo;
+}
+
+td {
+    padding: 8px;
+    font-family: Exo;
+}
+
+.botao-relatorio {
+    cursor: pointer;
+    padding: 10px; /* Ajusta o espaçamento interno do botão */
+    border-radius: 5px; /* Arredonda as bordas do botão */
+    font-family: Exo;
+    font-size: 15px;
+}
+
+.botao-relatorio a {
+    text-decoration: none; /* Remove sublinhado */
+    color: inherit; /* Usa a cor padrão do pai */
+}

@@ -1,0 +1,85 @@
+/* Layout do cabeçalho e página */   
+body {
+    margin: 0;
+    font-family: Exo;
+    background-color: #f4f4f4; /* Cor de fundo para lembrar limpeza */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.container {
+    width: 100%; /* Ajusta a largura da container */
+    max-width: 1200px; /* Define a largura máxima */
+    padding: 20px;
+    border: 2px solid #ccc; /* Adiciona uma borda */
+    border-radius: 10px;
+    box-sizing: border-box; /* Mantém a largura total com as bordas */
+    background-color: #fff; /* Cor de fundo */
+}
+
+.top-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #4169E1; /* Cor de fundo para lembrar limpeza */
+}
+
+.logo {
+    width: 100%;
+    max-width: 100px; /* Ajuste o tamanho máximo da logo conforme necessário */
+    display: block;
+    margin: 0 auto;
+}
+
+.title {
+    color: #fff; /* Cor amarelo ouro */
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* Estilização do botão de sair */
+.logout-button {
+    /* Aumenta o tamanho do botão e arredonda as bordas */
+    padding: 5px 10px; /* Ajusta o espaçamento interno do botão */
+    border-radius: 10px; /* Arredonda as bordas do botão */
+    font-weight: bold; /* Texto em negrito */
+    color: black; /* Cor do texto branca */
+    cursor: pointer;
+    font-family: Exo;
+}
+
+.botao-padrao {
+    cursor: pointer;
+    padding: 5px 10px; /* Ajusta o espaçamento interno do botão */
+    border-radius: 5px; /* Arredonda as bordas do botão */
+    font-family: Exo;
+}
+
+/* Aqui é a estilização do rodapé*/
+.info-section {
+    padding: 20px;
+    background-color: #4169E1; /* Cor de fundo para lembrar limpeza */
+}
+
+.info-item label, span {
+    color: #fff; /* Altera a cor do texto para branco */
+    font-weight: bold; /* Deixa o texto em negrito */
+    font-family: Exo;
+}
+
+.info-item {
+    align-items: center;
+    display: flex;
+}
+
+.info-item label {
+    margin-right: 10px;
+}
+
+.info-item img {
+    width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
+}

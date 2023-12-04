@@ -1,203 +1,30 @@
-    .page-title {
-        text-align: center;
-        font-size: 25px;
-        font-family: Exo;
-    }
-    
-    body {
-        margin: 0;
-        font-family: Exo;
-        background-color: #f4f4f4; /* Cor de fundo para lembrar limpeza */
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 30px;
-        margin-bottom: 30px;
-    }
+.page-title {
+    text-align: center;
+    font-size: 25px;
+    font-family: Exo;
+}
 
-    .container {
-        width: 100%; /* Ajusta a largura da container */
-        max-width: 1200px; /* Define a largura máxima */
-        padding: 20px;
-        border: 2px solid #ccc; /* Adiciona uma borda */
-        border-radius: 10px;
-        box-sizing: border-box; /* Mantém a largura total com as bordas */
-        background-color: #fff; /* Cor de fundo */
-    }
+.table-section {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-top: 0px;
+    font-family: Exo;
+}
 
-    .top-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background-color: #4169E1; /* Cor de fundo para lembrar limpeza */
-    }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Exo;
+}
 
-    .logo {
-        width: 100%;
-        max-width: 100px; /* Ajuste o tamanho máximo da logo conforme necessário */
-        display: block;
-        margin: 0 auto;
-    }
+tr {
+    text-align: center; /* Centraliza o conteúdo da linha */
+    font-family: Exo;
+}
 
-    .title {
-        color: #fff; /* Cor amarelo ouro */
-        font-size: 30px;
-        font-weight: bold;
-    }
-
-    .menu-section {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-    }
-
-    .menu-item {
-        margin-right: 20px;
-        color: #333; /* Cor do texto */
-    }
-
-    .table-section {
-        padding-left: 20px;
-        padding-right: 20px;
-        padding-bottom: 30px;
-        padding-top: 0px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    
-    tr {
-        text-align: center; /* Centraliza o conteúdo da linha */
-    }
-
-    td {
-        border: 1px solid #ccc;
-        padding: 8px;
-    }
-
-    .info-section {
-        padding: 20px;
-        background-color: #4169E1; /* Cor de fundo para lembrar limpeza */
-    }
-
-    .info-item label, span {
-        color: #fff; /* Altera a cor do texto para branco */
-        font-weight: bold; /* Deixa o texto em negrito */
-    }
-
-    .info-item {
-        align-items: center;
-        display: flex;
-    }
-
-    .info-item label {
-        margin-right: 10px;
-    }
-
-    .info-item img {
-        width: 50px; /* Ajuste o tamanho da imagem conforme necessário */
-    }
-
-    .logout-button {
-        /* Aumenta o tamanho do botão e arredonda as bordas */
-        padding: 5px 10px; /* Ajusta o espaçamento interno do botão */
-        border-radius: 10px; /* Arredonda as bordas do botão */
-        font-weight: bold; /* Texto em negrito */
-        color: black; /* Cor do texto branca */
-        cursor: pointer;
-    }
-    
-    .botao-padrao {
-        cursor: pointer;
-        padding: 5px 10px; /* Ajusta o espaçamento interno do botão */
-        border-radius: 5px; /* Arredonda as bordas do botão */
-    }
-
-    /* daqui para baixo ficou muito bom design POP-UP*/
-    #pop-up {
-        position: fixed;
-        top: -125%;
-        left: 50%;
-        opacity: 0;
-        transform: translate(-50%,50%) scale(1.25);
-        width: 380px;
-        max-width: 90%;
-        padding: 20px 40px;
-        box-shadow: 2px 2px 5px 5px rgba(0,0,0,0.15);
-        border-radius: 10px;
-        background-color: #fff;
-        z-index: 10;
-        transition: top 0ms ease-in-out 200ms, opacity 200ms ease-in-out 0ms, transform 200ms ease-in-out 0ms;
-    }
-
-    #overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 9;
-        display: none;
-    }
-
-    #pop-up.ativo {
-        top: 25%;
-        opacity: 1;
-        transform: translate(-50%,50%) scale(1);
-        transition: top 0ms ease-in-out 0ms, opacity 200ms ease-in-out 0ms, transform 200ms ease-in-out 0ms;
-        z-index: 11;
-    }
-
-    #pop-up .botao-fechar {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 15px;
-        height: 15px;
-        background: #888;
-        color: #eee;
-        text-align: center;
-        line-height: 15px;
-        border-radius: 15px;
-        cursor: pointer;
-    }
-
-    #pop-up .formulario h3 {
-        text-align: center;
-        margin: 10px 0px 20px;
-    }
-
-    #pop-up .formulario {
-        margin: 15px 0px;
-    }
-
-    #pop-up .formulario input {
-        margin-top: 5px;
-        display: block;
-        width: 100%;
-        padding: 8px;
-        outline: none;
-        border: 1px solid;
-        border-radius: 5px;
-    }
-
-    #pop-up .botao-salvar {
-        margin-top: 20px;
-        width: 50%;
-        height: 30px;
-        cursor: pointer;
-        outline: none;
-    }
-
-    #pop-up .botao-salvar-formulario {
-        text-align: center;
-    }
-
-    #pop-up-cadastrar {
-        cursor: pointer;
-    }
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-family: Exo;
+}

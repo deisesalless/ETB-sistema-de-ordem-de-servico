@@ -1,0 +1,46 @@
+/* estilo do conteudo da página */
+.main-content {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-top: 0px;
+}
+
+.page-title {
+    text-align: center;
+    font-size: 25px;
+    font-family: Exo;
+}
+
+.botao-padrao {
+    cursor: pointer;
+    padding: 5px 10px; /* Ajusta o espaçamento interno do botão */
+    border-radius: 5px; /* Arredonda as bordas do botão */
+    font-family: Exo;
+}
+
+/*Estilo para duas divs lado a lado*/
+.box {
+    display: flex;
+}
+
+.side1, .side2 {
+    flex: 1;
+    padding: 10px;
+}
+
+/* Estilo da tabela do conteudo */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Exo;
+}
+
+tr {
+    text-align: center; /* Centraliza o conteúdo da linha */
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}

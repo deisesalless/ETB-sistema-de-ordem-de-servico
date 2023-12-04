@@ -40,7 +40,7 @@
             </div>
         
             <div class="menu-item">
-                <a href="listar-atendimento.jsp"> Listar Atendimentos </a>
+                <a href="listar-atendimento.jsp"> Atendimentos </a>
             </div>
         
             <div class="menu-item">
@@ -49,6 +49,10 @@
         
             <div class="menu-item">
                 <a href="listar-relatorios.jsp"> Relatórios </a>
+            </div>
+        
+            <div class="menu-item">
+                <a href="teste.jsp"> teste </a>
             </div>
     </body>
 </html>

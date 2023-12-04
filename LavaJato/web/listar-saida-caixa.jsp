@@ -108,7 +108,7 @@
                             </td>
                             
                             <td align="center">
-                                <a href="excluir-saida-caixa.do?id=<%=fluxoDeCaixa.getId()%>">
+                                <a href="excluir_saida_caixa.do?id=<%=fluxoDeCaixa.getId()%>">
                                     <button> excluir </button>
                                 </a>
                             </td>

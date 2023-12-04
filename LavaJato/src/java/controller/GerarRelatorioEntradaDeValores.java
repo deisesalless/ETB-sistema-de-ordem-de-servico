@@ -28,9 +28,7 @@ public class GerarRelatorioEntradaDeValores extends HttpServlet{
             try {
                 RelatorioDAO relatorioDB = new RelatorioDAO();                
                 relatorioDB.conectar();
-                relatorioDB.abrir();
                 relatorioDB.gerarRelatorioEntradaFluxoDeCaixa();
-                relatorioDB.imprimir();
                 relatorioDB.desconectar();
 
                 out.print("<script language='javascript'>");

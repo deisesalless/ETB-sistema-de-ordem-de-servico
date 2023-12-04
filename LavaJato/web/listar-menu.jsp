@@ -1,17 +1,27 @@
-<%@page import="java.util.List"%>
 <%@page import="entidade.Menu"%>
+<%@page import="java.util.List"%>
 <%@page import="persistencia.MenuDAO"%>
-<%@page import="entidade.FormaDePagamento"%>
-<%@page import="persistencia.FormaDePagamentoDAO"%>
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.DateFormat"%>
+<%@page import="java.util.Date"%>
+<%@page import="entidade.Usuario"%>
+<%@page import="persistencia.UsuarioDAO"%>
 <%@page import="entidade.Perfil"%>
 <%@page import="persistencia.PerfilDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.TabelaPreco"%>
+<%@page import="persistencia.TabelaPrecoDAO"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <meta charset="UTF-8">
+        <title>Página Listar Usuario</title>
+        <link rel="stylesheet" href="estilo_layout/pop-up-menu.css">
+        <link rel="stylesheet" href="estilo_layout/perfil.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
+        <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {
                 return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -36,72 +46,83 @@
                 return true;
             }
         </script>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/listar-menu.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="pagina">
-            
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
-            </div>
-            
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
-            </div>
-            
-            <div id="principal">
-                
-                <div class="conteudo" align="center">
-                    <h3>
-                        Lista de Menu
-                        <button id="pop-up-cadastrar">
-                            cadastrar
-                        </button>
-                    </h3>
-                    <table width="800" border="1">
-                        <tr bgcolor="#d3d3d3">
-                            <td>ID</td>
-                            <td>Menu</td>
-                            <td>Link</td>
-                            <td>Alterar</td>
-                            <td>Excluir</td>
-                        </tr>
-                        <%                                            
-                            try {
-                                MenuDAO mDB = new MenuDAO();
-                                mDB.conectar();
-                                List<Menu> lista = mDB.listar();
-                                for(Menu m:lista) {
-                        %>
-                        <tr>
-                            <td align="center"><%=m.getId_menu()%></td>
-                            <td><%=m.getMenu() %></td>
-                            <td><%=m.getLink() %></td>
-                            <td align="center">
-                                <a href="form-alterar-menu.jsp?id_menu=<%=m.getId_menu()%>">
-                                    <button> alterar </button>
-                                </a>
-                            </td>
-                            <td align="center">
-                                <a href="excluir-menu.do?id_menu=<%=m.getId_menu()%>">
-                                    <button> excluir </button>
-                                </a>
-                            </td>
-                        </tr>
-                        <%
-                                }
-                                mDB.desconectar();
-                            } catch (Exception erro) {
-                                out.print("NÃ£o possui nenhum Menu cadastrado. Mensagem: " + erro);
-                            }
-                        %>
-                    </table>
+        <div class="container">
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
                 </div>
-                
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <!-- Menu da página -->
+                <%@include file="menu.jsp"%>
+            </div>
+            
+            <!-- Seção da tabela -->
+            <div class="table-section">
+                <h1 class="page-title">
+                    Menu
+                    <button id="pop-up-cadastrar" class="botao-padrao"> + Novo </button>
+                </h1>
+
+                <table>
+                    <tr>
+                        <td style="text-align: center; font-weight: bold;">Menu</td>
+                        <td style="text-align: center; font-weight: bold;">Link</td>
+                        <td style="text-align: center; font-weight: bold;">Alterar</td>
+                        <td style="text-align: center; font-weight: bold;">Excluir</td>
+                    </tr>
+
+                    <!-- Dados da tabela -->
+                <%                                            
+                    try {
+                        MenuDAO mDB = new MenuDAO();
+                        mDB.conectar();
+                        List<Menu> lista = mDB.listar();
+                        for(Menu m:lista) {
+                %>
+                    <tr>
+                        <!-- Colunas da tabela -->
+                        <td style="text-align: left;">
+                            <%=m.getMenu() %>
+                        </td>
+                        
+                        <td style="text-align: left;">
+                            <%=m.getLink() %>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <a href="form-alterar-menu.jsp?id_menu=<%=m.getId_menu()%>">
+                                <button class="botao-padrao"> alterar </button>
+                            </a>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <a href="excluir_menu.do?id_menu=<%=m.getId_menu()%>">
+                                <button class="botao-padrao"> excluir </button>
+                            </a>
+                        </td>
+                    </tr>
+                <%
+                        }
+                        mDB.desconectar();
+                    } catch (Exception erro) {
+                        out.print(erro);
+                    }
+                %>
+                </table>
+            </div>
                 <div id="pop-up"> 
                     <div class="botao-fechar">&times;</div>
                         <div class="formulario">
@@ -130,7 +151,24 @@
                         });
                     </script>
                 </div>
-            </div>       
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
+                </div>
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>

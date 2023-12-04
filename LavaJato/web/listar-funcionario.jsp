@@ -3,16 +3,24 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.DateFormat"%>
 <%@page import="java.util.Date"%>
+<%@page import="entidade.Usuario"%>
 <%@page import="persistencia.UsuarioDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Perfil"%>
 <%@page import="persistencia.PerfilDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.TabelaPreco"%>
+<%@page import="persistencia.TabelaPrecoDAO"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <meta charset="UTF-8">
+        <title>Página Listar Funcionário</title>
+        <link rel="stylesheet" href="estilo_layout/pop-up-usuario.css">
+        <link rel="stylesheet" href="estilo_layout/perfil.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
+        <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {
                 return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -52,187 +60,204 @@
                 return true;
             }
         </script>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/funcionario.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="pagina">
-            
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
+        <div class="container">
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
+                </div>
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
+
+            <div class="menu-section">
+                <!-- Menu da página -->
+                <%@include file="menu.jsp"%>
             </div>
             
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
+            <!-- Seção da tabela -->
+            <div class="table-section">
+                <h1 class="page-title">
+                    Funcionários
+                    <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
+                </h1>
+
+                <table>
+                    <tr>
+                        <td style="text-align: center; font-weight: bold;">Nome Completo</td>
+                        <td style="text-align: center; font-weight: bold;">Apelido</td>
+                        <td style="text-align: center; font-weight: bold;">Telefone</td>
+                        <td style="text-align: center; font-weight: bold;">Perfil</td>
+                        <td style="text-align: center; font-weight: bold;">Cadastro</td>
+                        <td style="text-align: center; font-weight: bold;">Status</td>
+                    </tr>
+
+                    <!-- Dados da tabela -->
+                <%                                            
+                    try {
+                        FuncionarioDAO funcionarioDB = new FuncionarioDAO();
+                        ArrayList<Funcionario> lista;
+                        funcionarioDB.conectar();
+                        lista = funcionarioDB.listar();
+                        for(Funcionario func:lista) {
+                %>
+                    <tr>
+                        <!-- Colunas da tabela -->
+                        <td style="text-align: left;"><%=func.getPessoa().getNomeCompleto()%></td>
+                        <td style="text-align: center;"><%=func.getApelido()%></td>
+                        <td style="text-align: center;"><%=func.getTelefone()%></td>
+
+                        <td style="text-align: center;">
+                            <%
+                                // Atributo local, pega o Id do perfil do usuario
+                                int id = func.getPerfil().getId_perfil();
+                                // Instancia um objeto e faz conectar ao banco de dados
+                                try {
+                                    PerfilDAO perfilBD = new PerfilDAO();
+                                    perfilBD.conectar();
+                                    Perfil perf = perfilBD.pesquisarPorId(id);
+                                    perfilBD.desconectar();
+                             %>        
+                                    <%=perf.getNome()%>
+                            <%
+                                } catch (Exception erro) {
+                                     out.print(erro);
+                                }
+                            %>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <a href="form-alterar-funcionario.jsp?id=<%=func.getPessoa().getId()%>"> <button class="botao-padrao"> alterar </button> </a>
+                        </td>
+
+                        <td style="text-align: center;">
+                            <% if (func.getPessoa().isStatus()) { %>
+                                <!-- Já que está ativado permite desativar o status -->
+                                <form action="desativar_funcionario.do" method="post">
+                                    <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
+                                    <!-- Mostra o status ativo -->
+                                    <button id="botao-alterar-tema" type="submit" class="botao-padrao">
+                                        ativado
+                                    </button>
+                                </form>
+
+                            <% } else { %>
+
+                                <!-- Já que o status está desativado permite ativar -->
+                                <form action="ativar_funcionario.do" method="post">
+                                    <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
+                                    <!-- Mostra o status desativado -->
+                                    <button id="botao-alterar-tema" type="submit" class="botao-padrao">
+                                        desativado
+                                    </button>
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                <%
+                        }
+                    funcionarioDB.desconectar();
+                    } catch (Exception erro) {
+                        out.print(erro);
+                    }
+                %>
+                </table>
             </div>
-            
-            <div id="principal">
-                
-                <div class="conteudo" align="center" width="800">
-                    <h3>
-                        Lista de Funcionario
-                        <button id="mostrar-pop-up">+ Novo</button>
-                    </h3>
-                    <!-- Tabela para listar os Usuarios cadastrados no banco de dados -->
-                    <table width="800" border="1">
-                        <tr bgcolor="#d3d3d3">
-                            <td>ID</td>
-                            <td>Nome Completo</td>
-                            <td>Apelido</td>
-                            <td>Telefone</td>
-                            <td>Perfil</td>
-                            <td>Cadastro</td>
-                            <td>Status</td>
-                        </tr>
-                        <%                                            
-                            try {
-                                FuncionarioDAO funcionarioDB = new FuncionarioDAO();
-                                ArrayList<Funcionario> lista;
-                                funcionarioDB.conectar();
-                                lista = funcionarioDB.listar();
-                                for(Funcionario func:lista) {
-                        %>
-                                <tr>
-                                    <td><%=func.getPessoa().getId()%></td>
-                                    <td><%=func.getPessoa().getNomeCompleto()%></td>
-                                    <td><%=func.getApelido()%></td>
-                                    <td><%=func.getTelefone()%></td>
-                                    <td>
-                                        <%
-                                            // Atributo local, pega o Id do perfil do usuario
-                                            int id = func.getPerfil().getId_perfil();
-                                            // Instancia um objeto e faz conectar ao banco de dados
-                                            try {
-                                                PerfilDAO perfilBD = new PerfilDAO();
-                                                perfilBD.conectar();
-                                                Perfil perf = perfilBD.pesquisarPorId(id);
-                                                perfilBD.desconectar();
-                                         %>        
-                                                <%=perf.getNome()%>
-                                        <%
-                                            } catch (Exception erro) {
-                                                 out.print(erro);
-                                            }
-                                        %>
-                                    </td>
-                                    <td align="center">
-                                        <a href="form-alterar-funcionario.jsp?id=<%=func.getPessoa().getId()%>">
-                                            <button>
-                                                alterar
-                                            </button>
-                                        </a>
-                                    </td>
-                                    <td align="center">
-                                        <% if (func.getPessoa().isStatus()) { %>
-                                            <!-- JÃ¡ que estÃ¡ ativado permite desativar o status -->
-                                            <form action="desativar_funcionario.do" method="post">
-                                                <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
-                                                <input type="hidden" name="status" value="true">
+            <div id="pop-up"> 
+                <div class="botao-fechar">&times;</div>
+                    <div class="formulario">
+                        <h3>Cadastrar Funcionario</h3>
+                        <form name="form_cadastrar_funcionario" action="cadastrar_funcionario.do" method="post" onsubmit="return validaForm();">
 
-                                                <!-- Mostra a imagem de status ativo -->
-                                                <button id="botao-alterar-tema" type="submit" value="Desativar">
-                                                    <img src="./imagens/on.png" alt="imagem-online">
-                                                </button>
-                                             </form>
-                                        <% } else { %>
-                                            <!-- JÃ¡ que estÃ¡ deativado permite ativar o status -->
-                                            <form action="ativar_funcionario.do" method="post">
-                                                <input type="hidden" name="id" value="<%=func.getPessoa().getId()%>">
-                                                <input type="hidden" name="status" value="true">
+                            <%
+                                Date hoje = new Date();
+                                DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
+                                String dataCadastro = dataFormatada.format(hoje);
+                            %>
+                            <input type="hidden" name="dataCadastro" value="<%=dataCadastro%>"><br>
 
-                                                <!-- Mostra a imagem de status desativado -->
-                                                <button id="botao-alterar-tema" type="submit" value="Ativar">
-                                                    <img src="./imagens/off.png" alt="imagem-offline">
-                                                </button>
-                                             </form>
-                                        <% } %>
-                                    </td>
-                                </tr>	
-                                </tr>
+                            <label>Nome Completo:</label>
+                            <input type="text" name="nomeCompleto" placeholder="Digite o nome completo" size="30">
+
+                            <label>Apelido:</label>
+                            <input type="text" name="apelido" placeholder="Digite o apelido" size="30">
+
+                            <label>Senha:</label>
+                            <input type="password" name="senha" placeholder="Digite a senha" size="30">
+                            
+                            <label>Telefone:</label>
+                            <input type="text" name="telefone" placeholder="Digite o telefone" size="30">
+
+                            <label>Perfil:</label>
+                            <select name="id_perfil" class="select">
+                                <option value="" selected>Escolha um Perfil</option>
                                 <%
-                                        }
-                                        funcionarioDB.desconectar();
+                                    try {
+                                        PerfilDAO pDB = new PerfilDAO();
+                                        ArrayList<Perfil> lista;
+                                        pDB.conectar();
+                                        lista = pDB.listar();
+
+                                        // Lista os perfis
+                                        for(Perfil perfill:lista){
+                                            // Se o perfil tiver ativo pode ser utilizado
+                                            if (perfill.isStatus()) {
+                                %>
+                                <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
+                                <%          }
+                                    } 
+                                        pDB.desconectar();
                                     } catch (Exception erro) {
                                         out.print(erro);
                                     }
                                 %>
-                    </table>
-                </div>
-                
-                <div id="pop-up"> 
-                    <div class="botao-fechar">&times;</div>
-                        <div class="formulario">
-                            <h3>Cadastrar Funcionario</h3>
-                            <form name="form_cadastrar_funcionario" action="cadastrar_funcionario.do" method="post" onsubmit="return validaForm();">
-                                
-                                <label>Data do cadastro:</label>
-                                <%
-                                    Date hoje = new Date();
-                                    DateFormat dataFormatada = new SimpleDateFormat("dd/MM/yyyy");
-                                    String dataCadastro = dataFormatada.format(hoje);
-                                %>
-                                <%=dataCadastro%>
-                                <input type="hidden" name="dataCadastro" value="<%=dataCadastro%>"><br>
-                                
-                                <label>Nome Completo:</label>
-                                <input type="text" name="nomeCompleto" placeholder="Digite o nome completo" size="30">
-                                
-                                <label>Apelido:</label>
-                                <input type="text" name="apelido" placeholder="Digite o apelido" size="30">
-                                
-                                <label>Telefone:</label>
-                                <input type="text" name="telefone" placeholder="Digite o telefone" size="30">
-                                                                
-                                <label>Perfil:</label>
-                                <select name="id_perfil">
-                                    <option value="" selected>Escolha um Perfil</option>
-                                    <!-- Cria um objeto, e um atributo lista para conectar com o 
-                                    // banco de dados e trazer a lista de nomes do perfil -->
-                                    <%
-                                        try {
-                                            PerfilDAO pDB = new PerfilDAO();
-                                            ArrayList<Perfil> lista;
-                                            pDB.conectar();
-                                            lista = pDB.listar();
+                            </select>
 
-                                            // Lista os perfis
-                                            for(Perfil perfill:lista){
-                                                // Se o perfil tiver ativo pode ser utilizado
-                                                if (perfill.isStatus()) {
-                                    %>
-                                    <option value="<%=perfill.getId_perfil()%>"><%=perfill.getNome()%></option>
-                                    <%          }
-                                        } 
-                                            pDB.desconectar();
-                                        } catch (Exception erro) {
-                                            out.print(erro);
-                                        }
-                                    %>
-                                </select>
-                                
-                                <div class="botao-salvar-formulario">
-                                    <button type="submit" value="Salvar" class="botao-salvar">Salvar</button>
-                                </div>
-                            </form> 
-                        </div>
-                    <script>
-                        // Comando para mostrar o Pop-up utilizando JavaScript
-                        document.querySelector("#mostrar-pop-up").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.add("ativo");
-                            document.querySelector("#overlay").style.display = "block";
-                        });
+                            <div class="botao-salvar-formulario">
+                                <button type="submit" value="Salvar" class="botao-salvar">Salvar</button>
+                            </div>
+                        </form> 
+                    </div>
+                <script>
+                    // Comando para mostrar o Pop-up utilizando JavaScript
+                    document.querySelector("#mostrar-pop-up").addEventListener("click", function() {
+                        document.querySelector("#pop-up").classList.add("ativo");
+                        document.querySelector("#overlay").style.display = "block";
+                    });
 
-                        // Comando para fechar o Pop-up utilizando JavaScript
-                        document.querySelector("#pop-up .botao-fechar").addEventListener("click", function() {
-                            document.querySelector("#pop-up").classList.remove("ativo");
-                             document.querySelector("#overlay").style.display = "none";
-                        });
-                    </script>
+                    // Comando para fechar o Pop-up utilizando JavaScript
+                    document.querySelector("#pop-up .botao-fechar").addEventListener("click", function() {
+                        document.querySelector("#pop-up").classList.remove("ativo");
+                         document.querySelector("#overlay").style.display = "none";
+                    });
+                </script>
+            </div>
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
                 </div>
-            </div>       
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>

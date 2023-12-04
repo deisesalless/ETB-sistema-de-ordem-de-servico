@@ -9,8 +9,10 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Perfil</title>
+        <link rel="stylesheet" href="estilo_layout/pop-up-perfil.css">
         <link rel="stylesheet" href="estilo_layout/perfil.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
         <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {

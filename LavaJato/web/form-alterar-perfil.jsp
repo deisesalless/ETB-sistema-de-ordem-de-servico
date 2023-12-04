@@ -1,25 +1,25 @@
-<%@page import="java.util.List"%>
-<%@page import="entidade.FormaDePagamento"%>
-<%@page import="persistencia.FormaDePagamentoDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Perfil"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="persistencia.PerfilDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <meta charset="UTF-8">
+        <title>Alterar Perfil</title>
+        <link rel="stylesheet" href="estilo_layout/alterar-perfil.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
+        <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {
                 return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
             }
-    
+            
+            // Remover acentuações do campo observacao
+             formulario.nome.value = removerAcentos(formulario.nome.value);
+
             function validaForm(){
-                formulario = document.form_cadastrar_perfil;
-                
-                formulario.nome.value = removerAcentos(formulario.nome.value);
-                
+                formulario = document.form_alterar_perfil;
                 if(formulario.nome.value===""){
                     alert("O campo PERFIL deve ser preenchido!");
                     formulario.nome.focus();
@@ -28,65 +28,83 @@
                 return true;
             }
         </script>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/perfil.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="pagina">
+        <div class="container">
             
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
-            </div>
-            
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
-            </div>
-            
-            <div id="principal">
-                
-                <div class="conteudo" align="center">
-                    <h3> Alterar Perfil </h3>
-                    
-                    <form name="form_alterar_perfil" action="alterar_perfil.do" method="post" onsubmit="return validaForm();">
-                        <table width="800">
-                            <%
-                                int id = Integer.parseInt(request.getParameter("id"));
-                                
-                                try {
-                                    PerfilDAO perfilDB = new PerfilDAO();
-                                    perfilDB.conectar();
-                                    Perfil perfil = perfilDB.pesquisarPorId(id);
-                            %>
-                            <tr bgcolor="#d3d3d3">
-                                <td>ID</td>
-                                <td>Perfil</td>
-                            </tr>
-
-                            <tr>
-                                <td>
-                                    <%=perfil.getId_perfil()%><input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
-                                </td>
-                                <td>
-                                    <input type="text" name="nome" value="<%=perfil.getNome()%>" size="100%">
-                                </td>
-                            </tr>
-                            <%
-                                perfilDB.desconectar();
-                                } catch (Exception erro) {
-                                    out.print(erro);
-                                }
-                            %>
-                            <tr>
-                                <td></td>
-                                <td><input type="submit" value="Salvar"></td>
-                            </tr>
-                        </table>
-                    </form>
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
                 </div>
-            </div>       
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
+             
+             <!-- Menu da página -->
+            <div class="menu-section">
+                <%@include file="menu.jsp"%>
+            </div>
+            
+            <!-- Seção da tabela -->
+            <div class="table-section">
+                
+                <h1 class="page-title">
+                    Alterar Nome do Perfil
+                </h1>
+                
+                <form name="form_alterar_perfil" action="alterar_perfil.do" method="post" onsubmit="return validaForm();">
+                    <table>
+                        <!-- Dados da tabela -->
+                    <%
+                        int id = Integer.parseInt(request.getParameter("id"));
+
+                        try {
+                            PerfilDAO perfilDB = new PerfilDAO();
+                            perfilDB.conectar();
+                            Perfil perfil = perfilDB.pesquisarPorId(id);
+                    %>
+                        <tr>
+                            <td>
+                                <input type="hidden" name="id" value="<%=perfil.getId_perfil()%>">
+                                <input type="text" name="nome" value="<%=perfil.getNome()%>" size="100%">
+                            </td>
+                        </tr>
+                    <%
+                        perfilDB.desconectar();
+                        } catch (Exception erro) {
+                            out.print(erro);
+                        }
+                    %>
+                    </table>
+                    
+                    <button type="submit" value="Salvar" class="botao-padrao botao-salvar"> Salvar </button>
+                </form>
+            </div>
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
+                </div>
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>

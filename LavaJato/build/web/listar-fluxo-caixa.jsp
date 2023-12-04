@@ -1,55 +1,81 @@
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="entidade.TabelaPreco"%>
-<%@page import="persistencia.TabelaPrecoDAO"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="entidade.Perfil"%>
 <%@page import="persistencia.PerfilDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.text.DecimalFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="entidade.TabelaPreco"%>
+<%@page import="persistencia.TabelaPrecoDAO"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/tabela-preco.css">
-        <script src="javascript/On&Off.js"></script>
+        <meta charset="UTF-8">
+        <title>Página Listar Fluxo de Caixa</title>
+        <link rel="stylesheet" href="estilo_layout/relatorios.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
+        <script src="js/OnOff.js"></script>
     </head>
     <body>
-        <div id="pagina">
-            
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
-            </div>
-            
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
-            </div>
-            
-            <div id="principal">
-                
-                <div class="conteudo" align="center">
-                    <h3> Gerenciamento do Fluxo de Caixa </h3>
-                    
-                    <table>
-                        <tr>
-                            <td align="center">
-                                <button>
-                                    <a href="listar-entrada-caixa.jsp"> Visualizar Entrada de Valores </a>
-                                </button> 
-                            </td>
-                        </tr>
-                        <tr>
-                            <td align="center">
-                                <button>
-                                    <a href="listar-saida-caixa.jsp"> Visualizar & Cadastrar Saida de Valores </a>
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
+        <div id="overlay"></div>
+        <div class="container">
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
                 </div>
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
 
-            </div>       
+            <div class="menu-section">
+                <!-- Menu da página -->
+                <%@include file="menu.jsp"%>
+            </div>
+            
+            <!-- Seção da tabela -->
+            <div class="table-section">
+                <h1 class="page-title"> Gerenciamento do Fluxo de Caixa </h1>
+                
+                <table>
+                    <tr>
+                        <td align="center">
+                            <button class="botao-relatorio">
+                                <a href="listar-entrada-caixa.jsp"> Visualizar Entrada de Valores </a>
+                            </button> 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <button class="botao-relatorio">
+                                <a href="listar-saida-caixa.jsp"> Visualizar e Cadastrar Saida de Valores </a>
+                            </button>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
+                </div>
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>

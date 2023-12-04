@@ -1,17 +1,21 @@
 <%@page import="entidade.TabelaPreco"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="persistencia.TabelaPrecoDAO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="entidade.Perfil"%>
-<%@page import="persistencia.PerfilDAO"%>
+<%@page import="entidade.Usuario"%>
 <%@page import="java.util.List"%>
 <%@page import="persistencia.UsuarioDAO"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="entidade.Perfil"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="persistencia.PerfilDAO"%>
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Teste de listar Perfil</title>
+        <meta charset="UTF-8">
+        <title>Alterar Valor do Serviço</title>
+        <link rel="stylesheet" href="estilo_layout/alterar-usuario.css">
+        <link rel="stylesheet" href="estilo_layout/menu.css">
+        <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
+        <script src="js/OnOff.js"></script>
         <script language="javascript" >
             function removerAcentos(texto) {
                 return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -24,131 +28,153 @@
                 
                 
                 if(formulario.nome.value===""){
-                    alert("O campo Nome do ServiÃ§o deve ser preenchido!");
+                    alert("O campo Nome do Serviço deve ser preenchido!");
                     formulario.nome.focus();
                     return false;
                 }
                 if(formulario.precoVeiculoPequeno.value===""){
-                    alert("O campo PreÃ§o do VeÃ­culo Pequeno deve ser preenchido!!");
+                    alert("O campo Preço do Veículo Pequeno deve ser preenchido!!");
                     formulario.precoVeiculoPequeno.focus();
                     return false;
                 }
                 if(formulario.precoVeiculoMedio.value===""){
-                    alert("O campo PreÃ§o do VeÃ­culo Medio deve ser preenchido!!");
+                    alert("O campo Preço do Veículo Medio deve ser preenchido!!");
                     formulario.precoVeiculoMedio.focus();
                     return false;
                 }
                 if(formulario.precoVeiculoGrande.value===""){
-                    alert("O campo PreÃ§o do VeÃ­culo Grande deve ser preenchido!!");
+                    alert("O campo Preço do Veículo Grande deve ser preenchido!!");
                     formulario.precoVeiculoGrande.focus();
                     return false;
                 }
                 return true;
             }
         </script>
-        <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
-        <link rel="stylesheet" type="text/css" href="estilo/banner.css">
-        <link rel="stylesheet" type="text/css" href="estilo/perfil.css">
-        <script src="javascript/On&Off.js"></script>
     </head>
     <body>
         <div id="overlay"></div>
-        <div id="pagina">
+        <div class="container">
             
-            <div id="banner">
-                <img src="imagens/banner.PNG" alt="banner">
+             <!-- Cabeçalho da página -->
+            <div class="top-section">
+                <div class="logo-section">
+                    <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
+                </div>
+                <div class="title">
+                    Lava Jato
+                </div>
+                <div>
+                    <!-- Botão de sair -->
+                    <a href="sair.jsp"> <button class="logout-button"> Sair </button> </a>
+                </div>
+            </div>
+             
+             <!-- Menu da página -->
+            <div class="menu-section">
+                <%@include file="menu.jsp"%>
             </div>
             
-            <div id="menu">
-                <%@include file="menu.jsp"%> 
-            </div>
-            
-            <div id="principal">
+            <!-- Seção da tabela -->
+            <div class="table-section">
                 
-                <div class="conteudo" align="center">
-                    <h3> Alterar Tabela de PreÃ§os </h3>
-                    
-                    <form name="form_alterar_tabela_preco" action="alterar_tabela_preco.do" method="post" onsubmit="return validaForm();">
-                        <table width="800">
-                            <%
-                                int id = Integer.parseInt(request.getParameter("id"));
-                                
-                                try {
-                                    TabelaPrecoDAO tabelaPrecooDB = new TabelaPrecoDAO();
-                                    DecimalFormat formato = new DecimalFormat("0.00");
-                                    List<TabelaPreco> lista;
-                                    tabelaPrecooDB.conectar();
-                                    lista = tabelaPrecooDB.pesquisarPorId(id);
-                                    tabelaPrecooDB.desconectar();
-                                    for (TabelaPreco servico:lista) {
-                            %>
-                            <tr>
-                                <td bgcolor="#d3d3d3">
-                                    ID
-                                </td>
-                                <td>
-                                    <%=servico.getId()%><input type="hidden" name="id" value="<%=servico.getId()%>">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#d3d3d3">
-                                    Nome do serviÃ§o
-                                </td>
-                                <td>
-                                    <input type="text" name="nome" value="<%=servico.getNome()%>" size="50%">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#d3d3d3">
-                                    PreÃ§o do VeÃ­culo Pequeno
-                                </td>
+                <h1 class="page-title"> Alterar Serviço e Valor </h1>
+                
+                <form name="form_alterar_tabela_preco" action="alterar_tabela_preco.do" method="post" onsubmit="return validaForm();">
+                    <table>
+                        <!-- Dados da tabela -->
+                    <%
+                        int id = Integer.parseInt(request.getParameter("id"));
+
+                        try {
+                            TabelaPrecoDAO tabelaPrecooDB = new TabelaPrecoDAO();
+                            DecimalFormat formato = new DecimalFormat("0.00");
+                            List<TabelaPreco> lista;
+                            tabelaPrecooDB.conectar();
+                            lista = tabelaPrecooDB.pesquisarPorId(id);
+                            tabelaPrecooDB.desconectar();
+                            for (TabelaPreco servico:lista) {
+                    %>
+                        <tr>
+                            <td style="text-align:left; font-weight: bold;">
+                                Nome do Serviço
+                            </td>
+                            <td>
+                                <input type="text" name="nome" value="<%=servico.getNome()%>" size="70%">
+                                <input type="hidden" name="id" value="<%=servico.getId()%>">
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align:left; font-weight: bold;">
+                                Preço do Veículo Pequeno
+                            </td>
+                            
+                            <td>
                                 <%
                                     Double precoPequenoVeiculo = servico.getPrecoVeiculoPequeno();
                                     String precoVeiculoPequeno = formato.format(precoPequenoVeiculo);
                                 %>
-                                <td>
-                                    <input type="text" name="precoVeiculoPequeno" value="<%=precoVeiculoPequeno%>" size="50%">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#d3d3d3">
-                                    PreÃ§o do VeÃ­culo Medio
-                                </td>
+                                <input type="text" name="precoVeiculoPequeno" value="<%=precoVeiculoPequeno%>" size="70%">
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align:left; font-weight: bold;">
+                                Preço do Veículo Médio
+                            </td>
+                            
+                            <td>
                                 <%
                                     Double precoMedioVeiculo = servico.getPrecoVeiculoMedio();
                                     String precoVeiculoMedio = formato.format(precoMedioVeiculo);
                                 %>
-                                <td>
-                                    <input type="text" name="precoVeiculoMedio" value="<%=precoVeiculoMedio%>" size="50%">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#d3d3d3">
-                                    PreÃ§o do VeÃ­culo Grande
-                                </td>
+                                <input type="text" name="precoVeiculoMedio" value="<%=precoVeiculoMedio%>" size="70%">
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td style="text-align:left; font-weight: bold;">
+                                Preço do Veículo Grande
+                            </td>
+                            
+                            <td>
                                 <%
                                     Double precoGrandeVeiculo = servico.getPrecoVeiculoGrande();
                                     String precoVeiculoGrande = formato.format(precoGrandeVeiculo);
                                 %>
-                                <td>
-                                    <input type="text" name="precoVeiculoGrande" value="<%=precoVeiculoGrande%>" size="50%">
-                                </td>
-                            </tr>
-                            <%
-                                        
-                                    }
-                                } catch (Exception erro) {
-                                    out.print(erro);
-                                }
-                            %>
-                            <tr>
-                                <td></td>
-                                <td><input type="submit" value="Salvar"></td>
-                            </tr>
-                        </table>
-                    </form>
+                                <input type="text" name="precoVeiculoGrande" value="<%=precoVeiculoGrande%>" size="70%">
+                            </td>
+                        </tr>
+
+                    <%
+                            }
+                        } catch (Exception erro) {
+                            out.print(erro);
+                        }
+                    %>
+                    </table>
+                    
+                    <button type="submit" value="Salvar" class="botao-padrao botao-salvar"> Salvar </button>
+                </form>
+            </div>
+
+            <!-- Informações adicionais -->
+            <div class="info-section">
+                <div class="info-item">
+                    <label>Endereço:</label>
+                    <span>Quadra 42 Lote 51A Parque Araguari I, Cidade Ocidental - GO, 72.885-234</span>
                 </div>
-            </div>       
+                <div class="info-item">
+                    <label>Telefone:</label>
+                    <span>(61) 3605-3474</span>
+                    <img src="imagens_site/logo-whatsapp.png" alt="Logo Instagram">
+                </div>
+                <div class="info-item">
+                    <label>Instagram:</label>
+                    <span> @lavajato</span>
+                    <img src="imagens_site/logo-instagram.png" alt="Logo Instagram">
+                </div>
+            </div>
         </div>
     </body>
 </html>

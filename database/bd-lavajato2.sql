@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 26/11/2023 às 22:27
+-- Tempo de geração: 04/12/2023 às 21:53
 -- Versão do servidor: 10.4.28-MariaDB
 -- Versão do PHP: 8.1.17
 
@@ -30,18 +30,28 @@ USE `bd-lavajato2`;
 --
 
 CREATE TABLE `atendimento` (
-  `id` int(11) NOT NULL,
-  `data` date NOT NULL,
+  `id` int(255) NOT NULL,
+  `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `statusAtendimento` tinyint(1) NOT NULL,
   `statusPagamento` tinyint(1) NOT NULL,
-  `precoTotal` double NOT NULL,
-  `observacao` text NOT NULL,
-  `id_usuario` int(11) NOT NULL,
-  `id_cliente` int(11) NOT NULL,
-  `id_veiculo` int(11) NOT NULL,
-  `id_funcionario` int(11) NOT NULL,
-  `id_forma_pagamento` int(11) NOT NULL
+  `valorTotal` double NOT NULL,
+  `observacao` varchar(600) NOT NULL,
+  `id_usuario` int(100) NOT NULL,
+  `id_cliente` int(100) NOT NULL,
+  `id_veiculo` int(100) NOT NULL,
+  `id_funcionario` int(100) NOT NULL,
+  `id_forma_pagamento` int(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `atendimento`
+--
+
+INSERT INTO `atendimento` (`id`, `data`, `statusAtendimento`, `statusPagamento`, `valorTotal`, `observacao`, `id_usuario`, `id_cliente`, `id_veiculo`, `id_funcionario`, `id_forma_pagamento`) VALUES
+(15, '2023-12-01 20:53:51', 1, 1, 220, 'oioi', 3, 10, 7, 1, 4),
+(16, '2023-12-01 20:56:44', 0, 0, 150, 'ok', 3, 10, 7, 1, 4),
+(19, '2023-12-01 22:21:57', 0, 0, 500, 'oi', 3, 1, 1, 1, 4),
+(23, '2023-12-02 00:54:08', 0, 0, 35, 'nao quer cera', 3, 1, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -70,6 +80,27 @@ INSERT INTO `cliente` (`id`, `nomeCompleto`, `telefone`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estrutura para tabela `fluxo_caixa`
+--
+
+CREATE TABLE `fluxo_caixa` (
+  `id` int(11) NOT NULL,
+  `data` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `descricao` varchar(100) NOT NULL,
+  `valor` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Despejando dados para a tabela `fluxo_caixa`
+--
+
+INSERT INTO `fluxo_caixa` (`id`, `data`, `descricao`, `valor`) VALUES
+(5, '2023-12-02 00:09:00', 'ALUGUEL', 750),
+(6, '2023-12-02 00:09:00', 'CONTA DE LUZ', 650.75);
+
+-- --------------------------------------------------------
+
+--
 -- Estrutura para tabela `funcionario`
 --
 
@@ -89,12 +120,11 @@ CREATE TABLE `funcionario` (
 
 INSERT INTO `funcionario` (`id`, `nomeCompleto`, `apelido`, `telefone`, `dataCadastro`, `id_perfil`, `status`) VALUES
 (1, 'LIDIA SALES DE OLIVEIRA', 'LIDIA', '61992034610', '2023-10-29', 22, 1),
-(2, 'RAFAEL MARLON SOUSA DE MACEDO', 'RAFA', '61993136055', '2023-10-29', 22, 0),
+(2, 'RAFAEL MARLON SOUSA DE MACEDO', 'RAFA', '61993136055', '2023-10-29', 22, 1),
 (3, 'ANTONIA SALES DE AZEVEDO', 'TOINHA', '61995540228', '2023-10-29', 22, 0),
 (4, 'LETICIA DE ANDRADE', 'LETY', '61993475066', '2023-10-29', 22, 1),
 (5, 'ANTONIO CARLOS DE AZEVEDO', 'CARLINHOS', '61994576055', '2023-11-05', 22, 1),
-(6, 'DEISE SALES DE ARAUJO', 'DEISE', '61992034610', '2023-11-22', 20, 1),
-(7, 'DANILA CORDEIRO BERNARDO', 'DANILA', '61998535535', '2023-11-22', 18, 1);
+(6, 'DEISE SALES DE ARAUJO', 'DEISE', '61992034610', '2023-11-22', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -144,10 +174,11 @@ INSERT INTO `menu_perfil` (`id_menu`, `id_perfil`) VALUES
 (4, 17),
 (6, 17),
 (2, 17),
-(1, 17),
 (5, 17),
 (7, 17),
-(3, 17);
+(3, 17),
+(10, 18),
+(1, 17);
 
 -- --------------------------------------------------------
 
@@ -167,9 +198,7 @@ CREATE TABLE `perfil` (
 
 INSERT INTO `perfil` (`id_perfil`, `nome`, `status`) VALUES
 (17, 'administrador(a)', 1),
-(18, 'recepcionista', 1),
-(20, 'suporte', 1),
-(21, 'auxiliar de limpeza', 0),
+(18, 'recepcionista', 0),
 (22, 'lavador(a) de veiculos', 1);
 
 -- --------------------------------------------------------
@@ -256,8 +285,7 @@ CREATE TABLE `usuario` (
 INSERT INTO `usuario` (`id`, `nomeCompleto`, `login`, `senha`, `dataCadastro`, `id_perfil`, `status`) VALUES
 (1, 'LARA MELISSA PIEROTE', 'lara.pierote', '10', '2023-10-29', 17, 1),
 (2, 'LUCILENE SALES DE OLIVEIRA', 'lu.oliveira', '10', '2023-10-29', 18, 0),
-(3, 'DEISE SALES DE ARAUJO', 'deise.araujo', '10', '2023-10-29', 20, 1),
-(6, 'DANILA CORDEIRO BERNARDO', 'danila.bernardo', '10', '2023-11-22', 18, 1);
+(3, 'DEISE SALES DE ARAUJO', 'deise.araujo', '10', '2023-10-29', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -302,6 +330,12 @@ ALTER TABLE `atendimento`
 -- Índices de tabela `cliente`
 --
 ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Índices de tabela `fluxo_caixa`
+--
+ALTER TABLE `fluxo_caixa`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -354,13 +388,19 @@ ALTER TABLE `veiculo`
 -- AUTO_INCREMENT de tabela `atendimento`
 --
 ALTER TABLE `atendimento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT de tabela `cliente`
 --
 ALTER TABLE `cliente`
   MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT de tabela `fluxo_caixa`
+--
+ALTER TABLE `fluxo_caixa`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `funcionario`
@@ -372,7 +412,7 @@ ALTER TABLE `funcionario`
 -- AUTO_INCREMENT de tabela `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT de tabela `perfil`
@@ -396,7 +436,7 @@ ALTER TABLE `tipo_pagamento`
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de tabela `veiculo`

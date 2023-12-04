@@ -136,6 +136,14 @@
         <servlet-name>GerarRelatorioEntradaDeValores</servlet-name>
         <servlet-class>controller.GerarRelatorioEntradaDeValores</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GerarRelatorioSaidaDeValores</servlet-name>
+        <servlet-class>controller.GerarRelatorioSaidaDeValores</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GerarRelatorioProdutividade</servlet-name>
+        <servlet-class>controller.GerarRelatorioProdutividade</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>CadastrarPerfil</servlet-name>
         <url-pattern>/cadastrar_perfil.do</url-pattern>
@@ -249,10 +257,6 @@
         <url-pattern>/alterar_menu.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ExcluirMenu</servlet-name>
-        <url-pattern>/excluir-menu.do</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>NaoPagarAtendimento</servlet-name>
         <url-pattern>/nao_pagar_atendimento.do</url-pattern>
     </servlet-mapping>
@@ -265,12 +269,24 @@
         <url-pattern>/cadastrar_valor_saida.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ExcluirSaidaCaixa</servlet-name>
-        <url-pattern>/excluir-saida-caixa.do</url-pattern>
+        <servlet-name>GerarRelatorioEntradaDeValores</servlet-name>
+        <url-pattern>/gerar_relatorio_entrada_valores.do</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GerarRelatorioEntradaDeValores</servlet-name>
-        <url-pattern>/gerar-relatorio-entrada-valores.do</url-pattern>
+        <servlet-name>ExcluirSaidaCaixa</servlet-name>
+        <url-pattern>/excluir_saida_caixa.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExcluirMenu</servlet-name>
+        <url-pattern>/excluir_menu.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GerarRelatorioSaidaDeValores</servlet-name>
+        <url-pattern>/gerar_relatorio_saida_valores.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GerarRelatorioProdutividade</servlet-name>
+        <url-pattern>/gerar_relatorio_produtividade.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
