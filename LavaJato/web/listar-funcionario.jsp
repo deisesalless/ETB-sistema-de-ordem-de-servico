@@ -16,6 +16,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Funcionário</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="estilo_layout/campo-pesquisa.css">
         <link rel="stylesheet" href="estilo_layout/pop-up-usuario.css">
         <link rel="stylesheet" href="estilo_layout/perfil.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
@@ -59,6 +61,34 @@
                 }
                 return true;
             }
+            
+            function filtrarFuncionarios() {
+                // Obter o valor digitado na caixa de texto
+                var input = document.getElementById('searchInput');
+                var filtro = input.value.toUpperCase();
+
+                // Obter a tabela e as linhas da tabela
+                var tabela = document.querySelector('table');
+                var linhas = tabela.getElementsByTagName('tr');
+
+                // Iterar pelas linhas da tabela, iniciando a partir do índice 1 para ignorar o cabeçalho da tabela
+                for (var i = 1; i < linhas.length; i++) {
+                    var colunaNome = linhas[i].getElementsByTagName('td')[0]; // Coluna do Nome Completo
+                    var colunaApelido = linhas[i].getElementsByTagName('td')[1]; // Coluna do Apelido
+
+                    // Verificar se a pesquisa corresponde ao Nome Completo ou Apelido do funcionário
+                    if (colunaNome || colunaApelido) {
+                        var textoNome = colunaNome.textContent.toUpperCase() || colunaNome.innerText.toUpperCase();
+                        var textoApelido = colunaApelido.textContent.toUpperCase() || colunaApelido.innerText.toUpperCase();
+
+                        if (textoNome.indexOf(filtro) > -1 || textoApelido.indexOf(filtro) > -1) {
+                            linhas[i].style.display = '';
+                        } else {
+                            linhas[i].style.display = 'none';
+                        }
+                    }
+                }
+            }
         </script>
     </head>
     <body>
@@ -89,6 +119,10 @@
                     Funcionários
                     <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
                 </h1>
+                
+                <div class="search-section">
+                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome ou apelido" onkeyup="filtrarFuncionarios()">
+                </div>
 
                 <table>
                     <tr>

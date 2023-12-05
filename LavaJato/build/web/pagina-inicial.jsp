@@ -7,6 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Inicial</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="estilo_layout/pagina-inicial.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
     </head>

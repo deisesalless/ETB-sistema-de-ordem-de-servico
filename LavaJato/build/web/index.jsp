@@ -7,6 +7,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Página de Realizar o Login</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="estilo_layout/login.css">
         <script language="javascript" >
             function validaForm(){

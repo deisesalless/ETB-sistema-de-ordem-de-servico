@@ -9,6 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Alterar Perfil</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="estilo_layout/alterar-perfil.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
         <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">

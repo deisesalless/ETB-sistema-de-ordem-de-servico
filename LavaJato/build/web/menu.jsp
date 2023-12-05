@@ -50,9 +50,5 @@
             <div class="menu-item">
                 <a href="listar-relatorios.jsp"> Relatórios </a>
             </div>
-        
-            <div class="menu-item">
-                <a href="teste.jsp"> teste </a>
-            </div>
     </body>
 </html>

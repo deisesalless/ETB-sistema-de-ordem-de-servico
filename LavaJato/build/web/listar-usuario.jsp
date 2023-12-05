@@ -14,6 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Usuario</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="estilo_layout/pop-up-usuario.css">
         <link rel="stylesheet" href="estilo_layout/perfil.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">

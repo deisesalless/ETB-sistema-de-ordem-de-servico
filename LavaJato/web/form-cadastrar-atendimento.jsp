@@ -25,6 +25,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Cadastrar Atendimento</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" type="text/css" href="estilo/pagina-inteira.css">
         <link rel="stylesheet" type="text/css" href="estilo/banner.css">
         <link rel="stylesheet" type="text/css" href="estilo/cadastrar-atendimento.css">

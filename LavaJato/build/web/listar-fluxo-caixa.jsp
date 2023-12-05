@@ -9,6 +9,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Fluxo de Caixa</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="estilo_layout/relatorios.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
         <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">

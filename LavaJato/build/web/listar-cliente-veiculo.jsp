@@ -10,6 +10,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Cliente</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="estilo_layout/campo-pesquisa-cliente.css">
         <link rel="stylesheet" href="estilo_layout/pop-up-veiculo.css">
         <link rel="stylesheet" href="estilo_layout/pop-up-cliente.css">
         <link rel="stylesheet" href="estilo_layout/listar-cliente.css">
@@ -122,6 +124,41 @@
                 }
                 return true;
             }
+            
+            function filtrarClienteVeiculo() {
+                // Obter o valor digitado na caixa de texto
+                var input = document.getElementById('searchInput');
+                var filtro = input.value.toUpperCase();
+
+                // Obter as tabelas e as linhas das tabelas
+                var tabelas = document.querySelectorAll('.table-client');
+
+                // Iterar pelas tabelas
+                tabelas.forEach(function(tabela) {
+                    var linhas = tabela.getElementsByTagName('tr');
+
+                    // Iterar pelas linhas da tabela, iniciando a partir do índice 1 para ignorar o cabeçalho da tabela
+                    for (var i = 1; i < linhas.length; i++) {
+                        var colunaNome = linhas[i].getElementsByTagName('td')[0]; // Coluna do Nome Completo
+                        var colunaTelefone = linhas[i].getElementsByTagName('td')[1]; // Coluna do Telefone
+                        var colunaPlaca = linhas[i].getElementsByTagName('td')[2]; // Coluna da Placa do Veículo
+
+                        // Verificar se a pesquisa corresponde ao Nome do Cliente, Telefone ou Placa do Veículo
+                        if (colunaNome || colunaTelefone || colunaPlaca) {
+                            var textoNome = colunaNome.textContent.toUpperCase() || colunaNome.innerText.toUpperCase();
+                            var textoTelefone = colunaTelefone.textContent.toUpperCase() || colunaTelefone.innerText.toUpperCase();
+                            var textoPlaca = colunaPlaca.textContent.toUpperCase() || colunaPlaca.innerText.toUpperCase();
+
+                            if (textoNome.indexOf(filtro) > -1 || textoTelefone.indexOf(filtro) > -1 || textoPlaca.indexOf(filtro) > -1) {
+                                linhas[i].style.display = '';
+                            } else {
+                                linhas[i].style.display = 'none';
+                            }
+                        }
+                    }
+                });
+            }
+
         </script>
     </head>
     <body>
@@ -152,6 +189,10 @@
                     Cliente
                     <button id="pop-up-cadastrar" class="botao-padrao"> + Novo </button>
                 </h1>
+                
+                <div class="search-section">
+                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome, telefone ou placa do veiculo" onkeyup="filtrarClienteVeiculo()">
+                </div>
 
 <%                                            
                     try {
@@ -165,10 +206,14 @@
                         for(Cliente cliente:lista) {                                             
 %>
 
+<%
+                           List<Veiculo> list = veiculoDB.listar();
+                                    for(Veiculo veic:list) {
+                                        if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()) {
+%>  
                 <table class="table-client">
                     <tr>
-                        <td style="text-align: center; font-weight: bold; width: 600px;">Cliente</td>
-                        <td style="text-align: center; font-weight: bold;">Telefone</td>
+                        <td style="text-align: center; font-weight: bold; width: 600px;">Cliente - Telefone</td>
                         <td style="text-align: center; font-weight: bold;">Alterar</td>
                         <td style="text-align: center; font-weight: bold;">Ad. Veículo</td>
                     </tr>
@@ -176,10 +221,7 @@
                     <!-- Dados da tabela -->
                     <tr>
                         <td style="text-align: center;">
-                            <%=cliente.getPessoa().getNomeCompleto()%>
-                        </td>
-                        <td style="text-align: center;">
-                            <%=cliente.getTelefone()%>
+                            <%=cliente.getPessoa().getNomeCompleto()%> - <%=cliente.getTelefone()%>
                         </td>
                         <td style="text-align: center;">
                             <a href="form-alterar-cliente.jsp?id=<%=cliente.getPessoa().getId()%>">
@@ -190,16 +232,7 @@
                             <button class="botao-padrao" onclick="abrirPopup('<%=cliente.getPessoa().getId()%>' , '<%=cliente.getPessoa().getNomeCompleto()%>')"> + novo </button> <!-- pop-up vinculado a esse botão-->
                         </td>
                     </tr>
-                </table>
-                            
-                
-                            
-<%
-                           List<Veiculo> list = veiculoDB.listar();
-                                    for(Veiculo veic:list) {
-                                        if (veic.getCliente().getPessoa().getId() == cliente.getPessoa().getId()) {
-%>                        
-                <table>
+                                                 
                     <tr>
                         <td style="text-align: center; font-weight: bold; width: 600px;">Informações do Veículo</td>
                         <td style="text-align: center; font-weight: bold; width: 250px;">Alterar</td>    

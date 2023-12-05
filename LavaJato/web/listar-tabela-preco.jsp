@@ -7,6 +7,8 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Tabela de Preços</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="estilo_layout/campo-pesquisa.css">
         <link rel="stylesheet" href="estilo_layout/perfil.css">
         <link rel="stylesheet" href="estilo_layout/pop-up-tabela-preco.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
@@ -44,6 +46,34 @@
                 }
                 return true;
             }
+            
+            
+            function filtrarServicos() {
+                // Obter o valor digitado na caixa de texto
+                var input = document.getElementById('searchInput');
+                var filtro = input.value.toUpperCase();
+
+                // Obter a tabela e as linhas da tabela
+                var tabela = document.querySelector('table');
+                var linhas = tabela.getElementsByTagName('tr');
+
+                // Iterar pelas linhas da tabela, iniciando a partir do índice 1 para ignorar o cabeçalho da tabela
+                for (var i = 1; i < linhas.length; i++) {
+                    var colunaDescricao = linhas[i].getElementsByTagName('td')[0]; // Coluna da Descrição
+
+                    // Verificar se a pesquisa corresponde à descrição do serviço
+                    if (colunaDescricao) {
+                        var textoDescricao = colunaDescricao.textContent || colunaDescricao.innerText;
+
+                        if (textoDescricao.toUpperCase().indexOf(filtro) > -1) {
+                            linhas[i].style.display = '';
+                        } else {
+                            linhas[i].style.display = 'none';
+                        }
+                    }
+                }
+            }
+
         </script>
     </head>
     <body>
@@ -75,6 +105,10 @@
                     Tabela de Preços
                     <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
                 </h1>
+                
+                <div class="search-section">
+                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome do serviço" onkeyup="filtrarServicos()">
+                </div>
                 
                 <table>
                     <tr>

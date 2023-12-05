@@ -27,10 +27,43 @@
     <head>
         <meta charset="UTF-8">
         <title>Página Listar Atendimento</title>
+        <link rel="shortcut icon" href="imagens_site/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="estilo_layout/campo-pesquisa-cliente.css">
         <link rel="stylesheet" href="estilo_layout/listar-atendimento.css">
         <link rel="stylesheet" href="estilo_layout/menu.css">
         <link rel="stylesheet" href="estilo_layout/cabecalho-rodape.css">
         <script src="js/OnOff.js"></script>
+        <script>
+function filtrarAtendimentosEmAndamento() {
+    var input = document.getElementById('searchInput');
+    var filtro = input.value.toUpperCase();
+
+    var tabelas = document.querySelectorAll('.table-section table');
+
+    tabelas.forEach(function(tabela) {
+        var linhas = tabela.getElementsByTagName('tr');
+
+        for (var i = 1; i < linhas.length; i++) {
+            var colunaNome = linhas[i].getElementsByTagName('td')[2]; // Coluna do Nome Completo
+            var colunaTelefone = linhas[i].getElementsByTagName('td')[1]; // Coluna do Telefone
+            var colunaPlaca = linhas[i].getElementsByTagName('td')[3]; // Coluna da Placa do Veículo
+
+            if (colunaNome || colunaTelefone || colunaPlaca) {
+                var textoNome = colunaNome.textContent.toUpperCase() || colunaNome.innerText.toUpperCase();
+                var textoTelefone = colunaTelefone.textContent.toUpperCase() || colunaTelefone.innerText.toUpperCase();
+                var textoPlaca = colunaPlaca.textContent.toUpperCase() || colunaPlaca.innerText.toUpperCase();
+
+                if (textoNome.indexOf(filtro) > -1 || textoTelefone.indexOf(filtro) > -1 || textoPlaca.indexOf(filtro) > -1) {
+                    linhas[i].style.display = '';
+                } else {
+                    linhas[i].style.display = 'none';
+                }
+            }
+        }
+    });
+}
+
+        </script>
     </head>
     <body>
         <div id="overlay"></div>
@@ -59,6 +92,10 @@
                 <h1 class="page-title">
                     Atendimentos em Andamento
                 </h1>
+                
+                <div class="search-section">
+                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome, telefone ou placa do veiculo" onkeyup="filtrarAtendimentosEmAndamento()">
+                </div>
 
 <%                                            
                     try {
