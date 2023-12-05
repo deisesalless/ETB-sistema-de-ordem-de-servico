@@ -1,0 +1,32 @@
+.page-title {
+    text-align: center;
+    font-size: 25px;
+    font-family: Exo;
+    margin-bottom: 30px;
+}
+
+.table-section {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 30px;
+    padding-top: 0px;
+    font-family: Exo;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Exo;
+    margin-bottom: 40px;
+}
+
+tr {
+    text-align: center; /* Centraliza o conteúdo da linha */
+    font-family: Exo;
+}
+
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    font-family: Exo;
+}
