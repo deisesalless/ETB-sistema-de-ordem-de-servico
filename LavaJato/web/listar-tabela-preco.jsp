@@ -101,14 +101,14 @@
             <!-- Seção da tabela -->
             <div class="table-section">
                 
+                <div class="search-section">
+                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome do serviço" onkeyup="filtrarServicos()">
+                </div>
+                
                 <h1 class="page-title">
                     Tabela de Preços
                     <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
                 </h1>
-                
-                <div class="search-section">
-                    <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome do serviço" onkeyup="filtrarServicos()">
-                </div>
                 
                 <table>
                     <tr>

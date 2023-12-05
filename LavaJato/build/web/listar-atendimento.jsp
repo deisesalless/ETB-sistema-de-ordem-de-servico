@@ -89,13 +89,14 @@ function filtrarAtendimentosEmAndamento() {
             
             <!-- Seção da tabela -->
             <div class="table-section">
-                <h1 class="page-title">
-                    Atendimentos em Andamento
-                </h1>
                 
                 <div class="search-section">
                     <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome, telefone ou placa do veiculo" onkeyup="filtrarAtendimentosEmAndamento()">
                 </div>
+                
+                <h1 class="page-title">
+                    Atendimentos em Andamento
+                </h1>
 
 <%                                            
                     try {

@@ -115,14 +115,15 @@
             
             <!-- Seção da tabela -->
             <div class="table-section">
-                <h1 class="page-title">
-                    Funcionários
-                    <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
-                </h1>
                 
                 <div class="search-section">
                     <img src="imagens_site/lupa.png" alt="Lupa_Sheriff" class="lupa"> <input type="text" id="searchInput" placeholder="Pesquise pelo nome ou apelido" onkeyup="filtrarFuncionarios()">
                 </div>
+                
+                <h1 class="page-title">
+                    Funcionários
+                    <button id="mostrar-pop-up" class="botao-padrao"> + Novo </button>
+                </h1>
 
                 <table>
                     <tr>
