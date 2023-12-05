@@ -74,7 +74,7 @@ function filtrarAtendimentosEmAndamento() {
                     <img src="imagens_site/logo.png" alt="Logo Lava Jato" class="logo">
                 </div>
                 <div class="title">
-                    Lava Jato
+                    <img src="imagens_site/fachada.png" alt="Logo Lava Jato" style="width: 200px; height: auto;">
                 </div>
                 <div>
                     <!-- Botão de sair -->

@@ -29,7 +29,7 @@ body {
 }
 
 .logo {
-    width: 100%;
+    width: 80%;
     max-width: 100px; /* Ajuste o tamanho máximo da logo conforme necessário */
     display: block;
     margin: 0 auto;
