@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Tempo de geração: 04/12/2023 às 21:53
+-- Host: localhost
+-- Tempo de geração: 27/12/2023 às 15:04
 -- Versão do servidor: 10.4.28-MariaDB
--- Versão do PHP: 8.1.17
+-- Versão do PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -71,11 +71,11 @@ CREATE TABLE `cliente` (
 --
 
 INSERT INTO `cliente` (`id`, `nomeCompleto`, `telefone`, `status`) VALUES
-(1, 'DEISE SALES', '61992034610', 1),
-(2, 'RONALDO MACEDO', '61992034610', 1),
-(8, 'JACY FILHO', '61992034610', 1),
-(10, 'LUCILENE SALES DE OLIVEIRA', '61992034610', 1),
-(11, 'LUCILENE SALES DE OLIVEIROYY', '61992034612yy', 1);
+(1, 'DEISE SALES', '61999999999', 1),
+(2, 'RONALDO MACEDO', '61999999999', 1),
+(8, 'JACY FILHO', '61999999999', 1),
+(10, 'LUCILENE SALES DE OLIVEIRA', '61999999999', 1),
+(11, 'LUCILENE SALES DE OLIVEIROYY', '61999999999', 1);
 
 -- --------------------------------------------------------
 
@@ -119,12 +119,12 @@ CREATE TABLE `funcionario` (
 --
 
 INSERT INTO `funcionario` (`id`, `nomeCompleto`, `apelido`, `telefone`, `dataCadastro`, `id_perfil`, `status`) VALUES
-(1, 'LIDIA SALES DE OLIVEIRA', 'LIDIA', '61992034610', '2023-10-29', 22, 1),
-(2, 'RAFAEL MARLON SOUSA DE MACEDO', 'RAFA', '61993136055', '2023-10-29', 22, 1),
-(3, 'ANTONIA SALES DE AZEVEDO', 'TOINHA', '61995540228', '2023-10-29', 22, 0),
-(4, 'LETICIA DE ANDRADE', 'LETY', '61993475066', '2023-10-29', 22, 1),
-(5, 'ANTONIO CARLOS DE AZEVEDO', 'CARLINHOS', '61994576055', '2023-11-05', 22, 1),
-(6, 'DEISE SALES DE ARAUJO', 'DEISE', '61992034610', '2023-11-22', 17, 1);
+(1, 'LIDIA SALES DE OLIVEIRA', 'LIDIA', '61999999999', '2023-10-29', 22, 1),
+(2, 'RAFAEL MARLON SOUSA DE MACEDO', 'RAFA', '61999999999', '2023-10-29', 22, 1),
+(3, 'ANTONIA SALES DE AZEVEDO', 'TOINHA', '61999999999', '2023-10-29', 22, 0),
+(4, 'LETICIA DE ANDRADE', 'LETY', '61999999999', '2023-10-29', 22, 1),
+(5, 'ANTONIO CARLOS DE AZEVEDO', 'CARLINHOS', '61999999999', '2023-11-05', 22, 1),
+(6, 'DEISE SALES DE ARAUJO', 'DEISE', '61999999999', '2023-11-22', 17, 1);
 
 -- --------------------------------------------------------
 
@@ -307,14 +307,14 @@ CREATE TABLE `veiculo` (
 --
 
 INSERT INTO `veiculo` (`id`, `id_cliente`, `placa`, `cor`, `marca`, `modelo`) VALUES
-(1, 1, 'REH0107', 'preto', 'fiat', 'Argo Drive'),
-(2, 2, 'ABCD', 'VERDE', 'FIAT', 'SIENA'),
-(5, 8, 'ABCDY', 'VERMELHO', 'BMW', 'XP3009'),
-(7, 10, 'REH0110', 'PRETO', 'FIAT', 'ARGO DRIVE'),
-(8, 11, 'REH0112', 'PRETAYY', 'FIATYYY', 'ARGO DRIVEYY'),
-(15, 11, 'REH0203', 'VERMELHO', 'FIAT', 'UNO MILLE'),
-(16, 1, 'ABCD', 'PRETO', 'BMW', 'PEGAPEGA'),
-(17, 2, 'JAJAKA20', 'VERMELHO', 'JEEP', 'COMPASS');
+(1, 1, 'UIO1010', 'preto', 'fiat', 'Argo Drive'),
+(2, 2, 'UIO2020', 'VERDE', 'FIAT', 'SIENA'),
+(5, 8, 'UIO3030', 'VERMELHO', 'BMW', 'XP3009'),
+(7, 10, 'UIO4040', 'PRETO', 'FIAT', 'ARGO DRIVE'),
+(8, 11, 'UIO5050', 'PRETAYY', 'FIATYYY', 'ARGO DRIVEYY'),
+(15, 11, 'UIO6060', 'VERMELHO', 'FIAT', 'UNO MILLE'),
+(16, 1, 'UIO7070', 'PRETO', 'BMW', 'PEGAPEGA'),
+(17, 2, 'UIO8080', 'VERMELHO', 'JEEP', 'COMPASS');
 
 --
 -- Índices para tabelas despejadas
